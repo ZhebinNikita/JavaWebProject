@@ -12,46 +12,9 @@
 
 
 
-    <!-- ////////////////// Register Servlet ////////////////// -->
-
-    <!-- Описание сервлета -->
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>app.controller.servlets.RegisterServlet</servlet-class>
-    </servlet>
-    <!-- Привязываем сервлет к адресу -->
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/</url-pattern> <!-- "/" - welcome file address-->
-    </servlet-mapping>
-
-    <!-- //////////////////////////////////////////////////////// -->
-
-
-
-    <!-- //////////////////// CarList Servlet //////////////////// -->
-
-    <!-- Описание сервлета -->
-    <servlet>
-        <servlet-name>CarListServlet</servlet-name>
-        <servlet-class>app.controller.servlets.CarListServlet</servlet-class>
-    </servlet>
-    <!-- Привязываем сервлет к адресу -->
-    <servlet-mapping>
-        <servlet-name>CarListServlet</servlet-name>
-        <url-pattern>/car_list</url-pattern>
-    </servlet-mapping>
-
-    <!-- //////////////////////////////////////////////////////// -->
-
-
-
-
-
-
 
     <welcome-file-list>
-        <welcome-file>/view/register.jsp</welcome-file>
+        <welcome-file>/view/start.jsp</welcome-file>
     </welcome-file-list>
 
 

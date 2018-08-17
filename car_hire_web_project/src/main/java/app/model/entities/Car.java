@@ -1,16 +1,19 @@
 package app.model.entities;
 
 
+import app.model.CarClass;
 
 public class Car {
 
     private String name;
-    private int cost;
+    private double dailyRentalPrice;
+    private String carClass;
 
 
-    public Car(String name, int cost) {
+    public Car(String name, double daily_rental_price, String carClass) {
         this.name = name;
-        this.cost = cost;
+        this.dailyRentalPrice = daily_rental_price;
+        this.carClass = carClass;
     }
 
 
@@ -23,21 +26,21 @@ public class Car {
     }
 
 
-    public int getCost() {
-        return cost;
+    public double getDailyRentalPrice() {
+        return dailyRentalPrice;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    public void setDailyRentalPrice(double dailyRentalPrice) {
+        this.dailyRentalPrice = dailyRentalPrice;
     }
 
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "name='" + name + '\'' +
-                ", cost='" + cost + '\'' +
-                '}';
+    public String getCarClass() {
+        return carClass;
+    }
+
+    public void setCarClass(String carClass) {
+        this.carClass = carClass;
     }
 
 
@@ -49,13 +52,13 @@ public class Car {
         Car car = (Car) o;
 
         if (name != null ? !name.equals(car.name) : car.name != null) return false;
-        return cost != 0 && cost == car.cost;
+        return dailyRentalPrice > 0 && dailyRentalPrice == car.dailyRentalPrice;
     }
 
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + cost;
+        result = 31 * result + (int)dailyRentalPrice;
         return result;
     }
 
