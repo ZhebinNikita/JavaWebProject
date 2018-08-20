@@ -2,6 +2,8 @@ package app.controller.servlets;
 
 import app.model.DAO.UserDAO;
 import app.model.entities.User;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,10 +15,12 @@ import java.io.IOException;
 
 
 /**
- * Servlet that handle welcome page
+ * Servlet that handle requests of the welcome page.
  * */
 @WebServlet(name = "StartServlet", urlPatterns = "")
 public class StartServlet extends HttpServlet {
+
+    //private final static Logger LOG = LogManager.getRootLogger();
 
     /* request – from client side
      * response – from server side
@@ -25,6 +29,8 @@ public class StartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        //LOG.info("Method doGet() was called.");
 
         /* Set "*.jsp" to this URL address */
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/start.jsp");

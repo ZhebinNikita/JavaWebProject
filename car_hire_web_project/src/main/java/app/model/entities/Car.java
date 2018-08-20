@@ -1,19 +1,26 @@
 package app.model.entities;
 
 
-import app.model.CarClass;
 
 public class Car {
 
     private String name;
     private double dailyRentalPrice;
     private String carClass;
+    private int rented; // 0 - car is not rented, 1 - car is rented.
 
 
     public Car(String name, double daily_rental_price, String carClass) {
         this.name = name;
         this.dailyRentalPrice = daily_rental_price;
         this.carClass = carClass;
+        this.rented = 0;
+    }
+    public Car(String name, double daily_rental_price, String carClass, int rented) {
+        this.name = name;
+        this.dailyRentalPrice = daily_rental_price;
+        this.carClass = carClass;
+        this.rented = rented;
     }
 
 
@@ -41,6 +48,15 @@ public class Car {
 
     public void setCarClass(String carClass) {
         this.carClass = carClass;
+    }
+
+
+    public int getRented() {
+        return rented;
+    }
+
+    public void setRented(int rented) {
+        this.rented = rented;
     }
 
 

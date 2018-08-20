@@ -23,11 +23,12 @@ public class CarDAO implements EntityDAO<Car>{
         try {
 
             PreparedStatement statement = connection.prepareStatement
-                    ("insert into carhire.car values(?, ?, ?)");
+                    ("insert into carhire.car values(?, ?, ?, ?)");
 
             statement.setString(1, entity.getName());
             statement.setDouble(2, entity.getDailyRentalPrice());
             statement.setString(3, entity.getCarClass());
+            statement.setInt(4, entity.getRented());
 
             int i = statement.executeUpdate();
 
@@ -88,11 +89,13 @@ public class CarDAO implements EntityDAO<Car>{
         try {
 
             PreparedStatement statement = connection.
-                    prepareStatement("UPDATE carhire.car SET name=?, daily_rental_price=?, class=? WHERE name=?");
+                    prepareStatement(
+                            "UPDATE carhire.car SET name=?, daily_rental_price=?, class=?, rented=? WHERE name=?");
             statement.setString(1, newEntity.getName());
             statement.setDouble(2, newEntity.getDailyRentalPrice());
             statement.setString(3, newEntity.getCarClass());
-            statement.setString(4, oldEntity.getName());
+            statement.setInt(4, newEntity.getRented());
+            statement.setString(5, oldEntity.getName());
 
             int result_set = statement.executeUpdate();
 
@@ -137,8 +140,9 @@ public class CarDAO implements EntityDAO<Car>{
                     String name = result.getString(1);
                     double dailyRentalPrice = result.getDouble(2);
                     String carClass = result.getString(3);
+                    int rented = result.getInt(4);
 
-                    cars.add(new Car(name, dailyRentalPrice, carClass));
+                    cars.add(new Car(name, dailyRentalPrice, carClass, rented));
                 }
                 else{
                     break;

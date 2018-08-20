@@ -43,7 +43,9 @@
         <c:if test="${requestScope.get(cars) != null && not empty requestScope.get(cars)}">
             <ul class=\"w3-ul\">
             <c:forEach items="${requestScope.get(cars)}" var="car" >
-                <li class=\"w3-hover-sand\"> ${car.getName()} --- ${car.getDailyRentalPrice()} USD --- ${car.getCarClass()} </li>
+                <li class=\"w3-hover-sand\">
+                        ${car.getName()} --- ${car.getDailyRentalPrice()} USD --- ${car.getCarClass()} --- ${car.getRented()}
+                </li>
             </c:forEach>
             </ul>
         </c:if>
