@@ -1,22 +1,23 @@
 package app.model.entities;
 
 
+import app.model.CarClass;
 
 public class Car {
 
     private String name;
     private double dailyRentalPrice;
-    private String carClass;
+    private CarClass carClass;
     private int rented; // 0 - car is not rented, 1 - car is rented.
 
 
-    public Car(String name, double daily_rental_price, String carClass) {
+    public Car(String name, double daily_rental_price, CarClass carClass) {
         this.name = name;
         this.dailyRentalPrice = daily_rental_price;
         this.carClass = carClass;
         this.rented = 0;
     }
-    public Car(String name, double daily_rental_price, String carClass, int rented) {
+    public Car(String name, double daily_rental_price, CarClass carClass, int rented) {
         this.name = name;
         this.dailyRentalPrice = daily_rental_price;
         this.carClass = carClass;
@@ -42,11 +43,11 @@ public class Car {
     }
 
 
-    public String getCarClass() {
+    public CarClass getCarClass() {
         return carClass;
     }
 
-    public void setCarClass(String carClass) {
+    public void setCarClass(CarClass carClass) {
         this.carClass = carClass;
     }
 
@@ -61,21 +62,13 @@ public class Car {
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Car car = (Car) o;
-
-        if (name != null ? !name.equals(car.name) : car.name != null) return false;
-        return dailyRentalPrice > 0 && dailyRentalPrice == car.dailyRentalPrice;
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (int)dailyRentalPrice;
-        return result;
+        return super.hashCode();
     }
 
 

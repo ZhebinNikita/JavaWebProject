@@ -22,10 +22,11 @@ public class UserDAO implements EntityDAO<User> {
         try {
 
             PreparedStatement statement = connection.prepareStatement
-                    ("insert into carhire.user values(?, SHA2(?, 224))");
+                    ("insert into carhire.user values(?, SHA2(?, 224), ?)");
 
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getPassword());
+            statement.setNull(3, Types.INTEGER);
 
             int i = statement.executeUpdate();
 

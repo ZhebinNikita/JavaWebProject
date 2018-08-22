@@ -5,13 +5,17 @@ function clickAddCar() {
 
     var incorrect_name = document.getElementById('incorrect_name');
     var incorrect_price = document.getElementById('incorrect_price');
+    var incorrect_amount = document.getElementById('incorrect_amount');
+
     var carName = document.getElementById('carName');
     var carDailyRentalPrice = document.getElementById('carDailyRentalPrice');
+    var amount_cars = document.getElementById('amount_cars');
 
     var params = {
         name: carName.value,
         daily_rental_price: carDailyRentalPrice.value,
-        car_class: $("#car_class_selection option:selected").text()
+        car_class: $("#car_class_selection option:selected").text(),
+        amount_cars: amount_cars.value
     };
 
 
@@ -29,8 +33,15 @@ function clickAddCar() {
         incorrect_price.innerHTML = "Обязательное поле";
     }
 
+    if(amount_cars.value != "" && !/-/.test(amount_cars.value) && amount_cars.value != "0"){
+        incorrect_amount.innerHTML = "";
+    }
+    else{
+        incorrect_amount.innerHTML = "Обязательное поле. Min value = 1";
+    }
 
-    if(incorrect_name.innerHTML == "" && incorrect_price.innerHTML == ""){
+
+    if(incorrect_name.innerHTML == "" && incorrect_price.innerHTML == "" && incorrect_amount.innerHTML == ""){
         loadAnimStart();
         $.post("/car_list", $.param(params), function(responseText) {
             loadAnimStop();

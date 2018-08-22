@@ -44,7 +44,12 @@
             <ul class=\"w3-ul\">
             <c:forEach items="${requestScope.get(cars)}" var="car" >
                 <li class=\"w3-hover-sand\">
-                        ${car.getName()} --- ${car.getDailyRentalPrice()} USD --- ${car.getCarClass()} --- ${car.getRented()}
+                        ${car.getName()} --- ${car.getDailyRentalPrice()} USD --- ${(car.getCarClass()).name()}
+                    <div align="right">
+                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+                            Удалить Авто
+                        </button>
+                    </div>
                 </li>
             </c:forEach>
             </ul>
@@ -107,6 +112,15 @@
                         </select>
                     </span>
                 </p>
+
+
+                <p align="center">
+                    <label>
+                        <input type="number" name="amount_cars"
+                               style="width: 30%" id="amount_cars" maxlength="20" placeholder="Кол-во">
+                    </label>
+                </p>
+                <p align="center" style='color:red;' id="incorrect_amount"></p>
 
 
                 <p align="center">

@@ -23,12 +23,13 @@ public class CarDAO implements EntityDAO<Car>{
         try {
 
             PreparedStatement statement = connection.prepareStatement
-                    ("insert into carhire.car values(?, ?, ?, ?)");
+                    ("insert into carhire.car values(?, ?, ?, ?, ?)");
 
-            statement.setString(1, entity.getName());
-            statement.setDouble(2, entity.getDailyRentalPrice());
-            statement.setString(3, entity.getCarClass());
-            statement.setInt(4, entity.getRented());
+            statement.setNull(1, Types.INTEGER);
+            statement.setString(2, entity.getName());
+            statement.setDouble(3, entity.getDailyRentalPrice());
+            statement.setString(4, entity.getCarClass().name());
+            statement.setInt(5, entity.getRented());
 
             int i = statement.executeUpdate();
 
@@ -93,7 +94,7 @@ public class CarDAO implements EntityDAO<Car>{
                             "UPDATE carhire.car SET name=?, daily_rental_price=?, class=?, rented=? WHERE name=?");
             statement.setString(1, newEntity.getName());
             statement.setDouble(2, newEntity.getDailyRentalPrice());
-            statement.setString(3, newEntity.getCarClass());
+            statement.setString(3, newEntity.getCarClass().name());
             statement.setInt(4, newEntity.getRented());
             statement.setString(5, oldEntity.getName());
 
@@ -137,10 +138,10 @@ public class CarDAO implements EntityDAO<Car>{
 
             for (;;) {
                 if (result.next()) {
-                    String name = result.getString(1);
-                    double dailyRentalPrice = result.getDouble(2);
-                    String carClass = result.getString(3);
-                    int rented = result.getInt(4);
+                    String name = result.getString(2);
+                    double dailyRentalPrice = result.getDouble(3);
+                    CarClass carClass = CarClass.valueOf(result.getString(4));
+                    int rented = result.getInt(5);
 
                     cars.add(new Car(name, dailyRentalPrice, carClass, rented));
                 }
