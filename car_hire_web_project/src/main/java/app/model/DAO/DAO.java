@@ -1,5 +1,7 @@
 package app.model.DAO;
 
+import com.mysql.cj.jdbc.Driver;
+
 import java.sql.*;
 
 
@@ -23,13 +25,11 @@ public abstract class DAO {
 
         try {
             // метод регистрации драйвера JDBC
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            java.sql.DriverManager.registerDriver( new com.mysql.cj.jdbc.Driver() );
+            //Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         }
         catch (SQLException e){
-            e.printStackTrace();
-        }
-        catch(ClassNotFoundException e){
             e.printStackTrace();
         }
 

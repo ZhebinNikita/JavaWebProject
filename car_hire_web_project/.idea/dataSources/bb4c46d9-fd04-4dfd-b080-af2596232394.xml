@@ -1150,7 +1150,7 @@
     <column id="287" parent="280" name="class">
       <Position>4</Position>
       <Comment>The Class of the car determines its cost and additional services.</Comment>
-      <DataType>varchar(10)|0s</DataType>
+      <DataType>enum(&apos;Mini&apos;, &apos;Economy&apos;, &apos;Compact&apos;, &apos;Average&apos;, &apos;Standart&apos;, &apos;Family&apos;, &apos;Special&apos;, &apos;Premium&apos;, &apos;Lux&apos;, &apos;LargeSize&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

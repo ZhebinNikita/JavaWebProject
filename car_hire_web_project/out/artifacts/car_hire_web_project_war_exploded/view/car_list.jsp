@@ -11,7 +11,7 @@
     <link href="../css/popup_add_car_window.css" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="../script/popup_window.js"></script>
 
-    <script type="text/javascript" src="../script/add_car_click.js"></script>
+    <script type="text/javascript" src="../script/add_car.js"></script>
 
 </head>
 

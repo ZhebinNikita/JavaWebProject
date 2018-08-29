@@ -1,8 +1,6 @@
 package app.model.entities;
 
 
-import app.model.CarClass;
-
 public class Car {
 
     private String name;

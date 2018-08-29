@@ -1,12 +1,9 @@
 package app.controller.servlets;
 
 import app.RootLogger;
-import app.model.CarClass;
+import app.model.entities.CarClass;
 import app.model.DAO.CarDAO;
 import app.model.entities.Car;
-import app.model.entities.User;
-import app.model.DAO.DAO;
-import app.model.DAO.UserDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

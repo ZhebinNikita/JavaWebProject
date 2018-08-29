@@ -1,6 +1,6 @@
 package app.model.DAO;
 
-import app.model.CarClass;
+import app.model.entities.CarClass;
 import app.model.entities.Car;
 
 import java.sql.*;

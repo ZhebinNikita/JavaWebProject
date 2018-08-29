@@ -31,7 +31,7 @@
         <p align="center">
             <label>
                 <input type="text" name="userEmail"
-                       style="width: 30%" id="userEmail" maxlength="20" placeholder="Адрес электронной почты">
+                       style="width: 30%" id="userEmail" maxlength="40" placeholder="Адрес электронной почты">
             </label>
         </p>
         <p align="center" style='color:red;' id="incorrect_text_email"></p>
@@ -39,7 +39,7 @@
         <p align="center">
             <label>
                 <input type="password" name="userPass"
-                       style="width: 30%" id="userPass" maxlength="20" placeholder="Пароль">
+                       style="width: 30%" id="userPass" maxlength="40" placeholder="Пароль">
             </label>
         </p>
         <p align="center" style='color:red;' id="incorrect_text_pass"></p>
