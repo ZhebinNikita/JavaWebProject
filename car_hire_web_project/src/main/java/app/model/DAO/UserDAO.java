@@ -9,6 +9,15 @@ import java.sql.*;
 
 public class UserDAO implements EntityDAO<User> {
 
+    private static String INSERT_USER = "insert into carhire.user values(?, SHA2(?, 224), ?)";
+    private static String DELETE_USER = "DELETE FROM carhire.user WHERE name=?";
+    private static String UPDATE_USER = "UPDATE carhire.user SET name=?, pass=? WHERE name=?";
+
+    private static String GET_ALL_USERS = "SELECT * FROM carhire.user";
+    private static String DELETE_ALL_USERS = "DELETE FROM carhire.user";
+
+    private static String CHECK_IF_CONTAINS = "SELECT name FROM carhire.user WHERE name=?";
+
 
     public UserDAO(){
         // инициализация
@@ -22,7 +31,7 @@ public class UserDAO implements EntityDAO<User> {
         try {
 
             PreparedStatement statement = connection.prepareStatement
-                    ("insert into carhire.user values(?, SHA2(?, 224), ?)");
+                    (INSERT_USER);
 
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getPassword());
@@ -56,7 +65,7 @@ public class UserDAO implements EntityDAO<User> {
         try {
 
             PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM carhire.user WHERE name=?");
+                    connection.prepareStatement(DELETE_USER);
             statement.setString(1, entity.getName());
 
             int result_set = statement.executeUpdate();
@@ -87,7 +96,7 @@ public class UserDAO implements EntityDAO<User> {
         try {
 
             PreparedStatement statement = connection.
-                    prepareStatement("UPDATE carhire.user SET name=?, pass=? WHERE name=?");
+                    prepareStatement(UPDATE_USER);
             statement.setString(1, newEntity.getName());
             statement.setString(2, newEntity.getPassword());
             statement.setString(3, oldEntity.getName());
@@ -128,7 +137,7 @@ public class UserDAO implements EntityDAO<User> {
 
             Statement st = connection.createStatement();
 
-            ResultSet result = st.executeQuery("SELECT * FROM carhire.user");
+            ResultSet result = st.executeQuery(GET_ALL_USERS);
 
             for (;;) {
                 if (result.next()) {
@@ -163,7 +172,7 @@ public class UserDAO implements EntityDAO<User> {
         try {
 
             PreparedStatement statement = connection.
-                    prepareStatement("SELECT name FROM carhire.user WHERE name=?");
+                    prepareStatement(CHECK_IF_CONTAINS);
 
             statement.setString(1, entity.getName());
 
@@ -195,7 +204,7 @@ public class UserDAO implements EntityDAO<User> {
         try {
 
             PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM carhire.user");
+                    connection.prepareStatement(DELETE_ALL_USERS);
 
             int result_set = statement.executeUpdate();
 

@@ -20,6 +20,15 @@ public final class ConnectionPool {
     private String password;
     private int poolSize;
 
+    private static class ConnectionPoolHolder {
+        private final static ConnectionPool instance = new ConnectionPool();
+    }
+
+
+    public static ConnectionPool getInstance(){
+        return ConnectionPoolHolder.instance;
+    }
+
 
     private ConnectionPool() {
         MySqlDBResourceManager resourseManager = MySqlDBResourceManager.getInstance();
@@ -46,13 +55,11 @@ public final class ConnectionPool {
             java.sql.DriverManager.registerDriver( new com.mysql.cj.jdbc.Driver() );
             //Class.forName(driverName);
 
-            givenAwayConQueue = new ArrayBlockingQueue<Connection>(poolSize);
-            connectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
+            givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
+            connectionQueue = new ArrayBlockingQueue<>(poolSize);
             for (int i = 0; i < poolSize; i++) {
-                Connection connection = DriverManager.getConnection(url, user,
-                        password);
-                SafeConnection safeConnection = new SafeConnection(
-                        connection);
+                Connection connection = DriverManager.getConnection(url, user, password);
+                SafeConnection safeConnection = new SafeConnection(connection);
                 connectionQueue.add(safeConnection);
             }
         } catch (SQLException e) {
@@ -118,8 +125,7 @@ public final class ConnectionPool {
     }
 
 
-    private void closeConnectionsQueue(BlockingQueue<Connection> queue)
-            throws SQLException {
+    private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
         Connection connection;
         while ((connection = queue.poll()) != null) {
             if (!connection.getAutoCommit()) {
@@ -131,7 +137,7 @@ public final class ConnectionPool {
 
 
 
-    public class SafeConnection implements Connection {
+    private class SafeConnection implements Connection {
 
         private Connection connection;
 

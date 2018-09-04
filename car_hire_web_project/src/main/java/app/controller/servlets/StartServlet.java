@@ -18,9 +18,6 @@ import java.io.IOException;
 @WebServlet(name = "StartServlet", urlPatterns = "")
 public class StartServlet extends HttpServlet {
 
-    /* request – from client side
-     * response – from server side
-     * */
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

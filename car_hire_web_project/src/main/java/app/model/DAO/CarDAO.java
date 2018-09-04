@@ -1,6 +1,6 @@
 package app.model.DAO;
 
-import app.model.entities.CarClass;
+import app.model.CarClass;
 import app.model.entities.Car;
 
 import java.sql.*;
@@ -9,6 +9,12 @@ import java.util.List;
 
 
 public class CarDAO implements EntityDAO<Car>{
+
+    private static String INSERT_CAR = "insert into carhire.car values(?, ?, ?, ?, ?)";
+    private static String DELETE_CAR = "DELETE FROM carhire.car WHERE name=?";
+    private static String UPDATE_CAR = "UPDATE carhire.car SET name=?, daily_rental_price=?, class=?, rented=? WHERE name=?";
+
+    private static String GET_ALL_CARS = "SELECT * FROM carhire.car";
 
 
     public CarDAO(){
@@ -23,7 +29,7 @@ public class CarDAO implements EntityDAO<Car>{
         try {
 
             PreparedStatement statement = connection.prepareStatement
-                    ("insert into carhire.car values(?, ?, ?, ?, ?)");
+                    (INSERT_CAR);
 
             statement.setNull(1, Types.INTEGER);
             statement.setString(2, entity.getName());
@@ -58,8 +64,8 @@ public class CarDAO implements EntityDAO<Car>{
 
         try {
 
-            PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM carhire.car WHERE name=?");
+            PreparedStatement statement = connection.
+                    prepareStatement(DELETE_CAR);
             statement.setString(1, entity.getName());
 
             int result_set = statement.executeUpdate();
@@ -90,8 +96,7 @@ public class CarDAO implements EntityDAO<Car>{
         try {
 
             PreparedStatement statement = connection.
-                    prepareStatement(
-                            "UPDATE carhire.car SET name=?, daily_rental_price=?, class=?, rented=? WHERE name=?");
+                    prepareStatement(UPDATE_CAR);
             statement.setString(1, newEntity.getName());
             statement.setDouble(2, newEntity.getDailyRentalPrice());
             statement.setString(3, newEntity.getCarClass().name());
@@ -126,7 +131,7 @@ public class CarDAO implements EntityDAO<Car>{
 
     public List<Car> getAll() {
 
-        List<Car> cars = new ArrayList<Car>();
+        List<Car> cars = new ArrayList<>();
 
         Connection connection = DAO.createConnection();
 
@@ -134,7 +139,7 @@ public class CarDAO implements EntityDAO<Car>{
 
             Statement st = connection.createStatement();
 
-            ResultSet result = st.executeQuery("SELECT * FROM carhire.car");
+            ResultSet result = st.executeQuery(GET_ALL_CARS);
 
             for (;;) {
                 if (result.next()) {

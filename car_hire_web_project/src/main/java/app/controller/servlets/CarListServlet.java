@@ -1,7 +1,7 @@
 package app.controller.servlets;
 
 import app.RootLogger;
-import app.model.entities.CarClass;
+import app.model.CarClass;
 import app.model.DAO.CarDAO;
 import app.model.entities.Car;
 
