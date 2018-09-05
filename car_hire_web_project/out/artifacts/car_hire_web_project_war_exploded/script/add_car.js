@@ -12,6 +12,8 @@ function clickAddCar() {
     var amount_cars = document.getElementById('amount_cars');
 
     var params = {
+        action: "add_car",
+
         name: carName.value,
         daily_rental_price: carDailyRentalPrice.value,
         car_class: $("#car_class_selection option:selected").text(),
@@ -45,7 +47,7 @@ function clickAddCar() {
         loadAnimStart();
         $.post("/car_list", $.param(params), function(responseText) {
             loadAnimStop();
-            if(responseText == "Автомобиль добавлен!"){
+            if(responseText == "Car added!"){
                 $("#incorrect_name").text(responseText);
                 window.location.href = "car_list"; // redirect to another page.
             }

@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../script/popup_window.js"></script>
 
     <script type="text/javascript" src="../script/add_car.js"></script>
+    <script type="text/javascript" src="../script/delete_car.js"></script>
 
 </head>
 
@@ -44,9 +45,15 @@
             <ul class=\"w3-ul\">
             <c:forEach items="${requestScope.get(cars)}" var="car" >
                 <li class=\"w3-hover-sand\">
-                        ${car.getName()} --- ${car.getDailyRentalPrice()} USD --- ${(car.getCarClass()).name()}
+                        ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
+                    USD --- ${(car.getCarClass()).name()}
                     <div align="right">
-                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                                onclick="">
+                            Обновить Авто
+                        </button>
+                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                                onclick="deleteCar(${car.getId()})">
                             Удалить Авто
                         </button>
                     </div>

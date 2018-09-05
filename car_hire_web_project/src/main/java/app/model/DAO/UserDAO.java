@@ -9,14 +9,14 @@ import java.sql.*;
 
 public class UserDAO implements EntityDAO<User> {
 
-    private static String INSERT_USER = "insert into carhire.user values(?, SHA2(?, 224), ?)";
-    private static String DELETE_USER = "DELETE FROM carhire.user WHERE name=?";
-    private static String UPDATE_USER = "UPDATE carhire.user SET name=?, pass=? WHERE name=?";
+    private static final String INSERT_USER = "insert into carhire.user values(?, SHA2(?, 224), ?)";
+    private static final String DELETE_USER = "DELETE FROM carhire.user WHERE name=?";
+    private static final String UPDATE_USER = "UPDATE carhire.user SET name=?, pass=? WHERE name=?";
 
-    private static String GET_ALL_USERS = "SELECT * FROM carhire.user";
-    private static String DELETE_ALL_USERS = "DELETE FROM carhire.user";
+    private static final String GET_ALL_USERS = "SELECT * FROM carhire.user";
+    private static final String DELETE_ALL_USERS = "DELETE FROM carhire.user";
 
-    private static String CHECK_IF_CONTAINS = "SELECT name FROM carhire.user WHERE name=?";
+    private static final String CHECK_IF_CONTAINS = "SELECT name FROM carhire.user WHERE name=?";
 
 
     public UserDAO(){
@@ -64,13 +64,12 @@ public class UserDAO implements EntityDAO<User> {
 
         try {
 
-            PreparedStatement statement =
-                    connection.prepareStatement(DELETE_USER);
+            PreparedStatement statement = connection.prepareStatement(DELETE_USER);
             statement.setString(1, entity.getName());
 
-            int result_set = statement.executeUpdate();
+            int result = statement.executeUpdate();
 
-            if (result_set > 0) {
+            if (result > 0) {
                 return true; // successfully
             }
         }
@@ -139,15 +138,11 @@ public class UserDAO implements EntityDAO<User> {
 
             ResultSet result = st.executeQuery(GET_ALL_USERS);
 
-            for (;;) {
-                if (result.next()) {
-                    String name = result.getString("name");
-                    users.add(new User(name, ""));
-                }
-                else{
-                    break;
-                }
+            while (result.next()) {
+                String name = result.getString("name");
+                users.add(new User(name, ""));
             }
+
 
         }
         catch (Exception e) {

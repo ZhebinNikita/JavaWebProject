@@ -10,11 +10,12 @@ import java.util.List;
 
 public class CarDAO implements EntityDAO<Car>{
 
-    private static String INSERT_CAR = "insert into carhire.car values(?, ?, ?, ?, ?)";
-    private static String DELETE_CAR = "DELETE FROM carhire.car WHERE name=?";
-    private static String UPDATE_CAR = "UPDATE carhire.car SET name=?, daily_rental_price=?, class=?, rented=? WHERE name=?";
+    private static final String INSERT_CAR = "insert into carhire.car values(?, ?, ?, ?, ?)";
+    private static final String DELETE_CAR = "DELETE FROM carhire.car WHERE id=?";
+    private static final String UPDATE_CAR = "UPDATE carhire.car SET name=?, daily_rental_price=?," +
+            " class=?, rented=? WHERE id=?";
 
-    private static String GET_ALL_CARS = "SELECT * FROM carhire.car";
+    private static final String GET_ALL_CARS = "SELECT * FROM carhire.car";
 
 
     public CarDAO(){
@@ -28,8 +29,7 @@ public class CarDAO implements EntityDAO<Car>{
 
         try {
 
-            PreparedStatement statement = connection.prepareStatement
-                    (INSERT_CAR);
+            PreparedStatement statement = connection.prepareStatement(INSERT_CAR);
 
             statement.setNull(1, Types.INTEGER);
             statement.setString(2, entity.getName());
@@ -64,13 +64,12 @@ public class CarDAO implements EntityDAO<Car>{
 
         try {
 
-            PreparedStatement statement = connection.
-                    prepareStatement(DELETE_CAR);
-            statement.setString(1, entity.getName());
+            PreparedStatement statement = connection.prepareStatement(DELETE_CAR);
+            statement.setInt(1, entity.getId());
 
-            int result_set = statement.executeUpdate();
+            int result = statement.executeUpdate();
 
-            if (result_set > 0) {
+            if (result > 0) {
                 return true; // successfully
             }
         }
@@ -101,7 +100,7 @@ public class CarDAO implements EntityDAO<Car>{
             statement.setDouble(2, newEntity.getDailyRentalPrice());
             statement.setString(3, newEntity.getCarClass().name());
             statement.setInt(4, newEntity.getRented());
-            statement.setString(5, oldEntity.getName());
+            statement.setInt(5, oldEntity.getId());
 
             int result_set = statement.executeUpdate();
 
@@ -141,19 +140,16 @@ public class CarDAO implements EntityDAO<Car>{
 
             ResultSet result = st.executeQuery(GET_ALL_CARS);
 
-            for (;;) {
-                if (result.next()) {
-                    String name = result.getString(2);
-                    double dailyRentalPrice = result.getDouble(3);
-                    CarClass carClass = CarClass.valueOf(result.getString(4));
-                    int rented = result.getInt(5);
+            while (result.next()) {
+                int id = result.getInt(1);
+                String name = result.getString(2);
+                double dailyRentalPrice = result.getDouble(3);
+                CarClass carClass = CarClass.valueOf(result.getString(4));
+                int rented = result.getInt(5);
 
-                    cars.add(new Car(name, dailyRentalPrice, carClass, rented));
-                }
-                else{
-                    break;
-                }
+                cars.add(new Car(id, name, dailyRentalPrice, carClass, rented));
             }
+
 
         }
         catch (Exception e) {

@@ -1,0 +1,3 @@
+14:51:07.340 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:34) - Method doGet() was called.
+14:51:10.648 [http-nio-8080-exec-2] [ERROR] (StartServlet.java:34) - Method doGet() was called.
+14:51:12.370 [http-nio-8080-exec-3] [ERROR] (StartServlet.java:34) - Method doGet() was called.
