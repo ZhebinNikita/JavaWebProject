@@ -5,23 +5,32 @@ import app.model.CarClass;
 
 public class Car {
 
+    private int id;
     private String name;
     private double dailyRentalPrice;
     private CarClass carClass;
     private int rented; // 0 - car is not rented, 1 - car is rented.
 
 
-    public Car(String name, double daily_rental_price, CarClass carClass) {
-        this.name = name;
-        this.dailyRentalPrice = daily_rental_price;
-        this.carClass = carClass;
-        this.rented = 0;
+    public Car(int id) {
+        this.id = id;
     }
-    public Car(String name, double daily_rental_price, CarClass carClass, int rented) {
+
+    public Car(int id, String name, double daily_rental_price, CarClass carClass, int rented) {
+        this.id = id;
         this.name = name;
         this.dailyRentalPrice = daily_rental_price;
         this.carClass = carClass;
         this.rented = rented;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 

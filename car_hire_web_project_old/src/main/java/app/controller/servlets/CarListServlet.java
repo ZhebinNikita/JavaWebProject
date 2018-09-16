@@ -43,35 +43,45 @@ public class CarListServlet extends HttpServlet {
 
         if (isAjax) {
 
-            ////////////////////////////////  Add Cars  ////////////////////////////////
-
-            String name = request.getParameter("name");
-            double daily_rental_price = Double.valueOf(request.getParameter("daily_rental_price"));
-            CarClass car_class = CarClass.valueOf(request.getParameter("car_class"));
-            int amount = Integer.valueOf(request.getParameter("amount_cars"));
-
             CarDAO carDAO = new CarDAO();
-            Car car = new Car(name, daily_rental_price, car_class);
 
             response.setContentType("text/plain");  // Set content type so that jQuery knows what it can expect.
             response.setCharacterEncoding("UTF-8");
 
-            for (int i = 0; i < amount; i++) {
-                if (carDAO.insert(car)) {
-                    if(i == amount-1) {
-                        response.getWriter().write("Автомобиль добавлен!");
-                        RootLogger.LOG.info(amount + " cars were added.");
-                    }
-                } else {
-                    RootLogger.LOG.info(amount + " cars were added.");
-                    response.getWriter().write("Что-то пошло не так...");
-                    break;
+            String action = request.getParameter("action");
+
+            if(action.compareTo("delete_car") == 0){
+                int id = Integer.valueOf(request.getParameter("id"));
+                if(carDAO.delete(new Car(id))){
+                    response.getWriter().write("Car deleted!");
                 }
             }
+            else if (action.compareTo("add_car") == 0){
 
-            ////////////////////////////////  Add Cars  ////////////////////////////////
+                ////////////////////////////////  Add Cars  ////////////////////////////////
 
+                String name = request.getParameter("name");
+                double daily_rental_price = Double.valueOf(request.getParameter("daily_rental_price"));
+                CarClass car_class = CarClass.valueOf(request.getParameter("car_class"));
+                int amount = Integer.valueOf(request.getParameter("amount_cars"));
+
+                Car car = new Car(1, name, daily_rental_price, car_class, 0);
+
+                for (int i = 0; i < amount; i++) {
+                    if (carDAO.insert(car)) {
+                        if (i == amount - 1) {
+                            response.getWriter().write("Car added!");
+                            RootLogger.LOG.info(amount + " cars were added.");
+                        }
+                    } else {
+                        RootLogger.LOG.info(amount + " cars were added.");
+                        response.getWriter().write("Something went wrong...");
+                        break;
+                    }
+                }
+
+                ////////////////////////////////  Add Cars  ////////////////////////////////
+            }
         }
-
     }
 }

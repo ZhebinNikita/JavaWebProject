@@ -8,9 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <link href="../css/popup_login_window.css" rel="stylesheet" type="text/css" media="all">
-    <script type="text/javascript" src="../script/popup_window.js"></script>
+    <script type="text/javascript" src="../js/popup/popup_login_window.js"></script>
 
-    <script type="text/javascript" src="../script/login.js"></script>
+    <script type="text/javascript" src="../js/login.js"></script>
 
 </head>
 
@@ -18,10 +18,10 @@
 
 
 <!-- ---------- Popup Window ---------- -->
-<div id="dialog-overlay"></div>
-<div id="dialog-box">
-    <a class="button" onclick="popdown()">X</a>
-    <div class="dialog-content">
+<div id="login-dialog-overlay"></div>
+<div id="login-dialog-box">
+    <a class="login-btn-close" onclick="closeLoginDialog()">X</a>
+    <div class="login-dialog-content">
         <!--------------------------------->
         <p align="center">
     <span style="color: #333333; font-size: 22px; font-weight: 700;">
@@ -62,15 +62,15 @@
 
 
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
-    <h1>Прокат Автомобилей</h1>
+    <h1></h1>
 </div>
 
 <div class="w3-container w3-center">
     <div class="w3-bar w3-padding-large w3-padding-24">
         <button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom" onclick="location.href='/car_list'">
-            Список автомобилей на прокат
+            List of cars to rent
         </button>
-        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="popup()">
+        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openLoginDialog()">
             Войти / Зарегистрироваться
         </button>
     </div>

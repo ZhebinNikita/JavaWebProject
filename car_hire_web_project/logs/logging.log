@@ -1,3 +1,8 @@
-14:51:07.340 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:34) - Method doGet() was called.
-14:51:10.648 [http-nio-8080-exec-2] [ERROR] (StartServlet.java:34) - Method doGet() was called.
-14:51:12.370 [http-nio-8080-exec-3] [ERROR] (StartServlet.java:34) - Method doGet() was called.
+
+2018-09-13 18:12:40.441 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:79) - app.model.pool.ConnectionPoolException: SQLException in pool
+2018-09-13 18:16:10.765 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:79) - app.model.pool.ConnectionPoolException: SQLException in pool
+2018-09-13 18:50:48.895 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:51) - com.mysql.cj.jdbc.Driver
+2018-09-13 18:50:48.959 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:52) - jdbc:mysql://localhost:3306/carhire?serverTimezone=UTC
+2018-09-13 18:50:48.960 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:53) - root
+2018-09-13 18:50:48.962 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:54) - RootPassword12345
+2018-09-13 18:50:48.969 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:55) - 5

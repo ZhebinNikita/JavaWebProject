@@ -1,5 +1,7 @@
 package app.model.entities;
 
+import java.math.BigDecimal;
+
 public class Order {
 
     private int id; // auto increment
@@ -7,15 +9,15 @@ public class Order {
     private int car_id;
     private String receiving_date;
     private String return_date;
-    private double rental_price;
-    private double ad_service_price;
+    private BigDecimal rental_price;
+    private BigDecimal ad_service_price;
     private int order_is_paid; // 0 - order is not paid,, 1 - order is paid.
-    private String ad_info; // 0 - order is not paid,, 1 - order is paid.
+    private String ad_info;
 
 
     public Order(int id, String user_name, int car_id, String receiving_date,
-                 String return_date, double ad_service_price,
-                 double rental_price, int order_is_paid, String ad_info){
+                 String return_date, BigDecimal rental_price,
+                 BigDecimal ad_service_price, int order_is_paid, String ad_info){
         this.id = id;
         this.user_name = user_name;
         this.car_id = car_id;
@@ -73,20 +75,20 @@ public class Order {
     }
 
 
-    public double getRentalPrice() {
+    public BigDecimal getRentalPrice() {
         return rental_price;
     }
 
-    public void setRentalPrice(double rental_price) {
+    public void setRentalPrice(BigDecimal rental_price) {
         this.rental_price = rental_price;
     }
 
 
-    public double getAdServicePrice() {
+    public BigDecimal getAdServicePrice() {
         return ad_service_price;
     }
 
-    public void setAdServicePrice(double ad_service_price) {
+    public void setAdServicePrice(BigDecimal ad_service_price) {
         this.ad_service_price = ad_service_price;
     }
 
@@ -116,9 +118,9 @@ public class Order {
                 + ",\nreceiving_date = " + receiving_date
                 + ",\nreturn_date = " + return_date
                 + ",\nrental_price = " + rental_price
+                + ",\nad_service_price = " + ad_service_price
                 + ",\norder_is_paid = " + order_is_paid
-                + ",\nad_info = " + ad_info
-                ;
+                + ",\nad_info = " + ad_info;
     }
 
 
@@ -131,7 +133,7 @@ public class Order {
 
         if(user_name.equals(order.user_name) && car_id == order.car_id
                 && receiving_date.equals(order.receiving_date) && return_date.equals(order.return_date)
-                && rental_price == order.rental_price && order_is_paid == order.order_is_paid
+                && rental_price.equals(order.rental_price) && order_is_paid == order.order_is_paid
                 && ad_info.equals(order.ad_info)){
             return true;
         }
@@ -143,10 +145,12 @@ public class Order {
     @Override
     public int hashCode() {
         int result = 1;
-        result = 31 * result * car_id * (int)rental_price + order_is_paid
+        result = 31 * result + id + car_id + order_is_paid
                 + (user_name != null ? user_name.hashCode() : 0)
                 + (receiving_date != null ? receiving_date.hashCode() : 0)
                 + (return_date != null ? return_date.hashCode() : 0)
+                + (rental_price != null ? rental_price.hashCode() : 0)
+                + (ad_service_price != null ? ad_service_price.hashCode() : 0)
                 + (ad_info != null ? ad_info.hashCode() : 0);
         return result;
     }

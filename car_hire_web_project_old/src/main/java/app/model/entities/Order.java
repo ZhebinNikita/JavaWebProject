@@ -8,17 +8,21 @@ public class Order {
     private String receiving_date;
     private String return_date;
     private double rental_price;
+    private double ad_service_price;
     private int order_is_paid; // 0 - order is not paid,, 1 - order is paid.
     private String ad_info; // 0 - order is not paid,, 1 - order is paid.
 
 
-    public Order(String user_name, int car_id, String receiving_date,
-                 String return_date, double rental_price, int order_is_paid, String ad_info){
+    public Order(int id, String user_name, int car_id, String receiving_date,
+                 String return_date, double ad_service_price,
+                 double rental_price, int order_is_paid, String ad_info){
+        this.id = id;
         this.user_name = user_name;
         this.car_id = car_id;
         this.receiving_date = receiving_date;
         this.return_date = return_date;
         this.rental_price = rental_price;
+        this.ad_service_price = ad_service_price;
         this.order_is_paid = order_is_paid;
         this.ad_info = ad_info;
     }
@@ -75,6 +79,15 @@ public class Order {
 
     public void setRentalPrice(double rental_price) {
         this.rental_price = rental_price;
+    }
+
+
+    public double getAdServicePrice() {
+        return ad_service_price;
+    }
+
+    public void setAdServicePrice(double ad_service_price) {
+        this.ad_service_price = ad_service_price;
     }
 
 

@@ -1,15 +1,20 @@
-#dialog-overlay {
+#add-car-dialog-overlay {
 
-    /* set it to fill the whil screen */width:100%;height:100%;
+    /* set it to fill the whil screen */
+    width:100%;height:100%;
 
-    /* transparency for different browsers */filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;background:#000;
+    /* transparency for different browsers */
+    filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;background:#000;
 
-    /* make sure it appear behind the dialog box but above everything else */position:absolute;top:0;left:0;z-index:4000;
+    /* make sure it appear behind the dialog box but above everything else */
+    position:absolute;top:0;left:0;z-index:4000;
 
-    /* hide it by default */display:none;}
+    /* hide it by default */
+    display:none;
+}
 
 
-#dialog-box {
+#add-car-dialog-box {
 
     /* css3 drop shadow */
     -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -34,7 +39,7 @@
     display: none;
 }
 
-#dialog-box .dialog-content {
+#add-car-dialog-box.add-car-dialog-content {
     /* style the content */
     text-align:left;
     padding:10px;
@@ -44,7 +49,7 @@
     font-size:15px;
 }
 
-a.button {
+a.add-car-btn-close {
     /* styles for button */
     font-size: 18px;
     margin-bottom: auto;
@@ -72,27 +77,30 @@ a.button {
 
 }
 
-a.button:hover {
+a.add-car-btn-close:hover {
     background-color: #2ec324;
 }
 
 /* extra styling */
-#dialog-box .dialog-content p {
+#add-car-dialog-box.add-car-dialog-content p {
     font-weight:700;
     margin: 15px;
 }
 
-#carName{
-    width: 60% !important;
-}
-#carDailyRentalPrice{
-    width: 60% !important;
-}
-
-#dialog-box .dialog-content ul {
+#add-car-dialog-box.add-car-dialog-content ul {
     margin:10px 0 10px 20px;
     padding:0;
     height:50px;
+}
+
+
+/* Add Car Window's elements */
+
+#adding_carName{
+    width: 60% !important;
+}
+#adding_carDailyRentalPrice{
+    width: 60% !important;
 }
 
 

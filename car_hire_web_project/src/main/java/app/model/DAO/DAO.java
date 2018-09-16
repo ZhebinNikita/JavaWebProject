@@ -1,14 +1,12 @@
-package app.model.DAO;
-
-import com.mysql.cj.jdbc.Driver;
+package app.model.dao;
 
 import java.sql.*;
 
 
 /**
- * Конкретная реализация DAO  для  "Entity"DAO
+ * "Entity"DAO
  * */
-public abstract class DAO {
+/*public abstract class DAO {
 
     private static final String URL= "jdbc:mysql://localhost:3306/carhire?serverTimezone=UTC";
 
@@ -41,6 +39,12 @@ public abstract class DAO {
     }
 
 }
+
+*/
+
+
+
+// Oracle DataBase data.
 /*
     private static final String URL= "jdbc:oracle:thin:@localhost:1521:orcl";
 

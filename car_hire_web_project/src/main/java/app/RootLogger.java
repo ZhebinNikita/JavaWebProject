@@ -5,6 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 public final class RootLogger {
 
-    public final static Logger LOG = LogManager.getRootLogger();
+    private final static Logger LOG = LogManager.getRootLogger();
 
 }
