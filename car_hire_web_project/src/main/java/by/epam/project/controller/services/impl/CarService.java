@@ -1,6 +1,6 @@
 package by.epam.project.controller.services.impl;
 
-import by.epam.project.controller.services.EntityService;
+import by.epam.project.controller.services.Service;
 import by.epam.project.model.dao.impl.CarDao;
 import by.epam.project.model.entities.Car;
 import by.epam.project.model.exception.ProjectException;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 
-public class CarService implements EntityService<Car> {
+public class CarService implements Service {
 
     private final static Logger LOG = LogManager.getRootLogger();
     private CarDao carDao = new CarDao();

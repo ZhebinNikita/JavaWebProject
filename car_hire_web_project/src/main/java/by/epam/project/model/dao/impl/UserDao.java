@@ -21,7 +21,8 @@ public class UserDao implements EntityDao<User> {
     private static final String UPDATE_USER = "UPDATE carhire.user SET email=?, pass=?, id_passport=?, " +
             "status=? WHERE email=?";
     private static final String GET_ALL_USERS = "SELECT * FROM carhire.user";
-    private static final String CHECK_IF_CONTAINS = "SELECT email FROM carhire.user WHERE email=?, pass=?";
+    private static final String CHECK_IF_CONTAINS = "SELECT email FROM carhire.user " +
+            "WHERE email=? and pass=SHA2(?, 224)";
     private static final String CHECK_STATUS = "SELECT * FROM carhire.user WHERE email=?";
 
 

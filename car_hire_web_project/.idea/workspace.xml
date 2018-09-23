@@ -58,12 +58,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CarListServlet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/CarListServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="101" column="52" selection-start-line="101" selection-start-column="52" selection-end-line="101" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StartServlet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/StartServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginCommand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/LoginCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="752">
-              <caret line="61" column="3" lean-forward="true" selection-start-line="61" selection-start-column="3" selection-end-line="64" selection-end-column="5" />
+            <state relative-caret-position="255">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
               <folding>
+                <element signature="method#register#0;class#UserService#0" />
                 <element signature="method#deleteByEmail#0;class#UserService#0" />
                 <element signature="method#updateByEmail#0;class#UserService#0" />
                 <element signature="method#getAllUsers#0;class#UserService#0" />
@@ -72,11 +103,39 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StartServlet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/StartServlet.java">
+      <file leaf-file-name="RegisterUserCommand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/RegisterUserCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="40" column="21" lean-forward="true" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+            <state relative-caret-position="82">
+              <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_user.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/js/add_user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="48" column="12" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/UserDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1022">
+              <caret line="205" selection-start-line="205" selection-end-line="205" />
+              <folding>
+                <element signature="method#insert#0;class#UserDao#0" />
+                <element signature="method#delete#0;class#UserDao#0" />
+                <element signature="method#update#0;class#UserDao#0" />
+                <element signature="method#getAll#0;class#UserDao#0" />
+                <element signature="method#checkStatusByEmail#0;class#UserDao#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -91,20 +150,14 @@
         <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="Jsp File" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/logs/logging.log" />
-        <option value="$PROJECT_DIR$/web/js/delete_car.js" />
-        <option value="$PROJECT_DIR$/src/main/java/app/controller/servlets/CarListServlet.java" />
-        <option value="$PROJECT_DIR$/web/css/popup_login_window.css" />
-        <option value="$PROJECT_DIR$/web/css/popup_update_car_window.css" />
-        <option value="$PROJECT_DIR$/src/main/java/app/model/pool/MySqlDBProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/app/model/pool/MySqlDBResourceManager.java" />
         <option value="$PROJECT_DIR$/src/main/resources/MySqlDBProperties.properties" />
         <option value="$PROJECT_DIR$/src/main/java/app/model/ProjectException.java" />
@@ -129,27 +182,33 @@
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/implems/CarDao.java" />
         <option value="$PROJECT_DIR$/web/js/popup/popup_add_car_window.js" />
         <option value="$PROJECT_DIR$/web/js/popup/popup_update_car_window.js" />
-        <option value="$PROJECT_DIR$/web/view/start.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/OrdersServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/CarListServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/implems/OrderDao.java" />
         <option value="$PROJECT_DIR$/web/view/orders.jsp" />
         <option value="$PROJECT_DIR$/web/view/car_list.jsp" />
         <option value="$PROJECT_DIR$/web/view/lala.html" />
         <option value="$PROJECT_DIR$/web/js/login.js" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/StartServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/RootLogger.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/EntityDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/UserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/EntityService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/UserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/CarService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/CarDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/PassportDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/PassportService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/OrderDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/EntityService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/PassportService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/OrderService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/CarService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/Command.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/LoginCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/DeleteUserCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/UpdateUserCommand.java" />
+        <option value="$PROJECT_DIR$/web/view/start.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/RegisterUserCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/StartServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/OrdersServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/CarListServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/UserDao.java" />
+        <option value="$PROJECT_DIR$/web/js/add_user.js" />
       </list>
     </option>
   </component>
@@ -193,7 +252,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="274" />
     <option name="y" value="166" />
     <option name="width" value="1346" />
@@ -291,13 +350,66 @@
             <path>
               <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
               <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="exception" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="pool" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="validation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
               <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="car_hire_web_project" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="popup" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="car_hire_web_project" type="b2602c69:ProjectViewProjectNode" />
@@ -718,12 +830,12 @@
       <workItem from="1537425301662" duration="4641000" />
       <workItem from="1537534952226" duration="2043000" />
       <workItem from="1537601109051" duration="4830000" />
-      <workItem from="1537685688681" duration="9921000" />
+      <workItem from="1537685688681" duration="18976000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="548001000" />
+    <option name="totallyTimeSpent" value="557056000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -735,34 +847,34 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="5" />
-      <window_info anchor="bottom" id="TODO" order="14" sideWeight="0.49924356" weight="0.32838285" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="1" />
-      <window_info anchor="bottom" id="Java Enterprise" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50226927" side_tool="true" weight="0.40429044" />
       <window_info anchor="bottom" id="Application Servers" order="0" weight="0.32838285" />
       <window_info anchor="right" id="Maven Projects" order="1" weight="0.3290469" />
       <window_info anchor="bottom" id="Database Changes" order="4" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4977307" weight="0.40429044" />
-      <window_info anchor="bottom" id="Terminal" order="1" weight="0.32838285" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="0" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" sideWeight="0.49861497" visible="true" weight="0.27912253" />
-      <window_info id="Web" order="4" sideWeight="0.50138503" side_tool="true" weight="0.2753404" />
       <window_info anchor="right" x="836" y="145" width="450" height="422" id="Database" order="2" weight="0.2397882" />
       <window_info id="Structure" order="6" sideWeight="0.50138503" side_tool="true" weight="0.2753404" />
       <window_info anchor="right" id="Ant Build" order="8" weight="0.24962178" />
       <window_info id="UI Designer" order="2" />
+      <window_info active="true" anchor="bottom" id="Debug" order="11" visible="true" weight="0.39933994" />
+      <window_info anchor="bottom" id="TODO" order="14" sideWeight="0.49924356" weight="0.32838285" />
+      <window_info anchor="bottom" id="Messages" order="2" weight="0.32838285" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info id="Image Layers" order="1" />
+      <window_info anchor="bottom" id="Java Enterprise" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4977307" weight="0.40429044" />
+      <window_info anchor="bottom" id="Terminal" order="1" weight="0.32838285" />
+      <window_info content_ui="combo" id="Project" order="5" sideWeight="0.49861497" visible="true" weight="0.27912253" />
+      <window_info id="Web" order="4" sideWeight="0.50138503" side_tool="true" weight="0.2753404" />
       <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="11" weight="0.39933994" />
-      <window_info anchor="bottom" id="Messages" order="2" weight="0.32838285" />
       <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Database Console" order="15" sideWeight="0.49853587" weight="0.32838285" />
@@ -790,31 +902,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/artifacts/car_hire_web_project_war_exploded.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="das://bb4c46d9-fd04-4dfd-b080-af2596232394/schema/carhire/table/passport">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/car_hire_web_project.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="13" column="60" lean-forward="true" selection-start-line="13" selection-start-column="60" selection-end-line="13" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/app/model/dao/DAO.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/lang/ref/ReferenceQueue.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="316">
@@ -973,13 +1060,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/view/start.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://bb4c46d9-fd04-4dfd-b080-af2596232394/schema/carhire/table/order">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1008,13 +1088,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/OrdersServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/model/entities/Order.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1026,20 +1099,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="27" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/add_user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/CarListServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="50" column="51" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -1056,27 +1115,6 @@
           <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="10" selection-end-column="69" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/EntityService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="3" lean-forward="true" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="107" />
-          <folding>
-            <element signature="method#insert#0;class#UserDao#0" />
-            <element signature="method#delete#0;class#UserDao#0" />
-            <element signature="method#update#0;class#UserDao#0" />
-            <element signature="method#getAll#0;class#UserDao#0" />
-            <element signature="method#checkStatusByEmail#0;class#UserDao#0" />
           </folding>
         </state>
       </provider>
@@ -1103,23 +1141,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/PassportService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/OrderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/OrderDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3859">
@@ -1127,32 +1148,146 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="30" lean-forward="true" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/PassportService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/CarService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="54" column="5" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="54" selection-end-column="5" />
+        <state relative-caret-position="204">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/StartServlet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/Command.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="40" column="21" lean-forward="true" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/UpdateUserCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/DeleteUserCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="25" lean-forward="true" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/view/start.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/OrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="11" column="46" lean-forward="true" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/OrdersServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/RegisterUserCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/CarListServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="101" column="52" selection-start-line="101" selection-start-column="52" selection-end-line="101" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/commands/user/LoginCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/services/impl/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="61" column="3" lean-forward="true" selection-start-line="61" selection-start-column="3" selection-end-line="64" selection-end-column="5" />
+        <state relative-caret-position="255">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
           <folding>
+            <element signature="method#register#0;class#UserService#0" />
             <element signature="method#deleteByEmail#0;class#UserService#0" />
             <element signature="method#updateByEmail#0;class#UserService#0" />
             <element signature="method#getAllUsers#0;class#UserService#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/model/dao/impl/UserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1022">
+          <caret line="205" selection-start-line="205" selection-end-line="205" />
+          <folding>
+            <element signature="method#insert#0;class#UserDao#0" />
+            <element signature="method#delete#0;class#UserDao#0" />
+            <element signature="method#update#0;class#UserDao#0" />
+            <element signature="method#getAll#0;class#UserDao#0" />
+            <element signature="method#checkStatusByEmail#0;class#UserDao#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/project/controller/servlets/StartServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/js/add_user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="48" column="12" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
         </state>
       </provider>
     </entry>

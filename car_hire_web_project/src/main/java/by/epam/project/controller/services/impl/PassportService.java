@@ -1,6 +1,6 @@
 package by.epam.project.controller.services.impl;
 
-import by.epam.project.controller.services.EntityService;
+import by.epam.project.controller.services.Service;
 import by.epam.project.model.dao.impl.PassportDao;
 import by.epam.project.model.entities.Passport;
 import by.epam.project.model.exception.ProjectException;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 
-public class PassportService implements EntityService<Passport>{
+public class PassportService implements Service {
 
     private final static Logger LOG = LogManager.getRootLogger();
     private PassportDao passportDao = new PassportDao();
