@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Start</title>
+    <title>Rental Cars</title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -62,13 +62,13 @@
 
 
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
-    <h1>Прокат Автомобилей</h1>
+    <h1> Rent Cars </h1>
 </div>
 
 <div class="w3-container w3-center">
     <div class="w3-bar w3-padding-large w3-padding-24">
         <button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom" onclick="location.href='/car_list'">
-            Список автомобилей на прокат
+            List of cars to rent
         </button>
         <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openLoginDialog()">
             Войти / Зарегистрироваться

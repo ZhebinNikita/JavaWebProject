@@ -40,7 +40,7 @@ function openUpdateCarDialog(id, name, rentalPrice, carClass) {
     var carDailyRentalPrice = document.getElementById('updating_carDailyRentalPrice');
     var carClassSelection = document.getElementById('updating_car_class_selection');
 
-    carName.value = updatingCarName;
+    carName.value = name;
     carDailyRentalPrice.value = rentalPrice;
     carClassSelection.value = carClass;
 

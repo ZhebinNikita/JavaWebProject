@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Start</title>
+    <title>Rental Cars</title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -10,7 +10,7 @@
     <link href="../css/popup_login_window.css" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="../js/popup/popup_login_window.js"></script>
 
-    <script type="text/javascript" src="../js/login.js"></script>
+    <script type="text/javascript" src="../js/add_user.js"></script>
 
 </head>
 
@@ -62,7 +62,7 @@
 
 
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
-    <h1></h1>
+    <h1> Rent Cars </h1>
 </div>
 
 <div class="w3-container w3-center">

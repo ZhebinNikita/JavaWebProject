@@ -3,11 +3,13 @@ package app.model.entities;
 
 import app.model.CarClass;
 
+import java.math.BigDecimal;
+
 public class Car {
 
     private int id;
     private String name;
-    private double dailyRentalPrice;
+    private BigDecimal dailyRentalPrice;
     private CarClass carClass;
     private int rented; // 0 - car is not rented, 1 - car is rented.
 
@@ -16,7 +18,7 @@ public class Car {
         this.id = id;
     }
 
-    public Car(int id, String name, double daily_rental_price, CarClass carClass, int rented) {
+    public Car(int id, String name, BigDecimal daily_rental_price, CarClass carClass, int rented) {
         this.id = id;
         this.name = name;
         this.dailyRentalPrice = daily_rental_price;
@@ -43,11 +45,11 @@ public class Car {
     }
 
 
-    public double getDailyRentalPrice() {
+    public BigDecimal getDailyRentalPrice() {
         return dailyRentalPrice;
     }
 
-    public void setDailyRentalPrice(double dailyRentalPrice) {
+    public void setDailyRentalPrice(BigDecimal dailyRentalPrice) {
         this.dailyRentalPrice = dailyRentalPrice;
     }
 
@@ -71,13 +73,31 @@ public class Car {
 
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        if(rented == car.rented && name.equals(car.name)
+                && dailyRentalPrice.equals(car.dailyRentalPrice)
+                && carClass.equals(car.carClass)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = 1;
+        result = 31 * result + id + rented
+                + (name != null ? name.hashCode() : 0)
+                + (dailyRentalPrice != null ? dailyRentalPrice.hashCode() : 0)
+                + (carClass != null ? carClass.hashCode() : 0);
+        return result;
     }
 
 

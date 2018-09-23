@@ -31,7 +31,7 @@
 
 
     <Loggers>
-        <!--<Logger name= "by.epam.insurance" level="debug" additivity="true">
+        <!--<Logger name= "by.eam.insurance" level="debug" additivity="true">
             <AppenderRef ref="Console"/>
         </Logger>-->
 
