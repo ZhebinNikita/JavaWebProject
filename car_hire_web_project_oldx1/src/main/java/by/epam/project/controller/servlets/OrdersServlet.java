@@ -2,6 +2,7 @@ package by.epam.project.controller.servlets;
 
 import by.epam.project.model.dao.impl.OrderDao;
 import by.epam.project.model.entities.Order;
+import by.epam.project.model.exception.ProjectException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,9 +25,13 @@ public class OrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        OrderDao orderDao = new OrderDao();
-        List<Order> orders = orderDao.getAll();
-        req.setAttribute("orders", orders);
+        try {
+            OrderDao orderDao = new OrderDao();
+            List<Order> orders = orderDao.getAll();
+            req.setAttribute("orders", orders);
+        } catch (ProjectException e){
+            LOG.error(e);
+        }
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/view/orders.jsp");
         dispatcher.forward(req, resp);

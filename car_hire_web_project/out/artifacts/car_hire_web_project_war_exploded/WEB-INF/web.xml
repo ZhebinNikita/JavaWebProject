@@ -5,18 +5,15 @@
          version="4.0">
 
 
-    <!-- For mapping. -->
-
-
-
-
     <welcome-file-list>
         <welcome-file>/view/start.jsp</welcome-file>
     </welcome-file-list>
 
 
-
-
+    <session-config>
+        <!-- When user inactive, session's lifetime - 30 minutes -->
+        <session-timeout>30</session-timeout>
+    </session-config>
 
 
 </web-app>

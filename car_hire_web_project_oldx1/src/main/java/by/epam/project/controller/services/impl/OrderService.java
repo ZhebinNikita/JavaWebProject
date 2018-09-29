@@ -1,6 +1,6 @@
 package by.epam.project.controller.services.impl;
 
-import by.epam.project.controller.services.EntityService;
+import by.epam.project.controller.services.Service;
 import by.epam.project.model.dao.impl.OrderDao;
 import by.epam.project.model.entities.Order;
 import by.epam.project.model.exception.ProjectException;
@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class OrderService implements EntityService<Order> {
+public class OrderService implements Service {
 
     private final static Logger LOG = LogManager.getRootLogger();
     private OrderDao orderDao = new OrderDao();

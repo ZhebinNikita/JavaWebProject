@@ -10,7 +10,9 @@ $(document).ready(function () {
     // to make sure the overlay fills the screen and dialogbox aligned to center
     $(window).resize(function () {
         //only do it if the dialog box is not hidden
-        if (!$('#add-car-dialog-box').is(':hidden')) openAddCarDialog();
+        if (!$('#add-car-dialog-box').is(':hidden')) {
+            openAddCarDialog();
+        }
     });
 
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+
+        <File name="File" fileName="C:\IdeaProjects\car_hire_web_project\logs\logging.log">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] [%-5p] (%F:%L) - %m%n"/>
+            <Filters>
+                <ThresholdFilter level="fatal"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn"  onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info"  onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug"  onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </File>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5p] (%F:%L) - %m%n"/>
+            <Filters>
+                <ThresholdFilter level="fatal"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="trace"  onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Console>
+
+    </Appenders>
+
+
+
+    <Loggers>
+        <!--<Logger name= "by.epam.insurance" level="debug" additivity="true">
+            <AppenderRef ref="Console"/>
+        </Logger>-->
+
+        <!-- Root Logger -->
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+
+
+</Configuration>

@@ -14,6 +14,7 @@ function clickLogin() {
     };
 
 
+    /////////////////////  Validation  /////////////////////
     if(!/@/.test(userEmail.value) && userEmail.value != ""){
         incorrect_text_email.innerHTML = "Неверный email";
     }
@@ -33,9 +34,10 @@ function clickLogin() {
     else{
         incorrect_text_pass.innerHTML = "Обязательное поле";
     }
+    /////////////////////  Validation  /////////////////////
 
 
-    if(incorrect_text_email.innerHTML == "" && incorrect_text_pass.innerHTML == ""){
+    //if(incorrect_text_email.innerHTML == "" && incorrect_text_pass.innerHTML == ""){
         animLoginStart();
         $.post("", $.param(params), function(responseText) {
             animLoginStop();
@@ -47,6 +49,6 @@ function clickLogin() {
                 $("#incorrect_text_email").text(responseText);
             }
         });
-    }
+    //}
 
 }

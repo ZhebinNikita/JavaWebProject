@@ -1275,7 +1275,7 @@
       <ColNames>user_name</ColNames>
       <RefSchemaName>carhire</RefSchemaName>
       <RefTableName>user</RefTableName>
-      <RefColNames>name</RefColNames>
+      <RefColNames>email</RefColNames>
     </foreign-key>
     <foreign-key id="309" parent="282" name="car_id">
       <ColNames>car_id</ColNames>
@@ -1328,7 +1328,7 @@
       <ColNames>id</ColNames>
       <UnderlyingIndexName>passport_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="318" parent="284" name="name">
+    <column id="318" parent="284" name="email">
       <Position>1</Position>
       <Comment>name - user email.</Comment>
       <DataType>varchar(50)|0s</DataType>
@@ -1348,25 +1348,35 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="321" parent="284" name="users_name_uindex">
-      <ColNames>name</ColNames>
+    <column id="321" parent="284" name="status">
+      <Position>4</Position>
+      <Comment>User&apos;s status:
+0 - in the process of registration.
+1 - registered.</Comment>
+      <DataType>tinyint(4)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="322" parent="284" name="users_name_uindex">
+      <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="322" parent="284" name="id_passport">
+    <index id="323" parent="284" name="id_passport">
       <ColNames>id_passport</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="323" parent="284" name="PRIMARY">
+    <key id="324" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>name</ColNames>
+      <ColNames>email</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="324" parent="284" name="users_name_uindex">
-      <ColNames>name</ColNames>
+    <key id="325" parent="284" name="users_name_uindex">
+      <ColNames>email</ColNames>
       <UnderlyingIndexName>users_name_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="325" parent="284" name="id_passport">
+    <foreign-key id="326" parent="284" name="id_passport">
       <ColNames>id_passport</ColNames>
       <RefSchemaName>carhire</RefSchemaName>
       <RefTableName>passport</RefTableName>

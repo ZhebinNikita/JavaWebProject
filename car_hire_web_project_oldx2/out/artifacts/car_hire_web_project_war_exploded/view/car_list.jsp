@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Users</title>
+    <title>Cars</title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -32,28 +32,30 @@
             <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openAddCarDialog()">
                 Add Car
             </button>
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+
+            </button>
         </div>
 
         <div class="w3-container w3-light-blue">
-
             <h2>Cars to rent</h2>
-
         </div>
 
 
 
-        <c:set var="cars" value="cars" />
+        <c:set var="notRentedCars" value="notRentedCars" />
 
 
-        <c:if test="${requestScope.get(cars) != null && not empty requestScope.get(cars)}">
+        <c:if test="${requestScope.get(notRentedCars) != null && not empty requestScope.get(notRentedCars)}">
             <ul class="w3-ul">
-            <c:forEach items="${requestScope.get(cars)}" var="car" >
+            <c:forEach items="${requestScope.get(notRentedCars)}" var="car" >
                 <li class="w3-hover-sand">
                         ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
                     USD --- ${(car.getCarClass()).name()}
                     <div align="right">
                         <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                                onclick="openUpdateCarDialog('${car.getId()}', '${car.getName()}', '${car.getDailyRentalPrice()}', '${car.getCarClass()}')">
+                                onclick="openUpdateCarDialog('${car.getId()}', '${car.getName()}',
+                                        '${car.getDailyRentalPrice()}', '${car.getCarClass()}')">
                             Update
                         </button>
                         <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
@@ -66,7 +68,7 @@
             </ul>
         </c:if>
 
-        <c:if test="${requestScope.get(cars) == null || empty requestScope.get(cars)}">
+        <c:if test="${requestScope.get(notRentedCars) == null || empty requestScope.get(notRentedCars)}">
             <div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">
                 <span onclick="this.parentElement.style.display='none'"
                       class="w3-button w3-margin-right w3-display-right

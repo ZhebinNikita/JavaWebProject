@@ -10,7 +10,7 @@
     <link href="../css/popup_login_window.css" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="../js/popup/popup_login_window.js"></script>
 
-    <script type="text/javascript" src="../js/login.js"></script>
+    <script type="text/javascript" src="../js/add_user.js"></script>
 
 </head>
 

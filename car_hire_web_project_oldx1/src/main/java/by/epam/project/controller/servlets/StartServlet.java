@@ -1,5 +1,9 @@
 package by.epam.project.controller.servlets;
 
+import by.epam.project.controller.commands.user.LoginCommand;
+import by.epam.project.controller.commands.user.RegisterUserCommand;
+import by.epam.project.model.entities.User;
+import by.epam.project.model.exception.ProjectException;
 import by.epam.project.model.pool.ConnectionPool;
 import by.epam.project.model.pool.ConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
@@ -39,8 +43,45 @@ public class StartServlet extends HttpServlet {
         boolean isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
 
         if (isAjax) {
+
             String action = req.getParameter("action");
+
             if(action.compareTo("add_user") == 0){
+
+                String email = req.getParameter("email");
+                String pass = req.getParameter("pass");
+                User user = new User(email, pass);
+
+                LoginCommand loginCommand = new LoginCommand(user);
+
+                try {
+                    boolean login = loginCommand.execute();
+                    if (login) { // User with these data exist and logged in
+                        // session acts
+                        LOG.info("User logged in.");
+                        resp.getWriter().write("User logged in.");
+                        // session acts
+                    } else {
+                        String message;
+                        RegisterUserCommand registerUserCommand = new RegisterUserCommand(user);
+
+                        boolean registered = registerUserCommand.execute();
+                        message = registerUserCommand.getMessage();
+                        if (registered) {
+                            // session acts
+                            LOG.info(message);
+                            resp.getWriter().write(message);
+                            // session acts
+                        } else {
+                            LOG.info(message);
+                            resp.getWriter().write(message);
+                        }
+                    }
+                }
+                catch (ProjectException e){
+                    LOG.error(e);
+                    resp.getWriter().write("Something went wrong. Try again later.");
+                }
 
             }
         }
@@ -73,3 +114,33 @@ public class StartServlet extends HttpServlet {
 
 
 }
+
+/*
+        String email = req.getParameter("email");
+        String pass = req.getParameter("pass");
+
+        UserDao userDao = new UserDao();
+        User user = new User(email, pass);
+
+        resp.setContentType("text/plain");  // Set content type so that jQuery knows what it can expect.
+        resp.setCharacterEncoding("UTF-8");
+
+        int userStatus = userDao.checkStatusByEmail(email);
+
+        //////////////////////  Validation  //////////////////////
+        if (userStatus == 0) { // in the process of registration.
+            resp.getWriter().write("Check your Email to confirm registration.");
+        } else if (userStatus == 1) { // registered.
+            resp.getWriter().write("User with this Email is already registered!");
+        } else if (!UserValidator.checkUser(email, pass)) {
+            resp.getWriter().write("Email or password is wrong.");
+        }
+        //////////////////////  Validation  //////////////////////
+
+        else if (userDao.insert(user)) {
+            resp.getWriter().write("User registered!");
+            LOG.info("User registered!");
+        } else {
+            resp.getWriter().write("Something went wrong...");
+        }
+*/
