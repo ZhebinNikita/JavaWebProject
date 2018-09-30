@@ -5,7 +5,7 @@ import by.epam.project.services.impl.UserService;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ProjectException;
 
-public class LoginCommand extends Command {
+public class LoginCommand implements Command {
 
     private UserService userService;
     private User user;

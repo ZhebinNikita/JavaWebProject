@@ -29,11 +29,11 @@
     <div class="w3-card-4">
 
         <div align="right">
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+                Order
+            </button>
             <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openAddCarDialog()">
                 Add Car
-            </button>
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
-
             </button>
         </div>
 
@@ -53,6 +53,10 @@
                         ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
                     USD --- ${(car.getCarClass()).name()}
                     <div align="right">
+                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                                onclick="">
+                            Order
+                        </button>
                         <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
                                 onclick="openUpdateCarDialog('${car.getId()}', '${car.getName()}',
                                         '${car.getDailyRentalPrice()}', '${car.getCarClass()}')">

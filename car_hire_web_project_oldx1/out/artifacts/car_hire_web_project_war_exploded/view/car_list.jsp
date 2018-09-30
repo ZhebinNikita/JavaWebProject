@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<fmt:setBundle basename="lant"/>
+
 <html>
 <head>
     <title>Cars</title>
@@ -29,9 +32,6 @@
     <div class="w3-card-4">
 
         <div align="right">
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
-                Order
-            </button>
             <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openAddCarDialog()">
                 Add Car
             </button>
@@ -51,7 +51,7 @@
             <c:forEach items="${requestScope.get(notRentedCars)}" var="car" >
                 <li class="w3-hover-sand">
                         ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
-                    USD --- ${(car.getCarClass()).name()}
+                    $ --- ${(car.getCarClass()).name()}
                     <div align="right">
                         <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
                                 onclick="">

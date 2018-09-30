@@ -10,9 +10,10 @@ $(document).ready(function () {
     // to make sure the overlay fills the screen and dialogbox aligned to center
     $(window).resize(function () {
         //only do it if the dialog box is not hidden
-        if (!$('#login-dialog-box').is(':hidden')) openLoginDialog();
+        if (!$('#login-dialog-box').is(':hidden')) {
+            openLoginDialog();
+        }
     });
-
 
 });
 

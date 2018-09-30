@@ -7,7 +7,7 @@ import by.epam.project.exception.ProjectException;
 import by.epam.project.language.LangResourceManager;
 
 
-public class RegisterUserCommand extends Command {
+public class RegisterUserCommand implements Command {
 
     private UserService userService;
     private User user;

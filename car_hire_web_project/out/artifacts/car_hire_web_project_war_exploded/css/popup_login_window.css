@@ -88,10 +88,10 @@ a.login-btn-close:hover {
 }
 
 #userEmail{
-    width: 40% !important;
+    width: 50% !important;
 }
 #userPass{
-    width: 40% !important;
+    width: 50% !important;
 }
 
 #login-dialog-box.login-dialog-content ul {

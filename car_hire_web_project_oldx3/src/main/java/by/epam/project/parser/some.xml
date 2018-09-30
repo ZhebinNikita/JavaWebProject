@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<car_hire_service xmlns="car_hire_schema">
+
+
+    <car>
+        <name>One</name>
+        <daily_rental_price>100</daily_rental_price>
+        <class>Mini</class>
+        <busyness>0</busyness>
+    </car>
+
+    <car>
+        <name>Two</name>
+        <daily_rental_price>200</daily_rental_price>
+        <class>Lux</class>
+        <busyness>0</busyness>
+    </car>
+
+    <car>
+        <name>Three</name>
+        <daily_rental_price>300</daily_rental_price>
+        <class>Family</class>
+        <busyness>1</busyness>
+    </car>
+
+
+</car_hire_service>
+

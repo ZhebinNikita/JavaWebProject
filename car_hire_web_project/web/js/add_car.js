@@ -15,7 +15,6 @@ function addCar() {
 
     var params = {
         action: action,
-
         name: carName.value,
         daily_rental_price: carDailyRentalPrice.value,
         car_class: $("#adding_car_class_selection option:selected").text(),
@@ -30,18 +29,19 @@ function addCar() {
         incorrect_name.innerHTML = "Обязательное поле";
     }
 
-    if(carDailyRentalPrice.value != ""){
+    if(carDailyRentalPrice.value != "" && carDailyRentalPrice.value > 0){
         incorrect_price.innerHTML = "";
     }
     else{
         incorrect_price.innerHTML = "Обязательное поле";
     }
 
-    if(amount_cars.value != "" && !/-/.test(amount_cars.value) && amount_cars.value != "0"){
+    if(amount_cars.value != "" && !/-/.test(amount_cars.value)
+        && amount_cars.value > 0 && amount_cars.value <= 100){
         incorrect_amount.innerHTML = "";
     }
     else{
-        incorrect_amount.innerHTML = "Обязательное поле. Min value = 1";
+        incorrect_amount.innerHTML = "Обязательное поле. \nMin value = 1\nMax value = 100";
     }
 
 

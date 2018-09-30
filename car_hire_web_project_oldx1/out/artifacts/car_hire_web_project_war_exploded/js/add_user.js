@@ -12,7 +12,6 @@ function clickLogin() {
 
     var params = {
         action: action,
-
         email: userEmail.value,
         pass: userPass.value
     };

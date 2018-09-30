@@ -9,6 +9,7 @@ import by.epam.project.entity.Order;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.language.LangResourceManager;
+import by.epam.project.model.CarClass;
 import by.epam.project.pool.ConnectionPool;
 import by.epam.project.pool.ConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,25 +37,46 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        LOG.info("DO GET WAS CALLED!!!! " + req.getRequestURI() + " !");
-
+        HttpSession session = req.getSession(true);
         String requestURI = req.getRequestURI();
 
-        HttpSession session = req.getSession(true);
+        LOG.info("req.getParameter(\"language\") = " + req.getParameter("language"));
+
+        if(req.getParameter("language") == null){
+            Locale.setDefault(Locale.ENGLISH);
+            session.setAttribute("language", "en");
+            LOG.info("SESSION IS NULL");
+        }
+        else if (req.getParameter("language").equals("en")) {
+            Locale.setDefault(Locale.ENGLISH);
+            session.setAttribute("language", "en");
+            LOG.info(" SET (en) SO IT IS session language = en ");
+        }
+        else if (req.getParameter("language").equals("ru_RU")) {
+            Locale.setDefault(new Locale("ru", "RU"));
+            session.setAttribute("language", "ru_RU");
+            LOG.info(" SET (ru) ");
+        }
+        else {
+            Locale.setDefault(Locale.ENGLISH);
+            session.setAttribute("language", "en");
+            LOG.info("DEFAULT SET (en) ");
+        }
+
+
+
         if (session.getAttribute("role") == null) {
             //session.setAttribute("role", "user");
-        }
-        else if(session.getAttribute("role").equals("user")){
+        } else if (session.getAttribute("role").equals("user")) {
             /////////////
-        }
-        else if(session.getAttribute("role").equals("admin")){
+        } else if (session.getAttribute("role").equals("admin")) {
             /////////////
         }
 
         RequestDispatcher requestDispatcher;
 
         // Set JSP file to URL address
-        switch (requestURI){
+        switch (requestURI) {
             case "/":
                 requestDispatcher = req.getRequestDispatcher("/view/start.jsp");
                 requestDispatcher.forward(req, resp);
@@ -74,17 +97,23 @@ public class Controller extends HttpServlet {
                     OrderDao orderDao = new OrderDao();
                     List<Order> orders = orderDao.takeAll();
                     req.setAttribute("orders", orders);
-                } catch (ProjectException e){
+                } catch (ProjectException e) {
                     LOG.error(e);
                 }
                 requestDispatcher = req.getRequestDispatcher("/view/orders.jsp");
                 requestDispatcher.forward(req, resp);
                 break;
-                default:
-                    requestDispatcher = req.getRequestDispatcher("/view/error_page.jsp");
-                    requestDispatcher.forward(req, resp);
-                    break;
+            default:
+                requestDispatcher = req.getRequestDispatcher("/view/error_page.jsp");
+                requestDispatcher.forward(req, resp);
+                break;
         }
+
+        LOG.info("doGET!!! URI: "
+                + req.getRequestURI() + " Locale: "
+                + Locale.getDefault() + " SessionLang: "
+                + session.getAttribute("language") + " ReqLang: "
+                + req.getParameter("language"));
 
     }
 
@@ -96,21 +125,23 @@ public class Controller extends HttpServlet {
 
         LangResourceManager langManager = LangResourceManager.INSTANCE;
 
-        LOG.info("DO POST WAS CALLED!!!!");
+        resp.setContentType("text/plain");
+        resp.setCharacterEncoding("UTF-8");
 
         if(isAjax) {
 
             String action = req.getParameter("action");
 
-            if(action.compareTo("add_user") == 0){
+            try {
 
-                String email = req.getParameter("email");
-                String pass = req.getParameter("pass");
-                User user = new User(email, pass);
+                if (action.compareTo("add_user") == 0) {
 
-                LoginCommand loginCommand = new LoginCommand(user);
+                    String email = req.getParameter("email");
+                    String pass = req.getParameter("pass");
+                    User user = new User(email, pass);
 
-                try {
+                    LoginCommand loginCommand = new LoginCommand(user);
+
                     boolean login = loginCommand.execute();
                     if (login) { // User with these data exist and logged in
                         // session acts
@@ -133,23 +164,74 @@ public class Controller extends HttpServlet {
                             resp.getWriter().write(message);
                         }
                     }
-                }
-                catch (ProjectException e){
-                    LOG.error(e);
-                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
+
+                } else if (action.compareTo("delete_car") == 0) {
+
+                    CarDao carDao = new CarDao();
+                    int id = Integer.valueOf(req.getParameter("id"));
+                    if (carDao.delete(new Car(id))) {
+                        resp.getWriter().write("Car deleted!");
+                    }
+
+                } else if (action.compareTo("add_car") == 0) {
+
+                    CarDao carDao = new CarDao();
+                    String name = req.getParameter("name");
+                    BigDecimal daily_rental_price = BigDecimal.valueOf(Double.valueOf(
+                            req.getParameter("daily_rental_price")));
+                    CarClass car_class = CarClass.valueOf(req.getParameter("car_class"));
+                    int amount = Integer.valueOf(req.getParameter("amount_cars"));
+
+                    Car adding_car = new Car(1, name, daily_rental_price, car_class, 0);
+
+                    for (int i = 0; i < amount; i++) {
+                        if (carDao.insert(adding_car)) {
+                            if (i == amount - 1) {
+                                resp.getWriter().write("Car added!");
+                                LOG.info(amount + " car's objects were added.");
+                            }
+                        } else {
+                            LOG.info("Something went wrong with adding car with number = " + (i + 1));
+                            resp.getWriter().write(langManager.getString("smth.went.wrong"));
+                            break;
+                        }
+                    }
+
+                } else if (action.compareTo("update_car") == 0) {
+
+                    CarDao carDao = new CarDao();
+                    int id = Integer.valueOf(req.getParameter("id"));
+                    String name = req.getParameter("name");
+                    BigDecimal daily_rental_price = BigDecimal.valueOf(Double.valueOf(
+                            req.getParameter("daily_rental_price")));
+                    CarClass car_class = CarClass.valueOf(req.getParameter("car_class"));
+
+                    Car updating_car = new Car(id, name, daily_rental_price, car_class, 0);
+
+                    if (carDao.update(new Car(id), updating_car)) {
+                        resp.getWriter().write("Car updated!");
+                        LOG.info("Car ID(" + id + ") was updated.");
+                    } else {
+                        LOG.info("Something went wrong with updating car ID(" + id + ")");
+                        resp.getWriter().write(langManager.getString("smth.went.wrong"));
+                    }
                 }
 
             }
+            catch (ProjectException e){
+                LOG.error(e);
+                resp.getWriter().write(langManager.getString("smth.went.wrong"));
+            }
+
         }
 
     }
 
 
+
     @Override
     public void init() throws ServletException {
         super.init();
-
-        Locale.setDefault( Locale.ENGLISH );// new Locale("ru", "RU"));
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {

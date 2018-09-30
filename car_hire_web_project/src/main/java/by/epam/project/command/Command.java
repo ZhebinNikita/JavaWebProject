@@ -2,8 +2,8 @@ package by.epam.project.command;
 
 import by.epam.project.exception.ProjectException;
 
-public abstract class Command {
+public interface Command {
 
-    public abstract boolean execute() throws ProjectException;
+    boolean execute() throws ProjectException;
 
 }

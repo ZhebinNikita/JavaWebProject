@@ -6,7 +6,7 @@ import by.epam.project.entity.User;
 import by.epam.project.exception.ProjectException;
 
 
-public class UpdateUserCommand extends Command {
+public class UpdateUserCommand implements Command {
 
     private UserService userService;
     private String oldEmail;

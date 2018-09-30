@@ -1,8 +1,32 @@
 
-2018-09-13 18:12:40.441 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:79) - app.model.pool.ConnectionPoolException: SQLException in pool
-2018-09-13 18:16:10.765 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:79) - app.model.pool.ConnectionPoolException: SQLException in pool
+2018-09-13 18:12:40.441 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:79) - by.epam.project.model.pool.ConnectionPoolException: SQLException in pool
+2018-09-13 18:16:10.765 [http-nio-8080-exec-1] [ERROR] (StartServlet.java:79) - by.epam.project.model.pool.ConnectionPoolException: SQLException in pool
 2018-09-13 18:50:48.895 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:51) - com.mysql.cj.jdbc.Driver
 2018-09-13 18:50:48.959 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:52) - jdbc:mysql://localhost:3306/carhire?serverTimezone=UTC
 2018-09-13 18:50:48.960 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:53) - root
 2018-09-13 18:50:48.962 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:54) - RootPassword12345
 2018-09-13 18:50:48.969 [http-nio-8080-exec-1] [DEBUG] (ConnectionPool.java:55) - 5
+2018-09-18 12:45:22.693 [http-nio-8080-exec-7] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:24.318 [http-nio-8080-exec-8] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:25.219 [http-nio-8080-exec-9] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:25.607 [http-nio-8080-exec-10] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:25.798 [http-nio-8080-exec-1] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:25.963 [http-nio-8080-exec-2] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:26.105 [http-nio-8080-exec-3] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:26.270 [http-nio-8080-exec-4] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:26.411 [http-nio-8080-exec-6] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:26.567 [http-nio-8080-exec-5] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:26.714 [http-nio-8080-exec-7] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:26.869 [http-nio-8080-exec-8] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:27.021 [http-nio-8080-exec-9] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:36.835 [http-nio-8080-exec-1] [ERROR] (UserDAO.java:229) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 12:45:55.831 [http-nio-8080-exec-4] [ERROR] (UserDAO.java:58) - java.sql.SQLIntegrityConstraintViolationException: Column 'status' cannot be null
+2018-09-18 12:46:45.619 [http-nio-8080-exec-5] [ERROR] (UserDAO.java:58) - java.sql.SQLIntegrityConstraintViolationException: Column 'status' cannot be null
+2018-09-18 13:05:50.068 [http-nio-8080-exec-7] [ERROR] (UserDAO.java:233) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 13:15:30.842 [http-nio-8080-exec-1] [ERROR] (UserDAO.java:233) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 13:15:34.083 [http-nio-8080-exec-10] [ERROR] (UserDAO.java:233) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 13:16:01.801 [http-nio-8080-exec-9] [ERROR] (UserDAO.java:233) - java.sql.SQLException: Before start of result set
+2018-09-18 13:16:01.991 [http-nio-8080-exec-9] [ERROR] (UserDAO.java:58) - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'email1@email.com' for key 'PRIMARY'
+2018-09-18 13:30:14.800 [http-nio-8080-exec-9] [ERROR] (UserDAO.java:233) - java.sql.SQLException: Illegal operation on empty result set.
+2018-09-18 13:30:28.395 [http-nio-8080-exec-1] [ERROR] (UserDAO.java:233) - java.sql.SQLException: Before start of result set
+2018-09-18 13:30:28.523 [http-nio-8080-exec-1] [ERROR] (UserDAO.java:58) - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'email1@email.com' for key 'PRIMARY'
