@@ -1,12 +1,16 @@
 package by.epam.project.controller.servlet;
 
+import by.epam.project.PageConstant;
+import by.epam.project.command.Command;
+import by.epam.project.command.CommandMap;
+import by.epam.project.command.CommandType;
 import by.epam.project.command.user.LoginCommand;
 import by.epam.project.command.user.RegisterUserCommand;
 import by.epam.project.dao.impl.CarDao;
 import by.epam.project.dao.impl.OrderDao;
-import by.epam.project.entity.Car;
-import by.epam.project.entity.Order;
-import by.epam.project.entity.User;
+import by.epam.project.model.entity.Car;
+import by.epam.project.model.entity.Order;
+import by.epam.project.model.entity.User;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.language.LangResourceManager;
 import by.epam.project.model.CarClass;
@@ -28,7 +32,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-@WebServlet(name = "Controller", urlPatterns = {"", "/car_list", "/orders"})
+@WebServlet(name = "Controller", urlPatterns = {"", "/car_list", "/orders", "/profile", "/somewrongpage"}) //!!!
 public class Controller extends HttpServlet {
 
     private final static Logger LOG = LogManager.getRootLogger();
@@ -39,30 +43,49 @@ public class Controller extends HttpServlet {
 
         HttpSession session = req.getSession(true);
         String requestURI = req.getRequestURI();
+        LangResourceManager langManager = LangResourceManager.INSTANCE;
 
         LOG.info("req.getParameter(\"language\") = " + req.getParameter("language"));
 
-        if(req.getParameter("language") == null){
-            Locale.setDefault(Locale.ENGLISH);
-            session.setAttribute("language", "en");
-            LOG.info("SESSION IS NULL");
-        }
-        else if (req.getParameter("language").equals("en")) {
-            Locale.setDefault(Locale.ENGLISH);
-            session.setAttribute("language", "en");
-            LOG.info(" SET (en) SO IT IS session language = en ");
-        }
-        else if (req.getParameter("language").equals("ru_RU")) {
-            Locale.setDefault(new Locale("ru", "RU"));
-            session.setAttribute("language", "ru_RU");
-            LOG.info(" SET (ru) ");
-        }
-        else {
-            Locale.setDefault(Locale.ENGLISH);
-            session.setAttribute("language", "en");
-            LOG.info("DEFAULT SET (en) ");
-        }
+        // Set Language
+        if (req.getParameter("language") != null) {
+            if (req.getParameter("language").equals("en")) {
+                Locale.setDefault(Locale.ENGLISH);
+                langManager.changeResource(Locale.ENGLISH);
+                session.setAttribute("language", "en");
+            } else if (req.getParameter("language").equals("ru_RU")) {
+                Locale.setDefault(new Locale("ru", "RU"));
+                langManager.changeResource(new Locale("ru", "RU"));
+                session.setAttribute("language", "ru_RU");
+            } else {
+                Locale.setDefault(Locale.ENGLISH);
+                langManager.changeResource(Locale.ENGLISH);
+                session.setAttribute("language", "en");
+            }
+        } else {
 
+            if (session.getAttribute("language") == null) {
+                Locale.setDefault(Locale.ENGLISH);
+                langManager.changeResource(Locale.ENGLISH);
+                session.setAttribute("language", "en");
+                LOG.info("SESSION attribute lang = NULLLLLLLLLLLLLLLLLL, so its lang = en");
+            } else if (session.getAttribute("language").equals("en")) {
+                Locale.setDefault(Locale.ENGLISH);
+                langManager.changeResource(Locale.ENGLISH);
+                session.setAttribute("language", "en");
+                LOG.info("session = en");
+            } else if (session.getAttribute("language").equals("ru_RU")) {
+                Locale.setDefault(new Locale("ru", "RU"));
+                langManager.changeResource(new Locale("ru", "RU"));
+                session.setAttribute("language", "ru_RU");
+                LOG.info("session = ru_RU");
+            } else {
+                Locale.setDefault(Locale.ENGLISH);
+                langManager.changeResource(Locale.ENGLISH);
+                session.setAttribute("language", "en");
+                LOG.info("session = en");
+            }
+        }
 
 
         if (session.getAttribute("role") == null) {
@@ -73,12 +96,16 @@ public class Controller extends HttpServlet {
             /////////////
         }
 
+
+
+
+
         RequestDispatcher requestDispatcher;
 
         // Set JSP file to URL address
         switch (requestURI) {
             case "/":
-                requestDispatcher = req.getRequestDispatcher("/view/start.jsp");
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_MAIN);
                 requestDispatcher.forward(req, resp);
                 break;
             case "/car_list":
@@ -89,7 +116,7 @@ public class Controller extends HttpServlet {
                 } catch (ProjectException e) {
                     LOG.error(e);
                 }
-                requestDispatcher = req.getRequestDispatcher("/view/car_list.jsp");
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_CAR_LIST);
                 requestDispatcher.forward(req, resp);
                 break;
             case "/orders":
@@ -100,14 +127,19 @@ public class Controller extends HttpServlet {
                 } catch (ProjectException e) {
                     LOG.error(e);
                 }
-                requestDispatcher = req.getRequestDispatcher("/view/orders.jsp");
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ORDERS);
+                requestDispatcher.forward(req, resp);
+                break;
+            case "/profile":
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_PROFILE);
                 requestDispatcher.forward(req, resp);
                 break;
             default:
-                requestDispatcher = req.getRequestDispatcher("/view/error_page.jsp");
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ERROR);
                 requestDispatcher.forward(req, resp);
                 break;
         }
+
 
         LOG.info("doGET!!! URI: "
                 + req.getRequestURI() + " Locale: "
@@ -115,18 +147,22 @@ public class Controller extends HttpServlet {
                 + session.getAttribute("language") + " ReqLang: "
                 + req.getParameter("language"));
 
+
     }
 
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        HttpSession session = req.getSession(true);
+
         boolean isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
 
         LangResourceManager langManager = LangResourceManager.INSTANCE;
 
-        resp.setContentType("text/plain");
-        resp.setCharacterEncoding("UTF-8");
+        // Set content type so that jQuery knows what it can expect.
+        //resp.setContentType("text/plain");
+        //resp.setCharacterEncoding("UTF-8");
 
         if(isAjax) {
 
@@ -134,38 +170,41 @@ public class Controller extends HttpServlet {
 
             try {
 
-                if (action.compareTo("add_user") == 0) {
+                if (action.equals("set_lang_js_message")) {
+
+                    resp.getWriter().write(langManager.getString(req.getParameter("lang_key")));
+
+                }
+                else if (action.equals("add_user")) {
 
                     String email = req.getParameter("email");
-                    String pass = req.getParameter("pass");
-                    User user = new User(email, pass);
 
-                    LoginCommand loginCommand = new LoginCommand(user);
+                    LoginCommand loginCommand =
+                            (LoginCommand) CommandMap.getInstance().get(CommandType.LOGIN);
+                    RegisterUserCommand registerUserCommand =
+                            (RegisterUserCommand) CommandMap.getInstance().get(CommandType.REGISTER_USER);
 
-                    boolean login = loginCommand.execute();
-                    if (login) { // User with these data exist and logged in
-                        // session acts
-                        LOG.info("User logged in.");
+                    // User with these data exist and logged in
+                    if (loginCommand.execute(req)) {
+
+                        // Associate the session with the user
+                        session.setAttribute("email", email);
+
                         resp.getWriter().write(langManager.getString("user.logged.in"));
-                        // session acts
-                    } else {
-                        String message;
-                        RegisterUserCommand registerUserCommand = new RegisterUserCommand(user);
+                        LOG.info("User logged in.");
 
-                        boolean registered = registerUserCommand.execute();
-                        message = registerUserCommand.getMessage();
-                        if (registered) {
-                            // session acts
-                            LOG.info(message);
-                            resp.getWriter().write(message);
-                            // session acts
-                        } else {
-                            LOG.info(message);
-                            resp.getWriter().write(message);
-                        }
+                    } else if (registerUserCommand.execute(req)) {
+
+                        String message = registerUserCommand.getMessage();
+
+                        // Associate the session with the user
+                        session.setAttribute("email", email);
+                        resp.getWriter().write(message);
+                        LOG.info(message);
+
                     }
 
-                } else if (action.compareTo("delete_car") == 0) {
+                } else if (action.equals("delete_car")) {
 
                     CarDao carDao = new CarDao();
                     int id = Integer.valueOf(req.getParameter("id"));
@@ -173,7 +212,7 @@ public class Controller extends HttpServlet {
                         resp.getWriter().write("Car deleted!");
                     }
 
-                } else if (action.compareTo("add_car") == 0) {
+                } else if (action.equals("add_car")) {
 
                     CarDao carDao = new CarDao();
                     String name = req.getParameter("name");
@@ -197,7 +236,7 @@ public class Controller extends HttpServlet {
                         }
                     }
 
-                } else if (action.compareTo("update_car") == 0) {
+                } else if (action.equals("update_car")) {
 
                     CarDao carDao = new CarDao();
                     int id = Integer.valueOf(req.getParameter("id"));

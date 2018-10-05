@@ -4,3 +4,8 @@
 2018-09-30 18:25:07.114 [http-nio-8080-exec-1] [ERROR] (Controller.java:45) - java.lang.NullPointerException
 2018-09-30 18:25:10.410 [http-nio-8080-exec-2] [ERROR] (Controller.java:45) - java.lang.NullPointerException
 2018-09-30 18:25:20.723 [http-nio-8080-exec-3] [ERROR] (Controller.java:45) - java.lang.NullPointerException
+2018-10-05 18:15:28.369 [http-nio-8080-exec-7] [ERROR] (UserDao.java:61) - java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`carhire`.`user`, CONSTRAINT `id_passport` FOREIGN KEY (`id_passport`) REFERENCES `passport` (`id`))
+2018-10-05 18:15:28.375 [http-nio-8080-exec-7] [ERROR] (Controller.java:249) - by.epam.project.exception.ProjectException: java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`carhire`.`user`, CONSTRAINT `id_passport` FOREIGN KEY (`id_passport`) REFERENCES `passport` (`id`))
+2018-10-05 20:21:40.239 [http-nio-8080-exec-1] [ERROR] (Controller.java:106) - action doGet exception 
+2018-10-05 20:21:45.943 [http-nio-8080-exec-2] [ERROR] (Controller.java:106) - action doGet exception 
+2018-10-05 20:30:20.465 [http-nio-8080-exec-3] [ERROR] (Controller.java:106) - action doGet exception 

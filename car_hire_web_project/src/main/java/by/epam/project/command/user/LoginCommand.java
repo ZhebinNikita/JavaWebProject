@@ -2,24 +2,27 @@ package by.epam.project.command.user;
 
 import by.epam.project.command.Command;
 import by.epam.project.services.impl.UserService;
-import by.epam.project.entity.User;
+import by.epam.project.model.entity.User;
 import by.epam.project.exception.ProjectException;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements Command {
 
-    private UserService userService;
-    private User user;
-
-    public LoginCommand(User user) {
-        this.userService = new UserService();
-        this.user = user;
-    }
+    private UserService userService = new UserService();
 
 
     @Override
-    public boolean execute() throws ProjectException {
+    public boolean execute(HttpServletRequest req) throws ProjectException {
+
         boolean executed;
-        executed = userService.login(this.user);
+
+        String email = req.getParameter("email");
+        String pass = req.getParameter("pass");
+        User user = new User(email, pass);
+
+        executed = userService.login(user);
+
         return executed;
     }
 

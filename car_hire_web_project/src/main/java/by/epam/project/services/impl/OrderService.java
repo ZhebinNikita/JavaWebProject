@@ -2,7 +2,7 @@ package by.epam.project.services.impl;
 
 import by.epam.project.services.Service;
 import by.epam.project.dao.impl.OrderDao;
-import by.epam.project.entity.Order;
+import by.epam.project.model.entity.Order;
 import by.epam.project.exception.ProjectException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

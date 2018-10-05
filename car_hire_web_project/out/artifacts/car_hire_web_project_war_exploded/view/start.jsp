@@ -5,14 +5,15 @@
 <c:set var="l" value="language"/>
 <c:set var="language"
        value="${sessionScope.get(l)}"
-       scope="session" />
-<fmt:setLocale value="${language}" />
-<fmt:setBundle basename="lang"/>
+       scope="session"/>
+<fmt:setLocale value="${language}" scope="session" />
+<fmt:setBundle basename="lang" scope="session" />
 
 <html>
 <head>
-
-    <title> <fmt:message key="site.title"/> +${language}+</title>
+    <c:set var="email" value="email"/>
+    <c:set var="userEmail" value="${sessionScope.get(email)}"/>
+    <title> <fmt:message key="site.title"/>  </title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -26,7 +27,12 @@
 </head>
 
 <body class="w3-light-grey">
-
++User:${userEmail}+
+<c:if test="${not empty userEmail}">
+<button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom" onclick="">
+    <fmt:message key="log.out"/>
+</button>
+</c:if>
 
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
 
@@ -46,9 +52,18 @@
         <button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom" onclick="location.href='/car_list'">
             <fmt:message key="cars.list"/>
         </button>
-        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openLoginDialog()">
-            <fmt:message key="login.or.register"/>
-        </button>
+
+        <c:if test="${not empty userEmail}">
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+                <fmt:message key="my.profile"/>
+            </button>
+        </c:if>
+        <c:if test="${empty userEmail}">
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openLoginDialog()">
+                <fmt:message key="login.or.register"/>
+            </button>
+        </c:if>
+
     </div>
 </div>
 

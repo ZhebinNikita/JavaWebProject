@@ -1,7 +1,7 @@
 package by.epam.project.dao.impl;
 
 import by.epam.project.dao.EntityDao;
-import by.epam.project.entity.Order;
+import by.epam.project.model.entity.Order;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;

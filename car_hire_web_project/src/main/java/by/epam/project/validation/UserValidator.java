@@ -20,7 +20,10 @@ public final class UserValidator {
 
     public static boolean checkUser(String email, String password){
 
-        if(email.contains(CHECK_EMAIL) && password.length() >= 8
+        if(email.contains(CHECK_EMAIL)
+                && !email.contains(" ")
+                && !password.contains(" ")
+                && password.length() >= 8
                 && email.length() < MAX_EMAIL_LENGTH
                 && password.length() < MAX_PASSWORD_LENGTH){
             LOG.info("User's ("+email+") validation completed successfully.");

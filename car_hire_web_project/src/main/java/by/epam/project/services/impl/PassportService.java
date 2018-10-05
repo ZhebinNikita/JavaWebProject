@@ -2,7 +2,7 @@ package by.epam.project.services.impl;
 
 import by.epam.project.services.Service;
 import by.epam.project.dao.impl.PassportDao;
-import by.epam.project.entity.Passport;
+import by.epam.project.model.entity.Passport;
 import by.epam.project.exception.ProjectException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

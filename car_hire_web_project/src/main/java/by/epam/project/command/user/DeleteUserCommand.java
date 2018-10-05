@@ -2,24 +2,26 @@ package by.epam.project.command.user;
 
 import by.epam.project.command.Command;
 import by.epam.project.services.impl.UserService;
-import by.epam.project.entity.User;
+import by.epam.project.model.entity.User;
 import by.epam.project.exception.ProjectException;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class DeleteUserCommand implements Command {
 
-    private UserService userService;
-    private String email;
-
-    public DeleteUserCommand(String email) {
-        this.userService = new UserService();
-        this.email = email;
-    }
+    private UserService userService = new UserService();
 
 
     @Override
-    public boolean execute() throws ProjectException {
+    public boolean execute(HttpServletRequest req) throws ProjectException {
+
         boolean executed;
-        executed = userService.deleteByEmail(new User(this.email, null));
+
+        String email = req.getParameter("email");
+        User user = new User(email, null);
+
+        executed = userService.deleteByEmail(user);
+
         return executed;
     }
 

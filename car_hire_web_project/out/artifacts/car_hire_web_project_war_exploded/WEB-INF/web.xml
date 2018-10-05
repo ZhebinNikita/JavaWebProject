@@ -6,7 +6,7 @@
 
 
     <welcome-file-list>
-        <welcome-file>/view/start.jsp</welcome-file>
+        <welcome-file>/jsp/main.jsp</welcome-file>
     </welcome-file-list>
 
 

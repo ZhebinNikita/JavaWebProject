@@ -26,14 +26,14 @@ function addCar() {
         incorrect_name.innerHTML = "";
     }
     else{
-        incorrect_name.innerHTML = "Обязательное поле";
+        incorrect_name.innerHTML = "<fmt:message key=\"required.field\"/>";
     }
 
     if(carDailyRentalPrice.value != "" && carDailyRentalPrice.value > 0){
         incorrect_price.innerHTML = "";
     }
     else{
-        incorrect_price.innerHTML = "Обязательное поле";
+        incorrect_price.innerHTML = "<fmt:message key=\"required.field\"/>";
     }
 
     if(amount_cars.value != "" && !/-/.test(amount_cars.value)
@@ -41,7 +41,8 @@ function addCar() {
         incorrect_amount.innerHTML = "";
     }
     else{
-        incorrect_amount.innerHTML = "Обязательное поле. \nMin value = 1\nMax value = 100";
+        incorrect_amount.innerHTML = "<fmt:message key=\"required.field\"/>"
+                                  + " <fmt:message key=\"range.adding.cars\"/>";
     }
 
 

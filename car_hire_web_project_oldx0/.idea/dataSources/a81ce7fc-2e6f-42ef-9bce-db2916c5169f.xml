@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@localhost">
+  <database-model serializer="dbm" rdbms="ORACLE" format-version="4.9">
+    <root id="1">
+      <ServerVersion>12.2.0.1</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="SYSTEM">
+      <ObjectId>9</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.18:30:37</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.18:58:02</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:52:18</ModifiedTimestamp>
+      <CommentsHash>163592368887782</CommentsHash>
+      <Current>1</Current>
+    </schema>
+    <schema id="3" parent="1" name="PUBLIC">
+      <ObjectId>1</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:00:36</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.18:57:41</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-20.23:25:20</ModifiedTimestamp>
+    </schema>
+    <schema id="4" parent="1" name="SYS">
+      <ObjectId>0</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:00:37</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.18:57:36</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-21.19:59:07</ModifiedTimestamp>
+      <CommentsHash>131687388512013152</CommentsHash>
+    </schema>
+    <schema id="5" parent="1" name="AUDSYS">
+      <ObjectId>8</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:07:54</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:11:22</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-20.23:17:53</ModifiedTimestamp>
+      <CommentsHash>7725797614767</CommentsHash>
+    </schema>
+    <schema id="6" parent="1" name="OUTLN">
+      <ObjectId>13</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:08:26</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.18:57:53</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:04:11</ModifiedTimestamp>
+    </schema>
+    <schema id="7" parent="1" name="GSMADMIN_INTERNAL">
+      <ObjectId>21</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:08:39</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:03:31</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:25:43</ModifiedTimestamp>
+    </schema>
+    <schema id="8" parent="1" name="GSMUSER">
+      <ObjectId>22</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:09:25</IntrospectionTimestamp>
+    </schema>
+    <schema id="9" parent="1" name="DIP">
+      <ObjectId>23</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:09:25</IntrospectionTimestamp>
+    </schema>
+    <schema id="10" parent="1" name="REMOTE_SCHEDULER_AGENT">
+      <ObjectId>34</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:09:26</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:18:24</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:18:24</ModifiedTimestamp>
+    </schema>
+    <schema id="11" parent="1" name="DBSFWUSER">
+      <ObjectId>35</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:09:29</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:04:43</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:14:58</ModifiedTimestamp>
+    </schema>
+    <schema id="12" parent="1" name="ORACLE_OCM">
+      <ObjectId>39</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:09:56</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:05:54</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-20.23:21:28</ModifiedTimestamp>
+    </schema>
+    <schema id="13" parent="1" name="SYS$UMF">
+      <ObjectId>46</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:01</IntrospectionTimestamp>
+    </schema>
+    <schema id="14" parent="1" name="DBSNMP">
+      <ObjectId>54</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:01</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:17:36</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:17:38</ModifiedTimestamp>
+      <CommentsHash>58123294448600</CommentsHash>
+    </schema>
+    <schema id="15" parent="1" name="APPQOSSYS">
+      <ObjectId>55</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:23</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:17:39</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:18:25</ModifiedTimestamp>
+    </schema>
+    <schema id="16" parent="1" name="GSMCATUSER">
+      <ObjectId>59</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:35</IntrospectionTimestamp>
+    </schema>
+    <schema id="17" parent="1" name="GGSYS">
+      <ObjectId>60</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:35</IntrospectionTimestamp>
+    </schema>
+    <schema id="18" parent="1" name="XDB">
+      <ObjectId>62</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:35</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:21:53</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.21:02:53</ModifiedTimestamp>
+      <CommentsHash>23921825602317</CommentsHash>
+    </schema>
+    <schema id="19" parent="1" name="ANONYMOUS">
+      <ObjectId>63</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:51</IntrospectionTimestamp>
+    </schema>
+    <schema id="20" parent="1" name="WMSYS">
+      <ObjectId>72</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:10:51</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:49:27</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.19:50:28</ModifiedTimestamp>
+      <CommentsHash>58665666112928</CommentsHash>
+    </schema>
+    <schema id="21" parent="1" name="OJVMSYS">
+      <ObjectId>81</ObjectId>
+      <IntrospectionTimestamp>2018-07-21.20:11:03</IntrospectionTimestamp>
+      <CreatedTimestamp>2017-03-08.19:56:17</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.20:35:29</ModifiedTimestamp>
+    </schema>
+    <schema id="22" parent="1" name="CTXSYS">
+      <ObjectId>84</ObjectId>
+      <CreatedTimestamp>2017-03-08.20:03:19</CreatedTimestamp>
+      <ModifiedTimestamp>2017-03-08.20:29:08</ModifiedTimestamp>
+    </schema>
+    <schema id="23" parent="1" name="ORDSYS">
+      <ObjectId>86</ObjectId>
+    </schema>
+    <schema id="24" parent="1" name="ORDDATA">
+      <ObjectId>87</ObjectId>
+    </schema>
+    <schema id="25" parent="1" name="ORDPLUGINS">
+      <ObjectId>88</ObjectId>
+    </schema>
+    <schema id="26" parent="1" name="SI_INFORMTN_SCHEMA">
+      <ObjectId>89</ObjectId>
+    </schema>
+    <schema id="27" parent="1" name="MDSYS">
+      <ObjectId>90</ObjectId>
+    </schema>
+    <schema id="28" parent="1" name="OLAPSYS">
+      <ObjectId>93</ObjectId>
+    </schema>
+    <schema id="29" parent="1" name="MDDATA">
+      <ObjectId>96</ObjectId>
+    </schema>
+    <schema id="30" parent="1" name="SPATIAL_CSW_ADMIN_USR">
+      <ObjectId>98</ObjectId>
+    </schema>
+    <schema id="31" parent="1" name="LBACSYS">
+      <ObjectId>101</ObjectId>
+    </schema>
+    <schema id="32" parent="1" name="DVF">
+      <ObjectId>103</ObjectId>
+    </schema>
+    <schema id="33" parent="1" name="DVSYS">
+      <ObjectId>1279990</ObjectId>
+    </schema>
+    <schema id="34" parent="1" name="SYSBACKUP">
+      <ObjectId>2147483617</ObjectId>
+    </schema>
+    <schema id="35" parent="1" name="SYSDG">
+      <ObjectId>2147483618</ObjectId>
+    </schema>
+    <schema id="36" parent="1" name="SYSKM">
+      <ObjectId>2147483619</ObjectId>
+    </schema>
+    <schema id="37" parent="1" name="SYSRAC">
+      <ObjectId>2147483620</ObjectId>
+    </schema>
+    <schema id="38" parent="1" name="XS$NULL">
+      <ObjectId>2147483638</ObjectId>
+    </schema>
+    <schema id="39" parent="1" name="NIKITAZHEBIN">
+      <ObjectId>107</ObjectId>
+      <IntrospectionTimestamp>2018-07-22.19:26:13</IntrospectionTimestamp>
+      <CreatedTimestamp>2018-07-21.20:48:14</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-22.19:26:03</ModifiedTimestamp>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <table id="40" parent="39" name="CARS">
+      <ObjectId>73508</ObjectId>
+      <CreatedTimestamp>2018-07-21.21:30:15</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-21.21:30:15</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="41" parent="39" name="USERS">
+      <ObjectId>73481</ObjectId>
+      <CreatedTimestamp>2018-07-21.20:48:14</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-22.19:26:03</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <column id="42" parent="40" name="NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(4000 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="40" name="COST">
+      <Position>2</Position>
+      <DataType>NUMBER(*)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="44" parent="40" name="SYS_C007463">
+      <ObjectId>73509</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2018-07-21.21:30:16</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-21.21:30:16</ModifiedTimestamp>
+      <TablespaceName>CAR_HIRE_SCHEMA</TablespaceName>
+      <ColNames>NAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="45" parent="40" name="SYS_C007463">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2018-07-21.21:30:16</ModifiedTimestamp>
+      <ColNames>NAME</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C007463</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="46" parent="41" name="NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(4000 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="41" name="PASS">
+      <Position>2</Position>
+      <DataType>VARCHAR2(4000 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="48" parent="41" name="SYS_C007440">
+      <ObjectId>73482</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2018-07-21.20:48:14</CreatedTimestamp>
+      <ModifiedTimestamp>2018-07-21.20:48:14</ModifiedTimestamp>
+      <TablespaceName>CAR_HIRE_SCHEMA</TablespaceName>
+      <ColNames>NAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="49" parent="41" name="SYS_C007440">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2018-07-21.20:48:14</ModifiedTimestamp>
+      <ColNames>NAME</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C007440</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

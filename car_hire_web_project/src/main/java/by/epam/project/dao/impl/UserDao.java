@@ -1,7 +1,7 @@
 package by.epam.project.dao.impl;
 
 import by.epam.project.dao.EntityDao;
-import by.epam.project.entity.User;
+import by.epam.project.model.entity.User;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -16,14 +16,14 @@ public class UserDao implements EntityDao<User> {
 
     private static final Logger LOG = LogManager.getRootLogger();
 
-    private static final String INSERT_USER = "insert into carhire.user values(?, SHA2(?, 224), ?, ?)";
+    private static final String INSERT_USER = "insert into carhire.user values(?, SHA2(?, 224), ?, ?, ?)";
     private static final String DELETE_USER = "DELETE FROM carhire.user WHERE email=?";
     private static final String UPDATE_USER = "UPDATE carhire.user SET email=?, pass=?, id_passport=?, " +
-            "status=? WHERE email=?";
+            "status=?, role=? WHERE email=?";
     private static final String GET_ALL_USERS = "SELECT * FROM carhire.user";
     private static final String CHECK_IF_CONTAINS = "SELECT email FROM carhire.user " +
             "WHERE email=? and pass=SHA2(?, 224)";
-    private static final String CHECK_STATUS = "SELECT * FROM carhire.user WHERE email=?";
+    private static final String TAKE_BY_EMAIL = "SELECT * FROM carhire.user WHERE email=?";
 
 
     public UserDao(){
@@ -47,8 +47,9 @@ public class UserDao implements EntityDao<User> {
 
             statement.setString(1, entity.getEmail());
             statement.setString(2, entity.getPassword());
-            statement.setNull(3, Types.INTEGER);
+            statement.setInt(3, entity.getIdPassport());
             statement.setInt(4, entity.getStatus()); // in the process of registration
+            statement.setInt(5, entity.getRole()); // default: user
 
             int res = statement.executeUpdate();
 
@@ -118,7 +119,11 @@ public class UserDao implements EntityDao<User> {
 
             statement.setString(1, newEntity.getEmail());
             statement.setString(2, newEntity.getPassword());
-            statement.setString(3, oldEntity.getEmail());
+            statement.setInt(3, newEntity.getIdPassport());
+            statement.setInt(4, newEntity.getStatus());
+            statement.setInt(5, newEntity.getRole());
+
+            statement.setString(6, oldEntity.getEmail());
 
             int res = statement.executeUpdate();
 
@@ -159,7 +164,14 @@ public class UserDao implements EntityDao<User> {
 
             while (resultSet.next()) {
                 String name = resultSet.getString("email");
-                users.add(new User(name, ""));
+                String pass = resultSet.getString("pass");
+
+                User user = new User(name, pass);
+                user.setIdPassport(resultSet.getInt("id_passport"));
+                user.setStatus(resultSet.getInt("status"));
+                user.setRole(resultSet.getInt("role"));
+
+                users.add(user);
             }
 
         }
@@ -175,6 +187,9 @@ public class UserDao implements EntityDao<User> {
     }
 
 
+    /**
+     * Check if the user with this email and pass exist
+     * */
     @Override
     public boolean contains(User entity) throws ProjectException {
 
@@ -223,7 +238,7 @@ public class UserDao implements EntityDao<User> {
 
             connection = connectionPool.takeConnection();
 
-            statement = connection.prepareStatement(CHECK_STATUS);
+            statement = connection.prepareStatement(TAKE_BY_EMAIL);
 
             statement.setString(1, email);
 

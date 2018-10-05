@@ -4,7 +4,7 @@ import by.epam.project.model.CarClass;
 import by.epam.project.dao.EntityDao;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.pool.ConnectionPool;
-import by.epam.project.entity.Car;
+import by.epam.project.model.entity.Car;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
