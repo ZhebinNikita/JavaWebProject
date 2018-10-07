@@ -47,7 +47,14 @@ public class UserDao implements EntityDao<User> {
 
             statement.setString(1, entity.getEmail());
             statement.setString(2, entity.getPassword());
-            statement.setInt(3, entity.getIdPassport());
+
+            if(entity.getIdPassport() == -1) {
+                statement.setNull(3, Types.INTEGER);
+            }
+            else {
+                statement.setInt(3, entity.getIdPassport());
+            }
+
             statement.setInt(4, entity.getStatus()); // in the process of registration
             statement.setInt(5, entity.getRole()); // default: user
 
@@ -119,7 +126,14 @@ public class UserDao implements EntityDao<User> {
 
             statement.setString(1, newEntity.getEmail());
             statement.setString(2, newEntity.getPassword());
-            statement.setInt(3, newEntity.getIdPassport());
+
+            if(newEntity.getIdPassport() == -1){
+                statement.setNull(3, Types.INTEGER);
+            }
+            else {
+                statement.setInt(3, newEntity.getIdPassport());
+            }
+
             statement.setInt(4, newEntity.getStatus());
             statement.setInt(5, newEntity.getRole());
 
@@ -245,7 +259,7 @@ public class UserDao implements EntityDao<User> {
             resultSet = statement.executeQuery();
 
             if(resultSet.next()){
-                return resultSet.getInt(4);
+                return resultSet.getInt("status");
             }
             else {
                 return -1; // user is not registered
@@ -261,6 +275,40 @@ public class UserDao implements EntityDao<User> {
 
     }
 
+
+    public boolean checkIfAdmin(String email) throws ProjectException {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(TAKE_BY_EMAIL);
+
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                return resultSet.getInt("role") == 1;
+            }
+        }
+        catch (SQLException e) {
+            LOG.error(e);
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return false;
+
+    }
 
 
 }

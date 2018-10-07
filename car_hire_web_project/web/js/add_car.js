@@ -1,6 +1,21 @@
 function animAddCarStart() { $('#add_car_loading').show(); }
 function animAddCarStop() { $('#add_car_loading').hide(); }
 
+function setMessage(element, key, url) {
+
+    var action = "set_lang_js_message";
+
+    var params = {
+        action: action,
+        lang_key: key
+    };
+
+    $.post(url, $.param(params), function (responseText) {
+        element.innerHTML = responseText;
+    });
+
+}
+
 function addCar() {
 
     var incorrect_name = document.getElementById('incorrect_car_name');
@@ -11,7 +26,7 @@ function addCar() {
     var carDailyRentalPrice = document.getElementById('adding_carDailyRentalPrice');
     var amount_cars = document.getElementById('adding_amount_cars');
 
-    var action = "add_car";
+    var action = "ADD_CAR";
 
     var params = {
         action: action,
@@ -26,14 +41,14 @@ function addCar() {
         incorrect_name.innerHTML = "";
     }
     else{
-        incorrect_name.innerHTML = "<fmt:message key=\"required.field\"/>";
+        setMessage(incorrect_name, "required.field", "");
     }
 
     if(carDailyRentalPrice.value != "" && carDailyRentalPrice.value > 0){
         incorrect_price.innerHTML = "";
     }
     else{
-        incorrect_price.innerHTML = "<fmt:message key=\"required.field\"/>";
+        setMessage(incorrect_price, "required.field", "");
     }
 
     if(amount_cars.value != "" && !/-/.test(amount_cars.value)
@@ -41,8 +56,7 @@ function addCar() {
         incorrect_amount.innerHTML = "";
     }
     else{
-        incorrect_amount.innerHTML = "<fmt:message key=\"required.field\"/>"
-                                  + " <fmt:message key=\"range.adding.cars\"/>";
+        setMessage(incorrect_amount, "range.adding.cars", "");
     }
 
 

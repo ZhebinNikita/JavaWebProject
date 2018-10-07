@@ -37,7 +37,7 @@ public class UserService implements Service {
 
             if(userStatus == -1){ // User with that Email doesn't exist
                 if (userDao.insert(user)) {
-                    LOG.info("User " + user.getEmail() + " registered.");
+                    LOG.info("User (" + user.getEmail() + ") registered.");
                     return 1;
                 }
                 else {
@@ -83,6 +83,11 @@ public class UserService implements Service {
     public List<User> takeAllUsers() throws ProjectException {
         List<User> users = userDao.takeAll();
         return users;
+    }
+
+
+    public boolean isAdmin(String email) throws ProjectException{
+        return userDao.checkIfAdmin(email);
     }
 
 }

@@ -13,13 +13,15 @@
 <head>
     <c:set var="email" value="email"/>
     <c:set var="userEmail" value="${sessionScope.get(email)}"/>
+    <c:set var="role" value="role"/>
+    <c:set var="userRole" value="${sessionScope.get(role)}"/>
     <title> <fmt:message key="orders"/> </title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 <body class="w3-light-grey">
-+User:${userEmail}+
+User: ${userEmail} Role: ${userRole}
 
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
 
@@ -38,8 +40,13 @@
     <div class="w3-card-4">
 
         <div align="right">
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
-                some useless button
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                    onclick="location.href='/orders'">
+                <fmt:message key="applications"/>
+            </button>
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                    onclick="location.href='/orders'">
+                <fmt:message key="registered.orders"/>
             </button>
         </div>
 

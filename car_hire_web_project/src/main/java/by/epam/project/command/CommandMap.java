@@ -1,9 +1,11 @@
 package by.epam.project.command;
 
-import by.epam.project.command.user.DeleteUserCommand;
+import by.epam.project.command.car.AddCarCommand;
+import by.epam.project.command.car.DeleteCarCommand;
+import by.epam.project.command.car.UpdateCarCommand;
 import by.epam.project.command.user.LoginCommand;
+import by.epam.project.command.user.LogoutCommand;
 import by.epam.project.command.user.RegisterUserCommand;
-import by.epam.project.command.user.UpdateUserCommand;
 
 import java.util.EnumMap;
 
@@ -12,10 +14,11 @@ public class CommandMap {
     private EnumMap<CommandType, Command> map = new EnumMap<CommandType, Command>(CommandType.class){
         {
             this.put(CommandType.LOGIN, new LoginCommand());
+            this.put(CommandType.LOGOUT, new LogoutCommand());
 
-            this.put(CommandType.REGISTER_USER, new RegisterUserCommand());
-            this.put(CommandType.UPDATE_USER, new UpdateUserCommand());
-            this.put(CommandType.DELETE_USER, new DeleteUserCommand());
+            this.put(CommandType.UPDATE_CAR, new UpdateCarCommand());
+            this.put(CommandType.ADD_CAR, new AddCarCommand());
+            this.put(CommandType.DELETE_CAR, new DeleteCarCommand());
         }
     };
 

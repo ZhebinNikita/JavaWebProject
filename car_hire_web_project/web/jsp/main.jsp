@@ -13,6 +13,8 @@
 <head>
     <c:set var="email" value="email"/>
     <c:set var="userEmail" value="${sessionScope.get(email)}"/>
+    <c:set var="role" value="role"/>
+    <c:set var="userRole" value="${sessionScope.get(role)}"/>
     <title> <fmt:message key="site.title"/>  </title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -23,13 +25,14 @@
     <script type="text/javascript" src="../js/popup/popup_login_window.js"></script>
 
     <script type="text/javascript" src="../js/add_user.js"></script>
+    <script type="text/javascript" src="../js/logout.js"></script>
 
 </head>
 
 <body class="w3-light-grey">
-+User:${userEmail}+
+User: ${userEmail} Role: ${userRole}
 <c:if test="${not empty userEmail}">
-<button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom" onclick="">
+<button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom w3-right-align" onclick="logout()">
     <fmt:message key="log.out"/>
 </button>
 </c:if>

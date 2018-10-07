@@ -1,7 +1,7 @@
 
 function deleteCar(id) {
 
-    var action = "delete_car";
+    var action = "DELETE_CAR";
 
     var params = {
         action: action,

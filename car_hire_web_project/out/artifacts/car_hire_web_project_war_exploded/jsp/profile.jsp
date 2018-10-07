@@ -13,15 +13,21 @@
 <head>
     <c:set var="email" value="email"/>
     <c:set var="userEmail" value="${sessionScope.get(email)}"/>
+    <c:set var="role" value="role"/>
+    <c:set var="userRole" value="${sessionScope.get(role)}"/>
     <title> <fmt:message key="site.title"/>  </title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript" src="../js/logout.js"></script>
+
 </head>
 
 <body class="w3-light-grey">
-+User:${userEmail}+
-<button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom" onclick="">
+User: ${userEmail} Role: ${userRole}
+<button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom w3-right-align" onclick="logout()">
     <fmt:message key="log.out"/>
 </button>
 
@@ -35,7 +41,7 @@
         </select>
     </form>
 
-    <h1> <fmt:message key="site.title"/> </h1>
+    <h1> <fmt:message key="my.profile"/> </h1>
 
 </div>
 

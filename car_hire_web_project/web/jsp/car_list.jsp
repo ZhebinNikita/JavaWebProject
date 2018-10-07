@@ -13,6 +13,8 @@
 <head>
     <c:set var="email" value="email"/>
     <c:set var="userEmail" value="${sessionScope.get(email)}"/>
+    <c:set var="role" value="role"/>
+    <c:set var="userRole" value="${sessionScope.get(role)}"/>
     <title> <fmt:message key="car.list"/> </title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -32,7 +34,7 @@
 </head>
 
 <body class="w3-light-grey">
-+User:${userEmail}+
+User: ${userEmail} Role: ${userRole}
 
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
 
@@ -53,6 +55,12 @@
         <div align="right">
             <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openAddCarDialog()">
                 <fmt:message key="add.car"/>
+            </button>
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+                Rented
+            </button>
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+                Not Rented
             </button>
         </div>
 
@@ -121,7 +129,8 @@
                     <label>
                         <input type="text" name="adding_carName"
                                style="width: 30%" id="adding_carName"
-                               maxlength="50" placeholder="<fmt:message key="name"/>">
+                               maxlength="50"
+                               placeholder="<fmt:message key="name"/>">*
                     </label>
                 </p>
                 <p align="center" style='color:red;' id="incorrect_car_name"></p>
@@ -130,7 +139,8 @@
                     <label>
                         <input type="number" name="adding_carDailyRentalPrice"
                                style="width: 30%" id="adding_carDailyRentalPrice"
-                               maxlength="20" placeholder="<fmt:message key="rental.price"/>">
+                               maxlength="20"
+                               placeholder="<fmt:message key="rental.price"/>">*
                     </label>
                 </p>
                 <p align="center" style='color:red;' id="incorrect_car_price"></p>
@@ -159,7 +169,7 @@
                         <input type="number" name="adding_amount_cars"
                                style="width: 30%" id="adding_amount_cars"
                                maxlength="20"
-                               placeholder="<fmt:message key="amount"/>">
+                               placeholder="<fmt:message key="amount"/>">*
                     </label>
                 </p>
                 <p align="center" style='color:red;' id="incorrect_car_amount"></p>
@@ -206,7 +216,8 @@
                     <label>
                         <input type="text" name="updating_carName"
                                style="width: 30%" id="updating_carName"
-                               maxlength="50" placeholder="<fmt:message key="name"/>">
+                               maxlength="50"
+                               placeholder="<fmt:message key="name"/>">*
                     </label>
                 </p>
                 <p align="center" style='color:red;' id="updating_incorrect_name"></p>
@@ -215,7 +226,8 @@
                     <label>
                         <input type="number" name="updating_carDailyRentalPrice"
                                style="width: 30%" id="updating_carDailyRentalPrice"
-                               maxlength="20" placeholder="<fmt:message key="rental.price"/>">
+                               maxlength="20"
+                               placeholder="<fmt:message key="rental.price"/>">*
                     </label>
                 </p>
                 <p align="center" style='color:red;' id="updating_incorrect_price"></p>

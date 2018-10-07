@@ -30,11 +30,7 @@ public final class UserValidator {
             return true;
         }
         else{
-            LOG.info("User's validation is failed. "
-                    + "Email: " + email.matches(CHECK_EMAIL)
-                    + ", Password: " + (password.length() >= 8) + ". "
-                    + "Email's length: " + email.length() + " (MAX:" + MAX_EMAIL_LENGTH + "), "
-                    + "Password's length: " + password.length() + " (MAX:" + MAX_PASSWORD_LENGTH + ")");
+            LOG.info("User's ("+email+") validation is failed.");
             return false;
         }
     }

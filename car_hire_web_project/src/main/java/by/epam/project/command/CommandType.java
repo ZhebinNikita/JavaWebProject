@@ -2,9 +2,10 @@ package by.epam.project.command;
 
 public enum CommandType {
     LOGIN,
+    LOGOUT,
 
-    REGISTER_USER,
-    UPDATE_USER,
-    DELETE_USER
+    UPDATE_CAR,
+    ADD_CAR,
+    DELETE_CAR
 
 }

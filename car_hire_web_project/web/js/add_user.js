@@ -13,8 +13,25 @@ function setMessage(element, key, url) {
     $.post(url, $.param(params), function (responseText) {
         element.innerHTML = responseText;
     });
-
 }
+function redirectIfEquals(someStr, key, urlReq, urlRedirect) {
+
+    var action = "set_lang_js_message";
+
+    var params = {
+        action: action,
+        lang_key: key
+    };
+
+    $.post(urlReq, $.param(params), function (responseText) {
+
+        if(someStr == responseText) {
+            window.location.href = urlRedirect; // redirect to another page.
+        }
+
+    });
+}
+
 
 function clickLogin() {
 
@@ -23,7 +40,7 @@ function clickLogin() {
     var userEmail = document.getElementById('userEmail');
     var userPass = document.getElementById('userPass');
 
-    var action = "add_user";
+    var action = "LOGIN";
 
     var params = {
         action: action,
@@ -33,7 +50,7 @@ function clickLogin() {
 
 
     /////////////////////  Validation  /////////////////////
-    if(!/@/.test(userEmail.value) && userEmail.value != "" ){
+    if((!/@/.test(userEmail.value) && userEmail.value != "") || / /.test(userEmail.value)) {
         setMessage(incorrect_text_email, "wrong.email", "");
     }
     else if(/@/.test(userEmail.value)){
@@ -44,7 +61,7 @@ function clickLogin() {
     }
 
     // ADD CHECKING EMPTY SPACES
-    if(userPass.value.toString().length < 8 && userPass.value != "" ) {
+    if((userPass.value.toString().length < 8 && userPass.value != "") || / /.test(userEmail.value)) {
         setMessage(incorrect_text_pass, "password.requirements", "");
     }
     else if(userPass.value.toString().length >= 8){
@@ -62,6 +79,10 @@ function clickLogin() {
             animLoginStop();
 
             $("#incorrect_text_email").text(responseText);
+
+            redirectIfEquals(responseText, "user.logged.in", "", "car_list");
+            redirectIfEquals(responseText, "registered", "", "/");
+
             //window.location.href = "car_list"; // redirect to another page.
 
         });

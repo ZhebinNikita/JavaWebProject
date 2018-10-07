@@ -125,6 +125,7 @@ public class CarDao implements EntityDao<Car> {
             statement.setBigDecimal(2, newEntity.getDailyRentalPrice());
             statement.setString(3, newEntity.getCarClass().name());
             statement.setInt(4, newEntity.getRented());
+
             statement.setInt(5, oldEntity.getId());
 
             int res = statement.executeUpdate();
