@@ -36,7 +36,7 @@ public class OrderService implements Service {
     }
 
 
-    public List<Order> getAllOrder() throws ProjectException {
+    public List<Order> takeAllOrders() throws ProjectException {
         List<Order> orders = orderDao.takeAll();
         return orders;
     }

@@ -17,6 +17,10 @@
     <c:set var="userRole" value="${sessionScope.get(role)}"/>
     <title> <fmt:message key="car.list"/> </title>
 
+    <c:set var="carState" value="notRented"/>
+    <c:set var="notRented" value="notRented"/>
+    <c:set var="rented" value="rented"/>
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -26,6 +30,9 @@
 
     <link href="../css/popup_update_car_window.css" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="../js/popup/popup_update_car_window.js"></script>
+
+    <link href="../css/popup_rent_car_window.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript" src="../js/popup/popup_rent_car_window.js"></script>
 
     <script type="text/javascript" src="../js/add_car.js"></script>
     <script type="text/javascript" src="../js/delete_car.js"></script>
@@ -56,10 +63,12 @@ User: ${userEmail} Role: ${userRole}
             <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openAddCarDialog()">
                 <fmt:message key="add.car"/>
             </button>
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                    onclick="${carState = rented} location.href='/car_list'">
                 Rented
             </button>
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="">
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                    onclick="${carState = notRented} location.href='/car_list'">
                 Not Rented
             </button>
         </div>
@@ -69,47 +78,55 @@ User: ${userEmail} Role: ${userRole}
         </div>
 
 
+        <c:if test="${carState == notRented}">
 
-        <c:set var="notRentedCars" value="notRentedCars" />
+            <c:set var="notRentedCars" value="notRentedCars" />
 
+            <c:if test="${not empty requestScope.get(notRentedCars)}">
+                <ul class="w3-ul">
+                    <c:forEach items="${requestScope.get(notRentedCars)}" var="car" >
+                        <li class="w3-hover-sand">
+                            ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
+                            $ --- ${(car.getCarClass()).name()}
+                            <div align="right">
+                                <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                                        onclick="openRentCarDialog()">
+                                    <fmt:message key="rent"/>
+                                </button>
+                                <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                                        onclick="openUpdateCarDialog('${car.getId()}', '${car.getName()}',
+                                                '${car.getDailyRentalPrice()}', '${car.getCarClass()}')">
+                                    <fmt:message key="update"/>
+                                </button>
+                                <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                                        onclick="deleteCar(${car.getId()})">
+                                    <fmt:message key="delete"/>
+                                </button>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </c:if>
 
-        <c:if test="${not empty requestScope.get(notRentedCars)}">
-            <ul class="w3-ul">
-            <c:forEach items="${requestScope.get(notRentedCars)}" var="car" >
-                <li class="w3-hover-sand">
-                        ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
-                    $ --- ${(car.getCarClass()).name()}
-                    <div align="right">
-                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                                onclick="">
-                            <fmt:message key="rent"/>
-                        </button>
-                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                                onclick="openUpdateCarDialog('${car.getId()}', '${car.getName()}',
-                                        '${car.getDailyRentalPrice()}', '${car.getCarClass()}')">
-                            <fmt:message key="update"/>
-                        </button>
-                        <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                                onclick="deleteCar(${car.getId()})">
-                            <fmt:message key="delete"/>
-                        </button>
-                    </div>
-                </li>
-            </c:forEach>
-            </ul>
-        </c:if>
-
-        <c:if test="${empty requestScope.get(notRentedCars)}">
-            <div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">
+            <c:if test="${empty requestScope.get(notRentedCars)}">
+                <div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">
                 <span onclick="this.parentElement.style.display='none'"
                       class="w3-button w3-margin-right w3-display-right
                       w3-round-large w3-hover-red w3-border w3-border-red
                       w3-hover-border-grey">×
                 </span>
-                <h5><fmt:message key="list.is.empty"/></h5>
-            </div>
+                    <h5><fmt:message key="list.is.empty"/></h5>
+                </div>
+            </c:if>
+
         </c:if>
 
+
+        <c:if test="${carState == rented}">
+
+
+
+        </c:if>
 
 
         <!-- ----------- Add Car Popup Window ----------- -->
@@ -271,6 +288,63 @@ User: ${userEmail} Role: ${userRole}
             </div>
         </div>
         <!-- ----------- Update Car Popup Window ----------- -->
+
+
+
+        <!-- ----------- Rent Car Popup Window ----------- -->
+        <div id="rent-car-dialog-overlay"></div>
+        <div id="rent-car-dialog-box">
+            <a class="rent-car-btn-close" onclick="closeRentCarDialog()">X</a>
+            <div class="rent-car-dialog-content">
+                <!--------------------------------->
+                <p align="center">
+                    <span style="color: #333333; font-size: 22px; font-weight: 700;">
+                        <fmt:message key="rent.car"/>
+                    </span>
+                </p>
+
+
+                <p align="center">
+                    <label>
+                        <input type="date" name="receiving_date"
+                               style="width: 30%" id="receiving_date"
+                               placeholder="receiving_date">*
+                    </label>
+                </p>
+                <p align="center" style='color:red;' id="incorrect_receiving_date"></p>
+
+
+                <p align="center">
+                    <label>
+                        <input type="date" name="return_date"
+                               style="width: 30%" id="return_date"
+                               placeholder="return_date">*
+                    </label>
+                </p>
+                <p align="center" style='color:red;' id="incorrect_return_date"></p>
+
+
+                <p align="center">
+                    <button name="rent_car_btn" class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                            id="rent_car_btn"
+                            onclick="">
+                        <fmt:message key="rent.car"/>
+                    </button>
+                </p>
+
+                <div id="rent_car_loading" hidden>
+                    <p align="center">
+                        <img src="http://i.stack.imgur.com/FhHRx.gif" />
+                        <fmt:message key="pls.wait"/>
+                    </p>
+                </div>
+
+
+                <!--------------------------------->
+            </div>
+        </div>
+        <!-- ----------- Rent Car Popup Window ----------- -->
+
 
 
     </div>

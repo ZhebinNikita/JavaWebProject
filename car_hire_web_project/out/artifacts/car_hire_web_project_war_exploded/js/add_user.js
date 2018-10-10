@@ -50,6 +50,7 @@ function clickLogin() {
 
 
     /////////////////////  Validation  /////////////////////
+
     if((!/@/.test(userEmail.value) && userEmail.value != "") || / /.test(userEmail.value)) {
         setMessage(incorrect_text_email, "wrong.email", "");
     }
@@ -57,17 +58,19 @@ function clickLogin() {
         incorrect_text_email.innerHTML = " ";
     }
     else{
+        incorrect_text_email.innerHTML = "";
         setMessage(incorrect_text_email, "required.field", "");
     }
 
     // ADD CHECKING EMPTY SPACES
-    if((userPass.value.toString().length < 8 && userPass.value != "") || / /.test(userEmail.value)) {
+    if((userPass.value.toString().length < 8 && userPass.value != "") || / /.test(userPass.value)) {
         setMessage(incorrect_text_pass, "password.requirements", "");
     }
     else if(userPass.value.toString().length >= 8){
         incorrect_text_pass.innerHTML = " ";
     }
     else{
+        incorrect_text_pass.innerHTML = "";
         setMessage(incorrect_text_pass, "required.field", "");
     }
     /////////////////////  Validation  /////////////////////
@@ -81,7 +84,7 @@ function clickLogin() {
             $("#incorrect_text_email").text(responseText);
 
             redirectIfEquals(responseText, "user.logged.in", "", "car_list");
-            redirectIfEquals(responseText, "registered", "", "/");
+            redirectIfEquals(responseText, "registered", "", "/ ");
 
             //window.location.href = "car_list"; // redirect to another page.
 

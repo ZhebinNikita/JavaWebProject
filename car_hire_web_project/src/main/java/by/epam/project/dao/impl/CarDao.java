@@ -195,7 +195,7 @@ public class CarDao implements EntityDao<Car> {
     }
 
 
-    public List<Car> getNotRentedCars() throws ProjectException {
+    public List<Car> takeNotRentedCars() throws ProjectException {
 
         List<Car> notRentedCars = new ArrayList<>();
 
@@ -237,7 +237,7 @@ public class CarDao implements EntityDao<Car> {
     }
 
 
-    public List<Car> getRentedCars() throws ProjectException {
+    public List<Car> takeRentedCars() throws ProjectException {
 
         List<Car> notRentedCars = new ArrayList<>();
 

@@ -1,11 +1,9 @@
 package by.epam.project.command;
 
-import by.epam.project.command.car.AddCarCommand;
-import by.epam.project.command.car.DeleteCarCommand;
-import by.epam.project.command.car.UpdateCarCommand;
+import by.epam.project.command.car.*;
+import by.epam.project.command.order.TakeAllOrdersCommand;
 import by.epam.project.command.user.LoginCommand;
 import by.epam.project.command.user.LogoutCommand;
-import by.epam.project.command.user.RegisterUserCommand;
 
 import java.util.EnumMap;
 
@@ -19,6 +17,10 @@ public class CommandMap {
             this.put(CommandType.UPDATE_CAR, new UpdateCarCommand());
             this.put(CommandType.ADD_CAR, new AddCarCommand());
             this.put(CommandType.DELETE_CAR, new DeleteCarCommand());
+            this.put(CommandType.TAKE_NOT_RENTED_CARS, new TakeNRCarsCommand());
+            this.put(CommandType.TAKE_RENTED_CARS, new TakeRCarsCommand());
+
+            this.put(CommandType.TAKE_ALL_ORDERS, new TakeAllOrdersCommand());
         }
     };
 

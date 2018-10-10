@@ -1,6 +1,0 @@
-2018-09-30 17:47:27.449 [http-nio-8080-exec-1] [ERROR] (Controller.java:45) - java.lang.NullPointerException
-2018-09-30 17:47:32.531 [http-nio-8080-exec-2] [ERROR] (Controller.java:45) - java.lang.NullPointerException
-2018-09-30 17:47:43.630 [http-nio-8080-exec-3] [ERROR] (Controller.java:45) - java.lang.NullPointerException
-2018-09-30 18:25:07.114 [http-nio-8080-exec-1] [ERROR] (Controller.java:45) - java.lang.NullPointerException
-2018-09-30 18:25:10.410 [http-nio-8080-exec-2] [ERROR] (Controller.java:45) - java.lang.NullPointerException
-2018-09-30 18:25:20.723 [http-nio-8080-exec-3] [ERROR] (Controller.java:45) - java.lang.NullPointerException

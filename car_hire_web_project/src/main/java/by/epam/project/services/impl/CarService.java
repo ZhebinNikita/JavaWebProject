@@ -43,14 +43,14 @@ public class CarService implements Service {
     }
 
 
-    public List<Car> getNotRentedCars() throws ProjectException {
-        List<Car> notRentedCars = carDao.getNotRentedCars();
+    public List<Car> takeNotRentedCars() throws ProjectException {
+        List<Car> notRentedCars = carDao.takeNotRentedCars();
         return notRentedCars;
     }
 
 
-    public List<Car> getRentedCars() throws ProjectException {
-        List<Car> rentedCars = carDao.getRentedCars();
+    public List<Car> takeRentedCars() throws ProjectException {
+        List<Car> rentedCars = carDao.takeRentedCars();
         return rentedCars;
     }
 

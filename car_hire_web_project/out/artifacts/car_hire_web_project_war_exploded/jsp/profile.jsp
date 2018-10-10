@@ -24,15 +24,16 @@
     <script type="text/javascript" src="../js/logout.js"></script>
 
 </head>
-
 <body class="w3-light-grey">
 User: ${userEmail} Role: ${userRole}
+
+
 <button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom w3-right-align" onclick="logout()">
     <fmt:message key="log.out"/>
 </button>
 
 
-<div class="w3-container w3-blue-grey w3-opacity w3-right-align">
+<div class="w3-container w3-blue-grey w3-opacity">
 
     <form>
         <select id="language" name="language" onchange="submit()">
@@ -48,7 +49,10 @@ User: ${userEmail} Role: ${userRole}
 
 <div class="w3-container w3-center">
 
+This is my profile................................
 
+    User: ${userEmail};
+    Role: ${userRole};
 
 </div>
 

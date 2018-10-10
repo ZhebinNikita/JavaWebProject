@@ -5,15 +5,12 @@ import by.epam.project.command.Command;
 import by.epam.project.command.CommandMap;
 import by.epam.project.command.CommandType;
 import by.epam.project.command.user.LoginCommand;
-import by.epam.project.command.user.RegisterUserCommand;
 import by.epam.project.dao.impl.CarDao;
 import by.epam.project.dao.impl.OrderDao;
 import by.epam.project.model.entity.Car;
 import by.epam.project.model.entity.Order;
-import by.epam.project.model.entity.User;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.language.LangResourceManager;
-import by.epam.project.model.CarClass;
 import by.epam.project.pool.ConnectionPool;
 import by.epam.project.pool.ConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
@@ -27,11 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 
-import static by.epam.project.command.CommandType.UPDATE_CAR;
+import static by.epam.project.command.CommandType.*;
 
 
 @WebServlet(name = "Controller", urlPatterns = {"", "/car_list", "/orders", "/profile", "/somewrongpage"}) //!!!
@@ -43,54 +39,16 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession(true);
-        String requestURI = req.getRequestURI();
 
+        setSessionLanguage(req);
 
-        setSessionLanguage(req, session);
-        setSessionRole(session);
+        setSessionRole(req);
 
-
-        RequestDispatcher requestDispatcher;
-
-        // Set JSP file to URL address
-        switch (requestURI) {
-            case "/":
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_MAIN);
-                requestDispatcher.forward(req, resp);
-                break;
-            case "/car_list":
-                try {
-                    CarDao carDao = new CarDao();
-                    List<Car> notRentedCars = carDao.getNotRentedCars();
-                    req.setAttribute("notRentedCars", notRentedCars);
-                } catch (ProjectException e) {
-                    LOG.error(e);
-                }
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_CAR_LIST);
-                requestDispatcher.forward(req, resp);
-                break;
-            case "/orders":
-                try {
-                    OrderDao orderDao = new OrderDao();
-                    List<Order> orders = orderDao.takeAll();
-                    req.setAttribute("orders", orders);
-                } catch (ProjectException e) {
-                    LOG.error(e);
-                }
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ORDERS);
-                requestDispatcher.forward(req, resp);
-                break;
-            case "/profile":
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_PROFILE);
-                requestDispatcher.forward(req, resp);
-                break;
-            default:
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ERROR);
-                requestDispatcher.forward(req, resp);
-                break;
+        try {
+            forwardPage(req, resp);
+        } catch (ProjectException e) {
+            LOG.error(e);
         }
-
 
     }
 
@@ -98,15 +56,11 @@ public class Controller extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession(true);
-
         boolean isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
 
         LangResourceManager langManager = LangResourceManager.INSTANCE;
 
-
         if(isAjax) {
-
             String action = req.getParameter("action");
 
             try {
@@ -114,55 +68,8 @@ public class Controller extends HttpServlet {
                 if (action.equals("set_lang_js_message")) {
                     resp.getWriter().write(langManager.getString(req.getParameter("lang_key")));
                 }
-                else if (action.equals(CommandType.LOGIN.toString())) {
-
-                    Command loginCommand = CommandMap.getInstance().get(CommandType.LOGIN);
-                    loginCommand.execute(req);
-                    String message = ((LoginCommand) loginCommand).getMessage();
-                    resp.getWriter().write(message);
-
-                } else if (action.equals(CommandType.DELETE_CAR.toString())) {
-
-                    Command deleteCarCommand = CommandMap.getInstance().get(CommandType.DELETE_CAR);
-                    if (deleteCarCommand.execute(req)) {
-                        resp.getWriter().write(langManager.getString("data.deleted"));
-                    } else {
-                        resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                    }
-
-                } else if (action.equals(CommandType.ADD_CAR.toString())) {
-
-                    Command addCarCommand = CommandMap.getInstance().get(CommandType.ADD_CAR);
-
-                    if (addCarCommand.execute(req)) {
-                        resp.getWriter().write("Data added!");
-                    }
-                    else{
-                        resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                    }
-
-
-                } else if (action.equals(CommandType.UPDATE_CAR.toString())) {
-
-                    Command updateCarCommand = CommandMap.getInstance().get(CommandType.UPDATE_CAR);
-
-                    if (updateCarCommand.execute(req)) {
-                        resp.getWriter().write(langManager.getString("data.updated"));
-                    } else {
-                        LOG.info("Something went wrong with updating car");
-                        resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                    }
-
-                } else if(action.equals(CommandType.LOGOUT.toString())){
-
-                    Command logoutCommand = CommandMap.getInstance().get(CommandType.LOGOUT);
-
-                    if(logoutCommand.execute(req)) {
-                        // redirect ro another page (MAIN PAGE)
-                    }
-                    else {
-                        resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                    }
+                else{
+                    processAction(action, req, resp);
                 }
 
             }
@@ -170,7 +77,6 @@ public class Controller extends HttpServlet {
                 LOG.error(e);
                 resp.getWriter().write(langManager.getString("smth.went.wrong"));
             }
-
         }
 
     }
@@ -202,7 +108,50 @@ public class Controller extends HttpServlet {
     }
 
 
-    private void setSessionLanguage(HttpServletRequest req, HttpSession session){
+    private void forwardPage(HttpServletRequest req, HttpServletResponse resp)
+            throws ProjectException, IOException, ServletException {
+
+        String requestURI = req.getRequestURI();
+        RequestDispatcher requestDispatcher;
+
+        Command command;
+
+        // Set JSP file to URL address
+        switch (requestURI) {
+            case "/":
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_MAIN);
+                requestDispatcher.forward(req, resp);
+                break;
+            case "/car_list":
+                command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
+                command.execute(req);
+
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_CAR_LIST);
+                requestDispatcher.forward(req, resp);
+                break;
+            case "/orders":
+                command = CommandMap.getInstance().get(TAKE_ALL_ORDERS);
+                command.execute(req);
+
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ORDERS);
+                requestDispatcher.forward(req, resp);
+                break;
+            case "/profile":
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_PROFILE);
+                requestDispatcher.forward(req, resp);
+                break;
+            default:
+                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ERROR);
+                requestDispatcher.forward(req, resp);
+                break;
+        }
+
+    }
+
+
+    private void setSessionLanguage(HttpServletRequest req) {
+
+        HttpSession session = req.getSession(true);
 
         LangResourceManager langManager = LangResourceManager.INSTANCE;
 
@@ -244,7 +193,9 @@ public class Controller extends HttpServlet {
     }
 
 
-    private void setSessionRole(HttpSession session){
+    private void setSessionRole(HttpServletRequest req) {
+
+        HttpSession session = req.getSession(true);
 
         if (session.getAttribute("role") == null) {
             session.setAttribute("role", "user");
@@ -253,14 +204,59 @@ public class Controller extends HttpServlet {
     }
 
 
-    private void processAction(String action){
+    private void processAction(String action, HttpServletRequest req, HttpServletResponse resp)
+            throws ProjectException, IOException {
 
-        switch (action){
+        LangResourceManager langManager = LangResourceManager.INSTANCE;
 
-            case "set_lang_js_message":
+        Command command;
 
+        LOG.info("Action - " + CommandType.valueOf(action) + ";");
+
+        switch (CommandType.valueOf(action)){
+
+            case LOGIN:
+                command = CommandMap.getInstance().get(LOGIN);
+                command.execute(req);
+                String message = ((LoginCommand) command).getMessage();
+                resp.getWriter().write(message);
                 break;
 
+            case LOGOUT:
+                command = CommandMap.getInstance().get(LOGOUT);
+                if(!command.execute(req)) {
+                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
+                }
+                break;
+
+            case UPDATE_CAR:
+                command = CommandMap.getInstance().get(UPDATE_CAR);
+                if (command.execute(req)) {
+                    resp.getWriter().write(langManager.getString("data.updated"));
+                } else {
+                    LOG.info("Something went wrong with updating car");
+                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
+                }
+                break;
+
+            case ADD_CAR:
+                command = CommandMap.getInstance().get(ADD_CAR);
+                if (command.execute(req)) {
+                    resp.getWriter().write("Data added!");
+                }
+                else{
+                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
+                }
+                break;
+
+            case DELETE_CAR:
+                command = CommandMap.getInstance().get(DELETE_CAR);
+                if (command.execute(req)) {
+                    resp.getWriter().write(langManager.getString("data.deleted"));
+                } else {
+                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
+                }
+                break;
 
         }
 
