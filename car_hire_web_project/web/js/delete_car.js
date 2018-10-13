@@ -9,7 +9,13 @@ function deleteCar(id) {
     };
 
     $.post("/car_list", $.param(params), function(responseText) {
-        window.location.href = "car_list"; // redirect to another page.
+
+        if (responseText == "ERROR") {
+            window.location.href = "error_page";
+        }
+        else {
+            window.location.href = "car_list"; // redirect to another page.
+        }
     });
 
 }

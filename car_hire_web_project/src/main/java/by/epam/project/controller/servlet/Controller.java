@@ -1,18 +1,14 @@
 package by.epam.project.controller.servlet;
 
-import by.epam.project.PageConstant;
+import by.epam.project.constant.PagePathConstant;
 import by.epam.project.command.Command;
 import by.epam.project.command.CommandMap;
 import by.epam.project.command.CommandType;
-import by.epam.project.command.user.LoginCommand;
-import by.epam.project.dao.impl.CarDao;
-import by.epam.project.dao.impl.OrderDao;
-import by.epam.project.model.entity.Car;
-import by.epam.project.model.entity.Order;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.language.LangResourceManager;
-import by.epam.project.pool.ConnectionPool;
-import by.epam.project.pool.ConnectionPoolException;
+import by.epam.project.database.pool.ConnectionPool;
+import by.epam.project.database.pool.ConnectionPoolException;
+import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,30 +20,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 import static by.epam.project.command.CommandType.*;
 
 
-@WebServlet(name = "Controller", urlPatterns = {"", "/car_list", "/orders", "/profile", "/somewrongpage"}) //!!!
+@WebServlet(name = "Controller", urlPatterns = {"", "/car_list", "/orders", "/profile", "/error_page"}) //!!!
 public class Controller extends HttpServlet {
 
+    private static final String ERROR_AJAX_RESPONSE_TEXT = "ERROR";
     private final static Logger LOG = LogManager.getRootLogger();
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         setSessionLanguage(req);
 
         setSessionRole(req);
 
         try {
-            forwardPage(req, resp);
+            processRequest(req, resp);
         } catch (ProjectException e) {
             LOG.error(e);
+            //;;;; redirect to error page
         }
 
     }
@@ -56,37 +52,13 @@ public class Controller extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        boolean isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
-
-        LangResourceManager langManager = LangResourceManager.INSTANCE;
-
-        if(isAjax) {
-            String action = req.getParameter("action");
-
-            try {
-
-                if (action.equals("set_lang_js_message")) {
-                    resp.getWriter().write(langManager.getString(req.getParameter("lang_key")));
-                }
-                else{
-                    processAction(action, req, resp);
-                }
-
-            }
-            catch (ProjectException e){
-                LOG.error(e);
-                resp.getWriter().write(langManager.getString("smth.went.wrong"));
-            }
-        }
+        processAjaxRequest(req, resp);
 
     }
 
 
-
     @Override
     public void init() throws ServletException {
-        super.init();
-
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connectionPool.initPoolData();
@@ -101,49 +73,78 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        super.destroy();
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        connectionPool.dispose();
+        AbandonedConnectionCleanupThread.checkedShutdown();
+        ConnectionPool.getInstance().dispose();
         LOG.info("Connection Pool is destroyed!");
     }
 
 
-    private void forwardPage(HttpServletRequest req, HttpServletResponse resp)
+
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ProjectException, IOException, ServletException {
 
-        String requestURI = req.getRequestURI();
+        String pageURI = req.getRequestURI();
         RequestDispatcher requestDispatcher;
 
         Command command;
 
         // Set JSP file to URL address
-        switch (requestURI) {
+        switch (pageURI) {
+
             case "/":
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_MAIN);
-                requestDispatcher.forward(req, resp);
+                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_MAIN);
                 break;
+
+            case "/profile":
+                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_PROFILE);
+                break;
+
+            case "/error_page":
+                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_ERROR);
+                break;
+
             case "/car_list":
                 command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
-                command.execute(req);
+                command.execute(req, resp);
 
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_CAR_LIST);
-                requestDispatcher.forward(req, resp);
+                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_CAR_LIST);
                 break;
+
             case "/orders":
                 command = CommandMap.getInstance().get(TAKE_ALL_ORDERS);
-                command.execute(req);
+                command.execute(req, resp);
 
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ORDERS);
-                requestDispatcher.forward(req, resp);
+                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_ORDERS);
                 break;
-            case "/profile":
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_PROFILE);
-                requestDispatcher.forward(req, resp);
-                break;
+
             default:
-                requestDispatcher = req.getRequestDispatcher(PageConstant.PAGE_ERROR);
-                requestDispatcher.forward(req, resp);
+                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_ERROR);
                 break;
+        }
+
+        requestDispatcher.forward(req, resp);
+
+    }
+
+
+    private void processAjaxRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        boolean isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
+
+        if (isAjax) {
+
+            String action = req.getParameter("action");
+
+            LOG.info("Action - " + CommandType.valueOf(action) + ";");
+
+            Command command = CommandMap.getInstance().get(CommandType.valueOf(action));
+
+            try {
+                command.execute(req, resp);
+            } catch (ProjectException e) {
+                LOG.error("ProcessRequest error.", e);
+                resp.getWriter().write(ERROR_AJAX_RESPONSE_TEXT); // Ajax responseText
+            }
         }
 
     }
@@ -204,63 +205,6 @@ public class Controller extends HttpServlet {
     }
 
 
-    private void processAction(String action, HttpServletRequest req, HttpServletResponse resp)
-            throws ProjectException, IOException {
-
-        LangResourceManager langManager = LangResourceManager.INSTANCE;
-
-        Command command;
-
-        LOG.info("Action - " + CommandType.valueOf(action) + ";");
-
-        switch (CommandType.valueOf(action)){
-
-            case LOGIN:
-                command = CommandMap.getInstance().get(LOGIN);
-                command.execute(req);
-                String message = ((LoginCommand) command).getMessage();
-                resp.getWriter().write(message);
-                break;
-
-            case LOGOUT:
-                command = CommandMap.getInstance().get(LOGOUT);
-                if(!command.execute(req)) {
-                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                }
-                break;
-
-            case UPDATE_CAR:
-                command = CommandMap.getInstance().get(UPDATE_CAR);
-                if (command.execute(req)) {
-                    resp.getWriter().write(langManager.getString("data.updated"));
-                } else {
-                    LOG.info("Something went wrong with updating car");
-                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                }
-                break;
-
-            case ADD_CAR:
-                command = CommandMap.getInstance().get(ADD_CAR);
-                if (command.execute(req)) {
-                    resp.getWriter().write("Data added!");
-                }
-                else{
-                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                }
-                break;
-
-            case DELETE_CAR:
-                command = CommandMap.getInstance().get(DELETE_CAR);
-                if (command.execute(req)) {
-                    resp.getWriter().write(langManager.getString("data.deleted"));
-                } else {
-                    resp.getWriter().write(langManager.getString("smth.went.wrong"));
-                }
-                break;
-
-        }
-
-    }
 
 
 }

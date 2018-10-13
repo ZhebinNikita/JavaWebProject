@@ -4,7 +4,8 @@
     <Appenders>
 
         <File name="File" fileName="C:\IdeaProjects\car_hire_web_project\logs\logging.log">
-            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] [%-5p] (%F:%L) - %m%n"/>
+            <PatternLayout pattern="%c %d [%t] [%p] (%F:%L) - %m%n"/>
+            <!-- %d{yyy-MM-dd HH:mm:ss.SSS} [%t] [%-5p] (%F:%L) - %m%n -->
             <Filters>
                 <ThresholdFilter level="fatal"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="error"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
@@ -15,7 +16,7 @@
         </File>
 
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5p] (%F:%L) - %m%n"/>
+            <PatternLayout pattern="%c %d [%t] [%p] (%F:%L) - %m%n"/>
             <Filters>
                 <ThresholdFilter level="fatal"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="error"  onMatch="ACCEPT" onMismatch="NEUTRAL"/>

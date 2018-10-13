@@ -15,6 +15,8 @@
     <c:set var="userEmail" value="${sessionScope.get(email)}"/>
     <c:set var="role" value="role"/>
     <c:set var="userRole" value="${sessionScope.get(role)}"/>
+    <c:set var="balance" value="balance"/>
+    <c:set var="accountBalance" value="${sessionScope.get(balance)}"/>
     <title> <fmt:message key="car.list"/> </title>
 
     <c:set var="carState" value="notRented"/>
@@ -37,13 +39,18 @@
     <script type="text/javascript" src="../js/add_car.js"></script>
     <script type="text/javascript" src="../js/delete_car.js"></script>
     <script type="text/javascript" src="../js/update_car.js"></script>
+    <script type="text/javascript" src="../js/rent_car.js"></script>
 
 </head>
 
 <body class="w3-light-grey">
 User: ${userEmail} Role: ${userRole}
 
-<div class="w3-container w3-blue-grey w3-opacity w3-right-align">
+<span>
+    <fmt:message key="balance"/> ${accountBalance}$
+</span>
+
+<div class="w3-container w3-blue-grey w3-opacity">
 
     <form>
         <select id="language" name="language" onchange="submit()">
@@ -60,15 +67,16 @@ User: ${userEmail} Role: ${userRole}
     <div class="w3-card-4">
 
         <div align="right">
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openAddCarDialog()">
+            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                    onclick="openAddCarDialog()">
                 <fmt:message key="add.car"/>
             </button>
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                    onclick="${carState = rented} location.href='/car_list'">
+            <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                    onclick="">
                 Rented
             </button>
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                    onclick="${carState = notRented} location.href='/car_list'">
+            <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                    onclick="">
                 Not Rented
             </button>
         </div>
@@ -90,7 +98,7 @@ User: ${userEmail} Role: ${userRole}
                             $ --- ${(car.getCarClass()).name()}
                             <div align="right">
                                 <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                                        onclick="openRentCarDialog()">
+                                        onclick="openRentCarDialog('${car.getId()}', '${car.getDailyRentalPrice()}')">
                                     <fmt:message key="rent"/>
                                 </button>
                                 <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
@@ -166,16 +174,16 @@ User: ${userEmail} Role: ${userRole}
                 <p align="center">
                     <span>
                         <select id="adding_car_class_selection">
-                            <option>Mini</option>
-                            <option>Economy</option>
-                            <option>Compact</option>
-                            <option>Average</option>
-                            <option>Standart</option>
-                            <option>Family</option>
-                            <option>Special</option>
-                            <option>Premium</option>
-                            <option>Lux</option>
-                            <option>LargeSize</option>
+                            <option>MINI</option>
+                            <option>ECONOMY</option>
+                            <option>COMPACT</option>
+                            <option>AVERAGE</option>
+                            <option>STANDART</option>
+                            <option>FAMILY</option>
+                            <option>SPECIAL</option>
+                            <option>PREMIUM</option>
+                            <option>LUX</option>
+                            <option>LARGESIZE</option>
                         </select>
                     </span>
                 </p>
@@ -253,16 +261,16 @@ User: ${userEmail} Role: ${userRole}
                 <p align="center">
                     <span>
                         <select id="updating_car_class_selection">
-                            <option>Mini</option>
-                            <option>Economy</option>
-                            <option>Compact</option>
-                            <option>Average</option>
-                            <option>Standart</option>
-                            <option>Family</option>
-                            <option>Special</option>
-                            <option>Premium</option>
-                            <option>Lux</option>
-                            <option>LargeSize</option>
+                            <option>MINI</option>
+                            <option>ECONOMY</option>
+                            <option>COMPACT</option>
+                            <option>AVERAGE</option>
+                            <option>STANDART</option>
+                            <option>FAMILY</option>
+                            <option>SPECIAL</option>
+                            <option>PREMIUM</option>
+                            <option>LUX</option>
+                            <option>LARGESIZE</option>
                         </select>
                     </span>
                 </p>
@@ -305,30 +313,92 @@ User: ${userEmail} Role: ${userRole}
 
 
                 <p align="center">
+                    <fmt:message key="receiving.date"/>:
+                </p>
+
+                <p align="center">*
                     <label>
-                        <input type="date" name="receiving_date"
+                        <input type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+                               name="receiving_date"
                                style="width: 30%" id="receiving_date"
-                               placeholder="receiving_date">*
+                               placeholder="YYYY-MM-DD">*
                     </label>
                 </p>
                 <p align="center" style='color:red;' id="incorrect_receiving_date"></p>
 
 
                 <p align="center">
+                    <fmt:message key="return.date"/>:
+                </p>
+
+                <p align="center">*
                     <label>
-                        <input type="date" name="return_date"
+                        <input type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+                               name="return_date"
                                style="width: 30%" id="return_date"
-                               placeholder="return_date">*
+                               placeholder="YYYY-MM-DD">*
                     </label>
                 </p>
                 <p align="center" style='color:red;' id="incorrect_return_date"></p>
 
 
                 <p align="center">
+                    <fmt:message key="passport.data"/>
+                </p>
+
+                <p align="center">*
+                    <label>
+                        <input type="text" name="renter_name"
+                               style="width: 30%" id="renter_name"
+                               maxlength="45"
+                               placeholder="<fmt:message key="renter.name"/>">*
+                    </label>
+                </p>
+                <p align="center" style='color:red;' id="incorrect_renter_name"></p>
+
+
+                <p align="center">*
+                    <label>
+                        <input type="text" name="renter_surname"
+                               style="width: 30%" id="renter_surname"
+                               maxlength="45"
+                               placeholder="<fmt:message key="renter.surname"/>">*
+                    </label>
+                </p>
+                <p align="center" style='color:red;' id="incorrect_renter_surname"></p>
+
+
+                <p align="center">
+                    <fmt:message key="renter.birthday"/>
+                </p>
+
+                <p align="center">*
+                    <label>
+                        <input type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+                               name="renter_birthday"
+                               style="width: 30%" id="renter_birthday"
+                               placeholder="YYYY-MM-DD">*
+                    </label>
+                </p>
+                <p align="center" style='color:red;' id="incorrect_renter_birthday"></p>
+
+
+                <p align="center">*
+                    <label>
+                        <input type="text" name="renter_id_number"
+                               style="width: 30%" id="renter_id_number"
+                               maxlength="45"
+                               placeholder="<fmt:message key="renter.id.number"/>">*
+                    </label>
+                </p>
+                <p align="center" style='color:red;' id="incorrect_renter_id_number"></p>
+
+
+                <p align="center">
                     <button name="rent_car_btn" class="w3-btn w3-green w3-round-large w3-margin-bottom"
                             id="rent_car_btn"
-                            onclick="">
-                        <fmt:message key="rent.car"/>
+                            onclick="rentCar('${userEmail}', 0)"> <!-- 0 - Ad Service Price -->
+                        <fmt:message key="send.request"/>
                     </button>
                 </p>
 

@@ -9,7 +9,11 @@ function logout() {
 
     $.post("", $.param(params), function (responseText) {
 
-        window.location.href = "/ "; // redirect to another page.
-
+        if (responseText == "ERROR") {
+            window.location.href = "error_page";
+        }
+        else {
+            window.location.href = "/ "; // redirect to another page.
+        }
     });
 }

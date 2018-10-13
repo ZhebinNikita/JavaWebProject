@@ -19,7 +19,16 @@ $(document).ready(function () {
 });
 
 
-function openRentCarDialog() {
+var rentingCarId;
+var rentingRentalPriceForDay;
+
+
+function openRentCarDialog(carId, rentalPriceForDay) {
+
+
+    rentingCarId = carId;
+    rentingRentalPriceForDay = rentalPriceForDay;
+
 
     $('#rent-car-dialog-overlay').show();
     $('#rent-car-dialog-box').show();

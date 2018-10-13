@@ -3,7 +3,7 @@ function animAddCarStop() { $('#add_car_loading').hide(); }
 
 function setMessage(element, key, url) {
 
-    var action = "set_lang_js_message";
+    var action = "SET_LANG_JS_MESSAGE";
 
     var params = {
         action: action,
@@ -11,9 +11,13 @@ function setMessage(element, key, url) {
     };
 
     $.post(url, $.param(params), function (responseText) {
-        element.innerHTML = responseText;
+        if (responseText == "ERROR") {
+            window.location.href = "error_page";
+        }
+        else {
+            element.innerHTML = responseText;
+        }
     });
-
 }
 
 function addCar() {
@@ -38,14 +42,14 @@ function addCar() {
 
 
     if(carName.value != ""){
-        incorrect_name.innerHTML = "";
+        incorrect_name.innerHTML = " ";
     }
     else{
         setMessage(incorrect_name, "required.field", "");
     }
 
     if(carDailyRentalPrice.value != "" && carDailyRentalPrice.value > 0){
-        incorrect_price.innerHTML = "";
+        incorrect_price.innerHTML = " ";
     }
     else{
         setMessage(incorrect_price, "required.field", "");
@@ -53,23 +57,24 @@ function addCar() {
 
     if(amount_cars.value != "" && !/-/.test(amount_cars.value)
         && amount_cars.value > 0 && amount_cars.value <= 100){
-        incorrect_amount.innerHTML = "";
+        incorrect_amount.innerHTML = " ";
     }
     else{
         setMessage(incorrect_amount, "range.adding.cars", "");
     }
 
 
-    if(incorrect_name.innerHTML == "" && incorrect_price.innerHTML == "" && incorrect_amount.innerHTML == ""){
+    if(incorrect_name.innerHTML == " " && incorrect_price.innerHTML == " " && incorrect_amount.innerHTML == " "){
         animAddCarStart();
         $.post("/car_list", $.param(params), function(responseText) {
             animAddCarStop();
-            if(responseText == "Car added!"){
-                $("#incorrect_car_name").text(responseText);
-                window.location.href = "car_list"; // redirect to another page.
+
+            if (responseText == "ERROR") {
+                window.location.href = "error_page";
             }
-            else{
+            else {
                 $("#incorrect_car_name").text(responseText);
+                window.location.href = "car_list";
             }
         });
     }

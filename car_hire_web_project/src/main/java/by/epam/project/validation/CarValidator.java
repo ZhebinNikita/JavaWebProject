@@ -1,6 +1,6 @@
 package by.epam.project.validation;
 
-import by.epam.project.model.entity.Car;
+import by.epam.project.entity.Car;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

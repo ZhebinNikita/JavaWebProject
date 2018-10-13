@@ -96,9 +96,21 @@ a.rent-car-btn-close:hover {
 
 /* Rent Car Window's elements */
 
-#renting_carName{
+#receiving_date{
     width: 60% !important;
 }
-#renting_carDailyRentalPrice{
+#return_date{
+    width: 60% !important;
+}
+#renter_name{
+    width: 60% !important;
+}
+#renter_surname{
+    width: 60% !important;
+}
+#renter_birthday{
+    width: 60% !important;
+}
+#renter_id_number{
     width: 60% !important;
 }

@@ -23,9 +23,13 @@ function updateCar(id) {
     $.post("/car_list", $.param(params), function (responseText) {
         animUpdateCarStop();
 
-        $("#updating_incorrect_name").text(responseText);
-        window.location.href = "car_list"; // redirect to another page.
-
+        if (responseText == "ERROR") {
+            window.location.href = "error_page";
+        }
+        else {
+            $("#updating_incorrect_name").text(responseText);
+            window.location.href = "car_list";
+        }
     });
 
 }

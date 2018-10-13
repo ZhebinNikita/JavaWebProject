@@ -19,11 +19,13 @@
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+    <script type="text/javascript" src="../js/accept_order.js"></script>
+
 </head>
 <body class="w3-light-grey">
 User: ${userEmail} Role: ${userRole}
 
-<div class="w3-container w3-blue-grey w3-opacity w3-right-align">
+<div class="w3-container w3-blue-grey w3-opacity">
 
     <form>
         <select id="language" name="language" onchange="submit()">
@@ -32,7 +34,7 @@ User: ${userEmail} Role: ${userRole}
         </select>
     </form>
 
-    <h1> <fmt:message key="car.list"/> </h1>
+    <h1> <fmt:message key="orders"/> </h1>
 
 </div>
 
@@ -40,11 +42,11 @@ User: ${userEmail} Role: ${userRole}
     <div class="w3-card-4">
 
         <div align="right">
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+            <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
                     onclick="location.href='/orders'">
                 <fmt:message key="applications"/>
             </button>
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+            <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
                     onclick="location.href='/orders'">
                 <fmt:message key="registered.orders"/>
             </button>
@@ -58,20 +60,30 @@ User: ${userEmail} Role: ${userRole}
 
 
         <c:set var="orders" value="orders" />
-
-
         <c:if test="${not empty requestScope.get(orders)}">
             <ul class="w3-ul">
                 <c:forEach items="${requestScope.get(orders)}" var="order" >
                     <li class="w3-hover-sand">
-                        ID ${order.getId()} --- ${order.getUserName()} --- Car ID: ${order.getCarId()} ---
-                        Receiving Date: --- ${(order.getReceivingDate())} --- Return Date: ${order.getReturnDate()}
-                        --- Rental Price: ${order.getRentalPrice()} USD --- AdService Price: ${order.getAdServicePrice()}
-                        --- Order is paid: ${order.getOrderIsPaid()}
-                        --- Ad Info: ${order.getAdInfo()}
+                        <div>
+                            <div>ID ${order.getId()}: ${order.getUserName()};</div>
+                            <div>Car ID: ${order.getCarId()};</div>
+                            <div>Receiving Date: ${(order.getReceivingDate())} - Return Date: ${order.getReturnDate()};</div>
+                            <div>Rental Price: ${order.getRentalPrice()} USD;</div>
+                            <div>AdService Price: ${order.getAdServicePrice()};</div>
+                            <div>Order is paid: ${order.getOrderIsPaid()};</div>
+                            <div>Ad Info: ${order.getAdInfo()}</div>
 
-                        <div align="right">
-                            <!--buttons here...-->
+                            <div align="right">
+                                <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                                        onclick="acceptOrder('${order.getId()}', '${userEmail}',
+                                                '${order.getRentalPrice()}', '${order.getAdServicePrice()}')">
+                                    <fmt:message key="accept"/>
+                                </button>
+                                <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                                        onclick="">
+                                    <fmt:message key="deny"/>
+                                </button>
+                            </div>
                         </div>
                     </li>
                 </c:forEach>

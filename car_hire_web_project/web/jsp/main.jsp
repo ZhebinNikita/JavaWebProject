@@ -15,6 +15,8 @@
     <c:set var="userEmail" value="${sessionScope.get(email)}"/>
     <c:set var="role" value="role"/>
     <c:set var="userRole" value="${sessionScope.get(role)}"/>
+    <c:set var="balance" value="balance"/>
+    <c:set var="accountBalance" value="${sessionScope.get(balance)}"/>
     <title> <fmt:message key="site.title"/>  </title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -24,7 +26,7 @@
     <link href="../css/popup_login_window.css" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="../js/popup/popup_login_window.js"></script>
 
-    <script type="text/javascript" src="../js/add_user.js"></script>
+    <script type="text/javascript" src="../js/login.js"></script>
     <script type="text/javascript" src="../js/logout.js"></script>
 
 </head>
@@ -32,12 +34,15 @@
 <body class="w3-light-grey">
 User: ${userEmail} Role: ${userRole}
 <c:if test="${not empty userEmail}">
-<button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom w3-right-align" onclick="logout()">
-    <fmt:message key="log.out"/>
-</button>
+    <button class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="logout()">
+        <fmt:message key="log.out"/>
+    </button>
+    <span>
+        <fmt:message key="balance"/> ${accountBalance}$
+    </span>
 </c:if>
 
-<div class="w3-container w3-blue-grey w3-opacity w3-right-align">
+<div class="w3-container w3-blue-grey w3-opacity">
 
     <form>
         <select id="language" name="language" onchange="submit()">
@@ -52,17 +57,17 @@ User: ${userEmail} Role: ${userRole}
 
 <div class="w3-container w3-center">
     <div class="w3-bar w3-padding-large w3-padding-24">
-        <button class="w3-btn w3-hover-light-blue w3-round-large w3-margin-bottom" onclick="location.href='/car_list'">
+        <button class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="location.href='/car_list'">
             <fmt:message key="cars.list"/>
         </button>
 
         <c:if test="${not empty userEmail}">
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="location.href='/profile'">
+            <button class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="location.href='/profile'">
                 <fmt:message key="my.profile"/>
             </button>
         </c:if>
         <c:if test="${empty userEmail}">
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom" onclick="openLoginDialog()">
+            <button class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="openLoginDialog()">
                 <fmt:message key="login.or.register"/>
             </button>
         </c:if>
@@ -71,7 +76,7 @@ User: ${userEmail} Role: ${userRole}
 </div>
 
 
-<!-- ---------- Popup Window ---------- -->
+<!-- ---------- Popup Login Window ---------- -->
 <div id="login-dialog-overlay"></div>
 <div id="login-dialog-box">
     <a class="login-btn-close" onclick="closeLoginDialog()">X</a>
@@ -85,7 +90,7 @@ User: ${userEmail} Role: ${userRole}
 
         <p align="center">
             <label>
-                <input type="text" name="userEmail"
+                <input type="email" name="userEmail"
                        style="width: 30%" id="userEmail" maxlength="40"
                        placeholder=<fmt:message key="email"/>>
             </label>
@@ -117,7 +122,7 @@ User: ${userEmail} Role: ${userRole}
         <!--------------------------------->
     </div>
 </div>
-<!-- ---------- Popup Window ---------- -->
+<!-- ---------- Popup Login Window ---------- -->
 
 
 </body>

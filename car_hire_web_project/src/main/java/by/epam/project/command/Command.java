@@ -1,12 +1,13 @@
 package by.epam.project.command;
 
+import by.epam.project.controller.servlet.Route;
 import by.epam.project.exception.ProjectException;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public interface Command {
 
-    boolean execute(HttpServletRequest req) throws ProjectException;
+    void execute(HttpServletRequest req, HttpServletResponse resp) throws ProjectException, IOException;
 
 }
