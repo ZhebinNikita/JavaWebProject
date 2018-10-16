@@ -59,4 +59,18 @@ public class CarService implements Service {
         return carDao.takeCar(id);
     }
 
+
+    public boolean setRented(int id) throws ProjectException {
+        boolean setRented;
+        setRented = carDao.setRented(id);
+        return setRented;
+    }
+
+
+    public boolean setNotRented(int id) throws ProjectException {
+        boolean setNotRented;
+        setNotRented = carDao.setNotRented(id);
+        return setNotRented;
+    }
+
 }

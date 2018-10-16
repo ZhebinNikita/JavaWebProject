@@ -91,6 +91,11 @@ public class UserService implements Service {
     }
 
 
+    public User takeUser(String email) throws ProjectException {
+        return userDao.takeUser(email);
+    }
+
+
     public boolean isAdmin(String email) throws ProjectException {
         return userDao.checkIfAdmin(email);
     }
@@ -100,6 +105,11 @@ public class UserService implements Service {
         boolean pUpdated;
         pUpdated = userDao.updatePassportId(id, email);
         return pUpdated;
+    }
+
+
+    public int takePassportId(String email) throws ProjectException {
+        return userDao.takePassportId(email);
     }
 
 }

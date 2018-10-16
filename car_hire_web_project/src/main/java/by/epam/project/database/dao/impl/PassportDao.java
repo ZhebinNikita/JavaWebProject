@@ -22,6 +22,10 @@ public class PassportDao implements EntityDao<Passport> {
     private static final String GET_ALL_PASSPORTS = "SELECT * FROM carhire.passport";
     private static final String GET_PASSPORT_BY_ID_NUMBER =
             "SELECT * FROM carhire.passport WHERE identification_number=?";
+    private static final String GET_PASSPORT_BY_ID =
+            "SELECT * FROM carhire.passport WHERE id=?";
+    private static final String CHECK_IF_CONTAINS = "SELECT name FROM carhire.passport " +
+            "WHERE name=? and surname=? and birthday=? and identification_number=?";
 
 
     public PassportDao(){
@@ -182,8 +186,39 @@ public class PassportDao implements EntityDao<Passport> {
 
 
     @Override
-    public boolean contains(Passport entity) {
-        return false;
+    public boolean contains(Passport entity) throws ProjectException {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(CHECK_IF_CONTAINS);
+
+            statement.setString(1, entity.getName());
+            statement.setString(2, entity.getSurname());
+            statement.setString(3, entity.getBirthday());
+            statement.setString(4, entity.getIdentification_number());
+
+            resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                return false;
+            }
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return true;
     }
 
 
@@ -219,6 +254,52 @@ public class PassportDao implements EntityDao<Passport> {
             }
             else{
                throw new SQLException();
+            }
+
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return passport;
+    }
+
+
+    public Passport takePassport(int id) throws ProjectException {
+
+        Passport passport;
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(GET_PASSPORT_BY_ID);
+
+            statement.setInt(1, id);
+
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+
+                String name = resultSet.getString(2);
+                String surname = resultSet.getString(3);
+                String birthday = resultSet.getString(4);
+                String identificationNumber = resultSet.getString(5);
+
+                passport = new Passport(name, surname, birthday, identificationNumber);
+                passport.setId(id);
+            }
+            else{
+                throw new SQLException();
             }
 
         }

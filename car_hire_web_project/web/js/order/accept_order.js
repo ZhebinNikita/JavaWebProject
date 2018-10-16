@@ -2,6 +2,8 @@
 
 function acceptOrder(orderId, userEmail, rentalPrice, adServicePrice) {
 
+    var order_response = document.getElementById('order_response');
+
 
     var action = "ACCEPT_ORDER";
 
@@ -9,7 +11,7 @@ function acceptOrder(orderId, userEmail, rentalPrice, adServicePrice) {
         action: action,
 
         orderId: orderId,
-        userEmail: userEmail,
+        email: userEmail,
         rentalPrice: rentalPrice,
         adServicePrice: adServicePrice
     };
@@ -21,6 +23,7 @@ function acceptOrder(orderId, userEmail, rentalPrice, adServicePrice) {
             window.location.href = "error_page";
         }
         else {
+            $("#order_response").text(responseText);
             window.location.href = "orders";
         }
     });

@@ -24,6 +24,7 @@ public class UserDao implements EntityDao<User> {
     private static final String CHECK_IF_CONTAINS = "SELECT email FROM carhire.user " +
             "WHERE email=? and pass=SHA2(?, 224)";
     private static final String TAKE_BY_EMAIL = "SELECT * FROM carhire.user WHERE email=?";
+    private static final String TAKE_PASSPORT_ID = "SELECT id_passport FROM carhire.user WHERE email=?";
     private static final String UPDATE_PASSPORT_ID_BY_EMAIL = "UPDATE carhire.user SET id_passport=? WHERE email=?";
 
 
@@ -236,6 +237,52 @@ public class UserDao implements EntityDao<User> {
     }
 
 
+    public User takeUser(String email) throws ProjectException {
+
+        User user;
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(TAKE_BY_EMAIL);
+
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                String pass = resultSet.getString(2);
+                int id_passport = resultSet.getInt(3);
+                int status = resultSet.getInt(4);
+                int role = resultSet.getInt(5);
+
+                user = new User(email, pass);
+                user.setIdPassport(id_passport);
+                user.setStatus(status);
+                user.setRole(role);
+            }
+            else{
+                throw new SQLException("This user doesn't exist");
+            }
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return user;
+    }
+
+
     public int checkStatusByEmail(String email) throws ProjectException {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -335,6 +382,45 @@ public class UserDao implements EntityDao<User> {
         }
 
         return false;
+    }
+
+
+    public int takePassportId(String email) throws ProjectException {
+
+        int passportId;
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(TAKE_PASSPORT_ID);
+
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                passportId = resultSet.getInt("id_passport");
+            }
+            else{
+                return -1;
+            }
+
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return passportId;
     }
 
 

@@ -28,7 +28,12 @@
     <link href="../css/popup_update_balance_window.css" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="../js/popup/popup_update_balance_window.js"></script>
 
-    <script type="text/javascript" src="../js/update_balance.js"></script>
+    <script type="text/javascript" src="../js/account/update_balance.js"></script>
+
+    <script type="text/javascript" src="../js/order/pay_ad_service_price.js"></script>
+
+    <script type="text/javascript" src="../js/account/refresh_balance.js"></script>
+
 
 </head>
 <body class="w3-light-grey">
@@ -41,6 +46,10 @@ User: ${userEmail} Role: ${userRole}
 <span>
     <fmt:message key="balance"/> ${accountBalance}$
 </span>
+<button class="w3-btn w3-green w3-round-large w3-margin-bottom"
+        onclick="refreshBalance('${userEmail}')">
+<img src="img/refresh.png" style="width: 25px; height: 25px">
+</button>
 
 
 <div class="w3-container w3-blue-grey w3-opacity">
@@ -85,6 +94,65 @@ User: ${userEmail} Role: ${userRole}
     </c:if>
 
 
+    <div align="left">
+        <p>
+            <fmt:message key="my.orders"/>
+        </p>
+
+        <c:set var="orderByEmail" value="orderByEmail" />
+        <c:if test="${not empty requestScope.get(orderByEmail)}">
+            <ul class="w3-ul">
+                <c:forEach items="${requestScope.get(orderByEmail)}" var="order" >
+                    <li class="w3-hover-sand">
+                        <div>
+                            <div align="left">
+                                <div>ID ${order.getId()}: ${order.getUserName()};</div>
+                                <div>Car ID: ${order.getCarId()};</div>
+                                <div>Receiving Date: ${(order.getReceivingDate())}
+                                    - Return Date: ${order.getReturnDate()};</div>
+                                <div>Rental Price: ${order.getRentalPrice()} USD;</div>
+                                <div>AdService Price: ${order.getAdServicePrice()};</div>
+                                <div>Order is paid: ${order.getOrderIsPaid()};</div>
+                                <div>Ad Info: ${order.getAdInfo()}</div>
+                            </div>
+
+
+                            <div align="right">
+                                <c:if test="${order.getAdServicePrice() > 0}">
+                                <button name="pay_ad_service_price"
+                                        class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                                        id="pay_ad_service_price"
+                                        onclick="payAdServicePrice('${order.getId()}', '${order.getUserName()}')">
+                                    <fmt:message key="pay.ad.service.price"/>
+                                </button>
+                                </c:if>
+                            </div>
+                            <p align="center" style='color:red;' id="paid_order_response"></p>
+                        </div>
+                    </li>
+                </c:forEach>
+            </ul>
+        </c:if>
+
+        <c:if test="${empty requestScope.get(orderByEmail)}">
+            <div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">
+                <span onclick="this.parentElement.style.display='none'"
+                      class="w3-button w3-margin-right w3-display-right
+                      w3-round-large w3-hover-red w3-border w3-border-red
+                      w3-hover-border-grey">×
+                </span>
+                <h5>
+                    <fmt:message key="list.is.empty"/>
+                </h5>
+            </div>
+        </c:if>
+
+    </div>
+
+
+
+
+
     <!-- ---------- Popup Update Balance Window ---------- -->
     <div id="update-balance-dialog-overlay"></div>
     <div id="update-balance-dialog-box">
@@ -127,6 +195,13 @@ User: ${userEmail} Role: ${userRole}
 
 
 
+</div>
+
+
+<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">
+    <button class="w3-btn w3-round-large" onclick="location.href='/'">
+        <fmt:message key="back"/>
+    </button>
 </div>
 
 

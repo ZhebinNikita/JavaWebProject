@@ -36,10 +36,10 @@
     <link href="../css/popup_rent_car_window.css" rel="stylesheet" type="text/css" media="all">
     <script type="text/javascript" src="../js/popup/popup_rent_car_window.js"></script>
 
-    <script type="text/javascript" src="../js/add_car.js"></script>
-    <script type="text/javascript" src="../js/delete_car.js"></script>
-    <script type="text/javascript" src="../js/update_car.js"></script>
-    <script type="text/javascript" src="../js/rent_car.js"></script>
+    <script type="text/javascript" src="../js/car/add_car.js"></script>
+    <script type="text/javascript" src="../js/car/delete_car.js"></script>
+    <script type="text/javascript" src="../js/car/update_car.js"></script>
+    <script type="text/javascript" src="../js/car/rent_car.js"></script>
 
 </head>
 
@@ -66,30 +66,31 @@ User: ${userEmail} Role: ${userRole}
 <div class="w3-container w3-center w3-margin-bottom w3-padding">
     <div class="w3-card-4">
 
-        <div align="right">
-            <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
-                    onclick="openAddCarDialog()">
-                <fmt:message key="add.car"/>
-            </button>
-            <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
-                    onclick="">
-                Rented
-            </button>
-            <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
-                    onclick="">
-                Not Rented
-            </button>
-        </div>
+        <c:set var="admin" value="admin"/>
+        <c:if test="${userRole == admin}">
+            <div align="right">
+                <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
+                        onclick="openAddCarDialog()">
+                    <fmt:message key="add.car"/>
+                </button>
+                <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                        onclick="location.href='/car_list?cars=rented'">
+                    <fmt:message key="rented"/>
+                </button>
+                <button class="w3-btn w3-green w3-round-large w3-margin-bottom"
+                        onclick="location.href='/car_list?cars=notRented'">
+                    <fmt:message key="not.rented"/>
+                </button>
+            </div>
+        </c:if>
 
         <div class="w3-container w3-light-blue">
             <h2><fmt:message key="car.list"/></h2>
         </div>
 
 
-        <c:if test="${carState == notRented}">
 
             <c:set var="notRentedCars" value="notRentedCars" />
-
             <c:if test="${not empty requestScope.get(notRentedCars)}">
                 <ul class="w3-ul">
                     <c:forEach items="${requestScope.get(notRentedCars)}" var="car" >
@@ -101,6 +102,8 @@ User: ${userEmail} Role: ${userRole}
                                         onclick="openRentCarDialog('${car.getId()}', '${car.getDailyRentalPrice()}')">
                                     <fmt:message key="rent"/>
                                 </button>
+
+                                <c:if test="${userRole == admin}">
                                 <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
                                         onclick="openUpdateCarDialog('${car.getId()}', '${car.getName()}',
                                                 '${car.getDailyRentalPrice()}', '${car.getCarClass()}')">
@@ -110,31 +113,40 @@ User: ${userEmail} Role: ${userRole}
                                         onclick="deleteCar(${car.getId()})">
                                     <fmt:message key="delete"/>
                                 </button>
+                                </c:if>
+
                             </div>
                         </li>
                     </c:forEach>
                 </ul>
             </c:if>
 
-            <c:if test="${empty requestScope.get(notRentedCars)}">
-                <div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">
+        <c:set var="rentedCars" value="rentedCars" />
+        <c:if test="${not empty requestScope.get(rentedCars)}">
+            <ul class="w3-ul">
+                <c:forEach items="${requestScope.get(rentedCars)}" var="car" >
+                    <li class="w3-hover-sand">
+                        ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
+                        $ --- ${(car.getCarClass()).name()}
+                        <div align="right">
+                            <!-- Here smth -->
+                        </div>
+                    </li>
+                </c:forEach>
+            </ul>
+        </c:if>
+
+        <c:if test="${empty requestScope.get(notRentedCars) and empty requestScope.get(rentedCars)}">
+            <div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">
                 <span onclick="this.parentElement.style.display='none'"
                       class="w3-button w3-margin-right w3-display-right
                       w3-round-large w3-hover-red w3-border w3-border-red
                       w3-hover-border-grey">×
                 </span>
-                    <h5><fmt:message key="list.is.empty"/></h5>
-                </div>
-            </c:if>
-
+                <h5><fmt:message key="list.is.empty"/></h5>
+            </div>
         </c:if>
 
-
-        <c:if test="${carState == rented}">
-
-
-
-        </c:if>
 
 
         <!-- ----------- Add Car Popup Window ----------- -->

@@ -3,7 +3,7 @@ package by.epam.project.command.ajax.order;
 import by.epam.project.command.Command;
 import by.epam.project.entity.Account;
 import by.epam.project.exception.ProjectException;
-import by.epam.project.language.LangResourceManager;
+import by.epam.project.lang.LangResourceManager;
 import by.epam.project.service.impl.AccountService;
 import by.epam.project.service.impl.OrderService;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class AcceptOrderCommand implements Command {
 
     private static final String PARAM_ORDER_ID = "orderId";
-    private static final String PARAM_ORDER_RENTAL_PRICE = "orderRentalPrice";
+    private static final String PARAM_ORDER_RENTAL_PRICE = "rentalPrice";
     private static final String PARAM_AD_SERVICE_PRICE = "adServicePrice";
     private static final String PARAM_EMAIL = "email";
     private OrderService orderService = new OrderService();

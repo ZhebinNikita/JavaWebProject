@@ -4,7 +4,7 @@ import by.epam.project.command.Command;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.entity.CarClass;
 import by.epam.project.entity.Car;
-import by.epam.project.language.LangResourceManager;
+import by.epam.project.lang.LangResourceManager;
 import by.epam.project.service.impl.CarService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

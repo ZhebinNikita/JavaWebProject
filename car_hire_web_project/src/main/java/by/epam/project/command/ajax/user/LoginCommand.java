@@ -1,9 +1,8 @@
 package by.epam.project.command.ajax.user;
 
 import by.epam.project.command.Command;
-import by.epam.project.database.dao.impl.AccountDao;
 import by.epam.project.entity.Account;
-import by.epam.project.language.LangResourceManager;
+import by.epam.project.lang.LangResourceManager;
 import by.epam.project.service.impl.AccountService;
 import by.epam.project.service.impl.UserService;
 import by.epam.project.entity.User;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 public class LoginCommand implements Command {
 

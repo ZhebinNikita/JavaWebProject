@@ -9,6 +9,10 @@ public class Passport {
     private String identification_number;
 
 
+    public Passport(int id){
+        this.id = id;
+    }
+
     public Passport(String name, String surname, String birthday, String identification_number){
         this.name = name;
         this.surname = surname;

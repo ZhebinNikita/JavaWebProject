@@ -92,7 +92,7 @@ function clickLogin() {
             else {
                 $("#incorrect_text_email").text(responseText);
 
-                redirectIfEquals(responseText, "user.logged.in", "", "car_list");
+                redirectIfEquals(responseText, "user.logged.in", "", "/ ");
                 redirectIfEquals(responseText, "registered", "", "/ ");
             }
             //window.location.href = "car_list"; // redirect to another page.

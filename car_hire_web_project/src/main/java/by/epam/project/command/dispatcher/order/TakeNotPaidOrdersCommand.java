@@ -1,4 +1,4 @@
-package by.epam.project.command.dispatcher;
+package by.epam.project.command.dispatcher.order;
 
 import by.epam.project.command.Command;
 import by.epam.project.exception.ProjectException;
@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class AllOrdersDispatcherCommand implements Command {
+public class TakeNotPaidOrdersCommand implements Command {
 
     private OrderService orderService = new OrderService();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ProjectException {
 
-        List<Order> orders = orderService.takeAllOrders();
-        req.setAttribute("orders", orders);
+        List<Order> notPaidOrders = orderService.takeNotPaidOrders();
+        req.setAttribute("notPaidOrders", notPaidOrders);
     }
 
 }

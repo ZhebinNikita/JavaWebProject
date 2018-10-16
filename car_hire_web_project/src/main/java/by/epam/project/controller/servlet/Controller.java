@@ -5,7 +5,6 @@ import by.epam.project.command.Command;
 import by.epam.project.command.CommandMap;
 import by.epam.project.command.CommandType;
 import by.epam.project.exception.ProjectException;
-import by.epam.project.language.LangResourceManager;
 import by.epam.project.database.pool.ConnectionPool;
 import by.epam.project.database.pool.ConnectionPoolException;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
@@ -20,9 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Locale;
 
 import static by.epam.project.command.CommandType.*;
+import static by.epam.project.constant.ClientRole.ROLE;
+import static by.epam.project.constant.ClientRole.ROLE_USER;
+import static by.epam.project.lang.LangSessionManager.setSessionLanguage;
 
 
 @WebServlet(name = "Controller", urlPatterns = {"", "/car_list", "/orders", "/profile", "/error_page"}) //!!!
@@ -96,6 +97,10 @@ public class Controller extends HttpServlet {
                 break;
 
             case "/profile":
+
+                command = CommandMap.getInstance().get(TAKE_ORDER_BY_EMAIL);
+                command.execute(req, resp);
+
                 requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_PROFILE);
                 break;
 
@@ -104,14 +109,44 @@ public class Controller extends HttpServlet {
                 break;
 
             case "/car_list":
-                command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
+
+                if(req.getParameter("cars") != null) {
+                    if (req.getParameter("cars").equals("rented")) {
+                        command = CommandMap.getInstance().get(TAKE_RENTED_CARS);
+                    }
+                    else if(req.getParameter("cars").equals("notRented")){
+                        command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
+                    }
+                    else{
+                        command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
+                    }
+                }
+                else{
+                    command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
+                }
+
                 command.execute(req, resp);
 
                 requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_CAR_LIST);
                 break;
 
             case "/orders":
-                command = CommandMap.getInstance().get(TAKE_ALL_ORDERS);
+
+                if(req.getParameter("orders") != null) {
+                    if (req.getParameter("orders").equals("notPaid")) {
+                        command = CommandMap.getInstance().get(TAKE_NOT_PAID_ORDERS);
+                    }
+                    else if(req.getParameter("orders").equals("paid")){
+                        command = CommandMap.getInstance().get(TAKE_PAID_ORDERS);
+                    }
+                    else{
+                        command = CommandMap.getInstance().get(TAKE_NOT_PAID_ORDERS);
+                    }
+                }
+                else{
+                    command = CommandMap.getInstance().get(TAKE_NOT_PAID_ORDERS);
+                }
+
                 command.execute(req, resp);
 
                 requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_ORDERS);
@@ -150,56 +185,15 @@ public class Controller extends HttpServlet {
     }
 
 
-    private void setSessionLanguage(HttpServletRequest req) {
 
-        HttpSession session = req.getSession(true);
-
-        LangResourceManager langManager = LangResourceManager.INSTANCE;
-
-        if (req.getParameter("language") != null) {
-            if (req.getParameter("language").equals("en")) {
-                Locale.setDefault(Locale.ENGLISH);
-                langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute("language", "en");
-            } else if (req.getParameter("language").equals("ru_RU")) {
-                Locale.setDefault(new Locale("ru", "RU"));
-                langManager.changeResource(new Locale("ru", "RU"));
-                session.setAttribute("language", "ru_RU");
-            } else {
-                Locale.setDefault(Locale.ENGLISH);
-                langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute("language", "en");
-            }
-        } else {
-
-            if (session.getAttribute("language") == null) {
-                Locale.setDefault(Locale.ENGLISH);
-                langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute("language", "en");
-            } else if (session.getAttribute("language").equals("en")) {
-                Locale.setDefault(Locale.ENGLISH);
-                langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute("language", "en");
-            } else if (session.getAttribute("language").equals("ru_RU")) {
-                Locale.setDefault(new Locale("ru", "RU"));
-                langManager.changeResource(new Locale("ru", "RU"));
-                session.setAttribute("language", "ru_RU");
-            } else {
-                Locale.setDefault(Locale.ENGLISH);
-                langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute("language", "en");
-            }
-        }
-
-    }
 
 
     private void setSessionRole(HttpServletRequest req) {
 
         HttpSession session = req.getSession(true);
 
-        if (session.getAttribute("role") == null) {
-            session.setAttribute("role", "user");
+        if (session.getAttribute(ROLE) == null) {
+            session.setAttribute(ROLE, ROLE_USER);
         }
 
     }

@@ -21,13 +21,19 @@ public class OrderDao implements EntityDao<Order> {
     private static final String UPDATE_ORDER = "UPDATE carhire.order SET user_name=?, car_id=?," +
             " receiving_date=?, return_date=?, rental_price=?, ad_service_price=?," +
             "order_is_paid=?, ad_info=? WHERE id=?";
+    private static final String UPDATE_AD_INFO = "UPDATE carhire.order SET ad_info=? WHERE id=?";
     private static final String GET_ALL_ORDERS = "SELECT * FROM carhire.order";
+    private static final String GET_ORDERS_BY_EMAIL = "SELECT * FROM carhire.order WHERE user_name=?";
+    private static final String GET_ORDER_BY_ID = "SELECT * FROM carhire.order WHERE id=?";
+    private static final String GET_PAID_ORDERS = "SELECT * FROM carhire.order WHERE order_is_paid=1";
+    private static final String GET_NOT_PAID_ORDERS = "SELECT * FROM carhire.order WHERE order_is_paid=0";
     private static final String CHECK_IF_CONTAINS = "SELECT name FROM carhire.order WHERE user_name=?," +
             " car_id=?, receiving_date=?, return_date=?, rental_price=?, ad_service_price=?, order_is_paid=?," +
             " ad_info=?";
-    private static final String CHECK_IF_CONTAINS_BY_NAME = "SELECT name FROM carhire.order WHERE user_name=?";
+    private static final String CHECK_IF_CONTAINS_BY_NAME = "SELECT user_name FROM carhire.order WHERE user_name=?";
     private static final String UPDATE_ORDER_IS_PAID = "UPDATE carhire.order SET order_is_paid=1 WHERE id=?";
     private static final String UPDATE_ORDER_IS_NOT_PAID = "UPDATE carhire.order SET order_is_paid=0 WHERE id=?";
+    private static final String UPDATE_AD_SERVICE_PRICE = "UPDATE carhire.order SET ad_service_price=? WHERE id=?";
 
 
     public OrderDao(){
@@ -241,7 +247,7 @@ public class OrderDao implements EntityDao<Order> {
     }
 
 
-    public boolean containsByUserName(Order entity) throws ProjectException {
+    public boolean contains(String email) throws ProjectException {
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -255,7 +261,7 @@ public class OrderDao implements EntityDao<Order> {
 
             statement = connection.prepareStatement(CHECK_IF_CONTAINS_BY_NAME);
 
-            statement.setString(1, entity.getUserName());
+            statement.setString(1, email);
 
             resultSet = statement.executeQuery();
 
@@ -264,7 +270,6 @@ public class OrderDao implements EntityDao<Order> {
             }
         }
         catch (SQLException e) {
-            LOG.error(e);
             throw new ProjectException(e);
         }
         finally {
@@ -322,6 +327,266 @@ public class OrderDao implements EntityDao<Order> {
             statement = connection.prepareStatement(UPDATE_ORDER_IS_NOT_PAID);
 
             statement.setInt(1, id);
+
+            int res = statement.executeUpdate();
+
+            if (res > 0) {
+                return true; // successfully
+            }
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(statement, connection);
+        }
+
+        return false;
+    }
+
+
+    public List<Order> takePaidOrders() throws ProjectException {
+
+        List<Order> paidOrders = new ArrayList<>();
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(GET_PAID_ORDERS);
+
+            while (resultSet.next()) {
+
+                int id = resultSet.getInt(1);
+                String user_name = resultSet.getString(2);
+                int car_id = resultSet.getInt(3);
+                String receiving_date = resultSet.getString(4);
+                String return_date = resultSet.getString(5);
+                BigDecimal rental_price = resultSet.getBigDecimal(6);
+                BigDecimal ad_service_price = resultSet.getBigDecimal(7);
+                int order_is_paid = resultSet.getInt(8);
+                String ad_info = resultSet.getString(9);
+
+                paidOrders.add(new Order(id, user_name, car_id, receiving_date, return_date, rental_price,
+                        ad_service_price, order_is_paid, ad_info));
+            }
+
+
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return paidOrders;
+    }
+
+
+    public List<Order> takeNotPaidOrders() throws ProjectException {
+
+        List<Order> notPaidOrders = new ArrayList<>();
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.createStatement();
+
+            resultSet = statement.executeQuery(GET_NOT_PAID_ORDERS);
+
+            while (resultSet.next()) {
+
+                int id = resultSet.getInt(1);
+                String user_name = resultSet.getString(2);
+                int car_id = resultSet.getInt(3);
+                String receiving_date = resultSet.getString(4);
+                String return_date = resultSet.getString(5);
+                BigDecimal rental_price = resultSet.getBigDecimal(6);
+                BigDecimal ad_service_price = resultSet.getBigDecimal(7);
+                int order_is_paid = resultSet.getInt(8);
+                String ad_info = resultSet.getString(9);
+
+                notPaidOrders.add(new Order(id, user_name, car_id, receiving_date, return_date, rental_price,
+                        ad_service_price, order_is_paid, ad_info));
+            }
+
+
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return notPaidOrders;
+    }
+
+
+    public List<Order> takeOrdersByEmail(String email) throws ProjectException {
+
+        List<Order> orders = new ArrayList<>();
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(GET_ORDERS_BY_EMAIL);
+
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+
+                int id = resultSet.getInt(1);
+                String user_name = resultSet.getString(2);
+                int car_id = resultSet.getInt(3);
+                String receiving_date = resultSet.getString(4);
+                String return_date = resultSet.getString(5);
+                BigDecimal rental_price = resultSet.getBigDecimal(6);
+                BigDecimal ad_service_price = resultSet.getBigDecimal(7);
+                int order_is_paid = resultSet.getInt(8);
+                String ad_info = resultSet.getString(9);
+
+                orders.add(new Order(id, user_name, car_id, receiving_date, return_date, rental_price,
+                        ad_service_price, order_is_paid, ad_info));
+            }
+
+
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return orders;
+    }
+
+
+    public Order takeOrderById(int id) throws ProjectException {
+
+        Order order;
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(GET_ORDER_BY_ID);
+
+            statement.setInt(1, id);
+
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+
+                String user_name = resultSet.getString(2);
+                int car_id = resultSet.getInt(3);
+                String receiving_date = resultSet.getString(4);
+                String return_date = resultSet.getString(5);
+                BigDecimal rental_price = resultSet.getBigDecimal(6);
+                BigDecimal ad_service_price = resultSet.getBigDecimal(7);
+                int order_is_paid = resultSet.getInt(8);
+                String ad_info = resultSet.getString(9);
+
+                order = new Order(id, user_name, car_id, receiving_date, return_date, rental_price,
+                        ad_service_price, order_is_paid, ad_info);
+            }
+            else{
+                return null;
+            }
+
+
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+
+        return order;
+    }
+
+
+    public boolean updateAdInfo(int id, String adInfo) throws ProjectException {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(UPDATE_AD_INFO);
+
+            statement.setString(1, adInfo);
+            statement.setInt(2, id);
+
+            int res = statement.executeUpdate();
+
+            if (res > 0) {
+                return true; // successfully
+            }
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(statement, connection);
+        }
+
+        return false;
+    }
+
+
+    public boolean updateAdServicePrice(int id, BigDecimal adServicePrice) throws ProjectException {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(UPDATE_AD_SERVICE_PRICE);
+
+            statement.setBigDecimal(1, adServicePrice);
+            statement.setInt(2, id);
 
             int res = statement.executeUpdate();
 

@@ -3,7 +3,7 @@ package by.epam.project.command.ajax.account;
 import by.epam.project.command.Command;
 import by.epam.project.entity.Account;
 import by.epam.project.exception.ProjectException;
-import by.epam.project.language.LangResourceManager;
+import by.epam.project.lang.LangResourceManager;
 import by.epam.project.service.impl.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

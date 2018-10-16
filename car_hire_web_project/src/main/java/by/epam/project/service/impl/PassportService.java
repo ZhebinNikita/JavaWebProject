@@ -49,4 +49,16 @@ public class PassportService implements Service {
         return passportDao.takePassport(identificationNumber);
     }
 
+
+    public Passport takePassport(int id) throws ProjectException {
+        return passportDao.takePassport(id);
+    }
+
+
+    public boolean contains(Passport passport) throws ProjectException {
+        boolean contains;
+        contains = passportDao.contains(passport);
+        return contains;
+    }
+
 }

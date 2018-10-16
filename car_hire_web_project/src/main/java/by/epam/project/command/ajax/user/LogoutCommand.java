@@ -2,7 +2,7 @@ package by.epam.project.command.ajax.user;
 
 import by.epam.project.command.Command;
 import by.epam.project.exception.ProjectException;
-import by.epam.project.language.LangResourceManager;
+import by.epam.project.lang.LangResourceManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

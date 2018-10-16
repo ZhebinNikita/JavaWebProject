@@ -1,4 +1,4 @@
-package by.epam.project.language;
+package by.epam.project.lang;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

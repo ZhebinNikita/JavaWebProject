@@ -15,6 +15,10 @@ public class Order {
     private String ad_info;
 
 
+    public Order(int id){
+        this.id = id;
+    }
+
     public Order(int id, String user_name, int car_id, String receiving_date,
                  String return_date, BigDecimal rental_price,
                  BigDecimal ad_service_price, int order_is_paid, String ad_info){

@@ -26,6 +26,8 @@ public class CarDao implements EntityDao<Car> {
     private static final String GET_NOT_RENTED_CARS = "SELECT * FROM carhire.car WHERE rented=0";
     private static final String GET_RENTED_CARS = "SELECT * FROM carhire.car WHERE rented=1";
     private static final String GET_CAR_BY_ID = "SELECT * FROM carhire.car WHERE id=?";
+    private static final String SET_RENTED = "UPDATE carhire.car SET rented=1 WHERE id=?";
+    private static final String SET_NOT_RENTED = "UPDATE carhire.car SET rented=0 WHERE id=?";
 
     //private static final String CHECK_IF_CONTAINS = "SELECT name FROM carhire.order WHERE user_name=?," +
       //      " car_id=?, receiving_date=?, return_date=?, rental_price=?, ad_service_price=?, order_is_paid=?," +
@@ -322,6 +324,70 @@ public class CarDao implements EntityDao<Car> {
         }
 
         return car;
+    }
+
+
+    public boolean setRented(int id) throws ProjectException {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(SET_RENTED);
+
+            statement.setInt(1, id);
+
+            int res = statement.executeUpdate();
+
+            if (res > 0) {
+                return true; // successfully
+            }
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(statement, connection);
+        }
+
+        return false;
+    }
+
+
+    public boolean setNotRented(int id) throws ProjectException {
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(SET_NOT_RENTED);
+
+            statement.setInt(1, id);
+
+            int res = statement.executeUpdate();
+
+            if (res > 0) {
+                return true; // successfully
+            }
+        }
+        catch (SQLException e) {
+            throw new ProjectException(e);
+        }
+        finally {
+            connectionPool.closeConnection(statement, connection);
+        }
+
+        return false;
     }
 
 

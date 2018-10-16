@@ -1,11 +1,10 @@
 package by.epam.project.command.ajax.car;
 
 import by.epam.project.command.Command;
-import by.epam.project.entity.Car;
 import by.epam.project.entity.Order;
 import by.epam.project.entity.Passport;
 import by.epam.project.exception.ProjectException;
-import by.epam.project.language.LangResourceManager;
+import by.epam.project.lang.LangResourceManager;
 import by.epam.project.service.impl.CarService;
 import by.epam.project.service.impl.OrderService;
 import by.epam.project.service.impl.PassportService;
@@ -39,12 +38,21 @@ public class RequestRentCarCommand implements Command {
     private OrderService orderService = new OrderService();
     private PassportService passportService = new PassportService();
     private UserService userService = new UserService();
+    private CarService carService = new CarService();
     private final static Logger LOG = LogManager.getRootLogger();
     private LangResourceManager langManager = LangResourceManager.INSTANCE;
 
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ProjectException, IOException {
+
+        String userName = req.getParameter(PARAM_EMAIL);
+
+        // check if user has already rented some car
+        /*if(orderService.contains(userName)){
+            resp.getWriter().write(langManager.getString("already.have.order"));
+            return;
+        }*/
 
         // add Passport data
         String name = req.getParameter(PARAM_RENTER_NAME);
@@ -53,18 +61,37 @@ public class RequestRentCarCommand implements Command {
         String identificationNumber = req.getParameter(PARAM_RENTER_ID_NUMBER);
 
         Passport passport = new Passport(name, surname, birthdayDate, identificationNumber);
-        passportService.add(passport);
 
+        // if the user has a passport, then update its data
+        int pId = userService.takePassportId(userName);
+        if(pId > 0){
+            passportService.updateByID(new Passport(pId), passport);
+        }
+        else {
+            // add the passport if it's a new one
+            if (!passportService.contains(passport)) {
+                passportService.add(passport);
+            }
+        }
 
         // take passport ID
         int passportId = passportService.takePassport(identificationNumber).getId();
-        String userName = req.getParameter(PARAM_EMAIL);
 
         // associate this ID with the User
-        userService.updatePassportId(passportId, userName);
+        if (!userService.updatePassportId(passportId, userName)) {
+            Passport p = new Passport(passportId);
+            passportService.deleteByID(p);
+        }
 
         // add Order data
         int carId = Integer.valueOf(req.getParameter(PARAM_CAR_ID));
+
+        // set this car Rented
+        if (!carService.setRented(carId)) {
+            resp.getWriter().write(langManager.getString("smth.went.wrong"));
+            return;
+        }
+
         String receivingDate = req.getParameter(PARAM_RECEIVING_DATE);
         String returnDate = req.getParameter(PARAM_RETURN_DATE);
 
@@ -78,7 +105,6 @@ public class RequestRentCarCommand implements Command {
 
         Order order = new Order(0, userName, carId, receivingDate, returnDate,
                 rentalPrice, adServicePrice, orderIsPaid, adInfo);
-
 
         if(orderService.add(order)){
             resp.getWriter().write(langManager.getString("request.sent"));
