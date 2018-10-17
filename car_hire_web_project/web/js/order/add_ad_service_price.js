@@ -35,7 +35,7 @@ function addAdServicePrice() {
     };
 
 
-    if(adServicePrice.value != "" && adServicePrice.value > 0){
+    if(adServicePrice.value != "" && adServicePrice.value >= 0){
         incorrect_adServicePrice.innerHTML = " ";
     }
     else{
@@ -53,7 +53,7 @@ function addAdServicePrice() {
             }
             else {
                 $("#incorrect_adServicePrice").text(responseText);
-                window.location.href = "orders";
+                window.location.href = "orders?orders=paid";
             }
         });
     }

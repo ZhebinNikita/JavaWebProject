@@ -19,6 +19,8 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static by.epam.project.validation.XssValidator.xssValidate;
+
 public class RequestRentCarCommand implements Command {
 
     // Order data
@@ -60,14 +62,22 @@ public class RequestRentCarCommand implements Command {
         String birthdayDate = req.getParameter(PARAM_RENTER_BIRTHDAY);
         String identificationNumber = req.getParameter(PARAM_RENTER_ID_NUMBER);
 
+
+        ////////////////////////// XSS validation
+        userName = xssValidate(userName);
+        name = xssValidate(name);
+        surname = xssValidate(surname);
+        birthdayDate = xssValidate(birthdayDate);
+        identificationNumber = xssValidate(identificationNumber);
+
+
         Passport passport = new Passport(name, surname, birthdayDate, identificationNumber);
 
         // if the user has a passport, then update its data
         int pId = userService.takePassportId(userName);
-        if(pId > 0){
+        if (pId > 0) {
             passportService.updateByID(new Passport(pId), passport);
-        }
-        else {
+        } else {
             // add the passport if it's a new one
             if (!passportService.contains(passport)) {
                 passportService.add(passport);
@@ -95,6 +105,12 @@ public class RequestRentCarCommand implements Command {
         String receivingDate = req.getParameter(PARAM_RECEIVING_DATE);
         String returnDate = req.getParameter(PARAM_RETURN_DATE);
 
+
+        ////////////////////////// XSS validation
+        receivingDate = xssValidate(receivingDate);
+        returnDate = xssValidate(returnDate);
+
+
         int daysDifference = daysBtwTwoDates(receivingDate, returnDate);
 
         BigDecimal rentalPrice = BigDecimal.valueOf(Double.valueOf(req.getParameter(PARAM_RENTAL_PRICE)))
@@ -103,13 +119,17 @@ public class RequestRentCarCommand implements Command {
         int orderIsPaid = 0; // request's default value 0 - is not paid
         String adInfo = req.getParameter(PARAM_AD_INFO);
 
+
+        ////////////////////////// XSS validation
+        adInfo = xssValidate(adInfo);
+
+
         Order order = new Order(0, userName, carId, receivingDate, returnDate,
                 rentalPrice, adServicePrice, orderIsPaid, adInfo);
 
-        if(orderService.add(order)){
+        if (orderService.add(order)) {
             resp.getWriter().write(langManager.getString("request.sent"));
-        }
-        else{
+        } else {
             resp.getWriter().write(langManager.getString("smth.went.wrong"));
         }
 

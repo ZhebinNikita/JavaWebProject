@@ -6,14 +6,6 @@ import java.util.Locale;
 
 public class LangSessionManager {
 
-    private static final String PARAM_LANG = "lang";
-    private static final String ATTR_LANG = "language";
-
-    private static final String LOCALE_EN = "en";
-    private static final String LOCALE_RU_RU = "ru_RU";
-
-    private static final Locale ruRU = new Locale("ru", "RU");
-
 
     public static void setSessionLanguage(HttpServletRequest req) {
 
@@ -21,44 +13,38 @@ public class LangSessionManager {
 
         LangResourceManager langManager = LangResourceManager.INSTANCE;
 
-        if (req.getParameter(PARAM_LANG) != null) {
-
-            if (req.getParameter(PARAM_LANG).equals(LOCALE_EN)) {
+        if (req.getParameter("language") != null) {
+            if (req.getParameter("language").equals("en")) {
                 Locale.setDefault(Locale.ENGLISH);
                 langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute(ATTR_LANG, LOCALE_EN);
-            }
-            else if (req.getParameter(PARAM_LANG).equals(LOCALE_RU_RU)) {
-                Locale.setDefault(ruRU);
-                langManager.changeResource(ruRU);
-                session.setAttribute(ATTR_LANG, LOCALE_RU_RU);
-            }
-            else {
+                session.setAttribute("language", "en");
+            } else if (req.getParameter("language").equals("ru_RU")) {
+                Locale.setDefault(new Locale("ru", "RU"));
+                langManager.changeResource(new Locale("ru", "RU"));
+                session.setAttribute("language", "ru_RU");
+            } else {
                 Locale.setDefault(Locale.ENGLISH);
                 langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute(ATTR_LANG, LOCALE_EN);
+                session.setAttribute("language", "en");
             }
         } else {
 
-            if (session.getAttribute(PARAM_LANG) == null) {
+            if (session.getAttribute("language") == null) {
                 Locale.setDefault(Locale.ENGLISH);
                 langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute(ATTR_LANG, LOCALE_EN);
-            }
-            else if (session.getAttribute(PARAM_LANG).equals(LOCALE_EN)) {
+                session.setAttribute("language", "en");
+            } else if (session.getAttribute("language").equals("en")) {
                 Locale.setDefault(Locale.ENGLISH);
                 langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute(ATTR_LANG, LOCALE_EN);
-            }
-            else if (session.getAttribute(PARAM_LANG).equals(LOCALE_RU_RU)) {
-                Locale.setDefault(ruRU);
-                langManager.changeResource(ruRU);
-                session.setAttribute(ATTR_LANG, LOCALE_RU_RU);
-            }
-            else {
+                session.setAttribute("language", "en");
+            } else if (session.getAttribute("language").equals("ru_RU")) {
+                Locale.setDefault(new Locale("ru", "RU"));
+                langManager.changeResource(new Locale("ru", "RU"));
+                session.setAttribute("language", "ru_RU");
+            } else {
                 Locale.setDefault(Locale.ENGLISH);
                 langManager.changeResource(Locale.ENGLISH);
-                session.setAttribute(ATTR_LANG, LOCALE_EN);
+                session.setAttribute("language", "en");
             }
         }
 

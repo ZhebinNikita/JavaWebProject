@@ -4,11 +4,12 @@ import by.epam.project.command.ajax.account.RefreshBalanceCommand;
 import by.epam.project.command.ajax.account.UpdateBalanceCommand;
 import by.epam.project.command.ajax.car.*;
 import by.epam.project.command.ajax.order.*;
-import by.epam.project.command.dispatcher.car.TakeNRCarsCommand;
-import by.epam.project.command.dispatcher.order.TakeOrderByEmailCommand;
-import by.epam.project.command.dispatcher.order.TakePaidOrdersCommand;
-import by.epam.project.command.dispatcher.car.TakeRCarsCommand;
-import by.epam.project.command.dispatcher.order.TakeNotPaidOrdersCommand;
+import by.epam.project.command.dispatch.*;
+import by.epam.project.command.dispatch.car.TakeNRCarsCommand;
+import by.epam.project.command.dispatch.order.TakeOrderByEmailCommand;
+import by.epam.project.command.dispatch.order.TakePaidOrdersCommand;
+import by.epam.project.command.dispatch.car.TakeRCarsCommand;
+import by.epam.project.command.dispatch.order.TakeNotPaidOrdersCommand;
 import by.epam.project.command.ajax.lang.SetLangJsMessageCommand;
 import by.epam.project.command.ajax.user.LoginCommand;
 import by.epam.project.command.ajax.user.LogoutCommand;
@@ -43,6 +44,14 @@ public class CommandMap {
             this.put(CommandType.TAKE_ORDER_BY_EMAIL, new TakeOrderByEmailCommand());
 
             this.put(CommandType.SET_LANG_JS_MESSAGE, new SetLangJsMessageCommand());
+
+
+
+            this.put(CommandType.DISPATCH_MAIN_PAGE, new DispatchMainPage());
+            this.put(CommandType.DISPATCH_PROFILE_PAGE, new DispatchProfilePage());
+            this.put(CommandType.DISPATCH_ERROR_PAGE, new DispatchErrorPage());
+            this.put(CommandType.DISPATCH_CAR_LIST_PAGE, new DispatchCarListPage());
+            this.put(CommandType.DISPATCH_ORDERS_PAGE, new DispatchOrdersPage());
         }
     };
 

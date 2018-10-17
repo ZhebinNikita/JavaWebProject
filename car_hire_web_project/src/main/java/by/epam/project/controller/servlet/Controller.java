@@ -30,7 +30,7 @@ import static by.epam.project.lang.LangSessionManager.setSessionLanguage;
 public class Controller extends HttpServlet {
 
     private static final String ERROR_AJAX_RESPONSE_TEXT = "ERROR";
-    private final static Logger LOG = LogManager.getRootLogger();
+    private static final Logger LOG = LogManager.getRootLogger();
 
 
     @Override
@@ -54,7 +54,6 @@ public class Controller extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         processAjaxRequest(req, resp);
-
     }
 
 
@@ -93,6 +92,11 @@ public class Controller extends HttpServlet {
         switch (pageURI) {
 
             case "/":
+
+                command = CommandMap.getInstance().get(CommandType.getDispatcherCommand(pageURI));
+
+                command.execute(req, resp);
+
                 requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_MAIN);
                 break;
 

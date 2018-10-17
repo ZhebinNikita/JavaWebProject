@@ -64,7 +64,7 @@ function addCar() {
     }
 
 
-    if(incorrect_name.innerHTML == " " && incorrect_price.innerHTML == " " && incorrect_amount.innerHTML == " "){
+    //if(incorrect_name.innerHTML == " " && incorrect_price.innerHTML == " " && incorrect_amount.innerHTML == " "){
         animAddCarStart();
         $.post("/car_list", $.param(params), function(responseText) {
             animAddCarStop();
@@ -77,6 +77,6 @@ function addCar() {
                 window.location.href = "car_list";
             }
         });
-    }
+    //}
 
 }

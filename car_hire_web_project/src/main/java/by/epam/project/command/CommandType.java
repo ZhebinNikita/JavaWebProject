@@ -24,6 +24,26 @@ public enum CommandType {
     TAKE_NOT_PAID_ORDERS,
     TAKE_ORDER_BY_EMAIL,
 
-    SET_LANG_JS_MESSAGE
+    SET_LANG_JS_MESSAGE,
+
+
+
+    DISPATCH_MAIN_PAGE,
+    DISPATCH_PROFILE_PAGE,
+    DISPATCH_ERROR_PAGE,
+    DISPATCH_CAR_LIST_PAGE,
+    DISPATCH_ORDERS_PAGE;
+
+    public static CommandType getDispatcherCommand(String pageURI){
+
+        switch (pageURI){
+            case "/": return DISPATCH_MAIN_PAGE;
+            case "/profile": return DISPATCH_PROFILE_PAGE;
+            case "/car_list": return DISPATCH_CAR_LIST_PAGE;
+            case "/orders": return DISPATCH_ORDERS_PAGE;
+            default: return DISPATCH_ERROR_PAGE;
+        }
+
+    }
 
 }

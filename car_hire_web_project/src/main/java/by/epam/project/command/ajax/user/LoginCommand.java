@@ -7,6 +7,7 @@ import by.epam.project.service.impl.AccountService;
 import by.epam.project.service.impl.UserService;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ProjectException;
+import by.epam.project.validation.XssValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,17 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static by.epam.project.constant.ClientRole.ROLE;
+import static by.epam.project.constant.ClientRole.ROLE_ADMIN;
+import static by.epam.project.validation.XssValidator.xssValidate;
+
+
+
 public class LoginCommand implements Command {
 
     private static final String PARAM_EMAIL = "email";
     private static final String PARAM_PASSWORD = "pass";
     private static final String PARAM_BALANCE = "balance";
-    private static final String PARAM_ROLE = "role";
-    private static final String PARAM_ROLE_ADMIN = "admin";
     private static final Logger LOG = LogManager.getRootLogger();
     private UserService userService = new UserService();
     private AccountService accountService = new AccountService();
-    private String message;
     private LangResourceManager langManager = LangResourceManager.INSTANCE;
 
 
@@ -37,13 +41,21 @@ public class LoginCommand implements Command {
         String email = req.getParameter(PARAM_EMAIL);
         String pass = req.getParameter(PARAM_PASSWORD);
 
+
+        ////////////////////////// XSS validation
+        email = xssValidate(email);
+        pass = xssValidate(pass);
+
+
         User user = new User(email, pass);
+
+        String message;
 
         if(userService.login(user)) {
             session.setAttribute(PARAM_EMAIL, email);
 
             if(userService.isAdmin(email)){
-                session.setAttribute(PARAM_ROLE, PARAM_ROLE_ADMIN);
+                session.setAttribute(ROLE, ROLE_ADMIN);
             }
 
             Account account = accountService.take(email);

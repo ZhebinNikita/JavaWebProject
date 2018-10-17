@@ -57,7 +57,7 @@ function addOrderInfo() {
             }
             else {
                 $("#incorrect_add_order_info").text(responseText);
-                window.location.href = "orders";
+                window.location.href = "orders?orders=paid";
             }
         });
     }

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.epam.project.validation.XssValidator.xssValidate;
+
 public class AddOrderInfoCommand implements Command {
 
     private static final String PARAM_ORDER_ID = "id";
@@ -25,6 +27,12 @@ public class AddOrderInfoCommand implements Command {
 
         int id = Integer.valueOf(req.getParameter(PARAM_ORDER_ID));
         String adInfo = req.getParameter(PARAM_ORDER_AD_INFO);
+
+
+        ////////////////////////// XSS validation
+        adInfo = xssValidate(adInfo);
+        LOG.info("AD_INFO ======= (" + adInfo + ")");
+
 
         if(orderService.updateAdInfo(id, adInfo)){
             resp.getWriter().write(langManager.getString("operation.completed.successfully"));
