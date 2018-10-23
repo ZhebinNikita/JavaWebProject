@@ -95,8 +95,12 @@ User: ${userEmail} Role: ${userRole}
                 <ul class="w3-ul">
                     <c:forEach items="${requestScope.get(notRentedCars)}" var="car" >
                         <li class="w3-hover-sand">
-                            ID ${car.getId()} --- ${car.getName()} --- ${car.getDailyRentalPrice()}
-                            $ --- ${(car.getCarClass()).name()}
+
+                            <c:if test="${userRole == admin}"> ID ${car.getId()} --- </c:if>
+                                ${car.getName()} ---
+                                ${car.getDailyRentalPrice()}$ ---
+                                ${(car.getCarClass()).name()}
+
                             <div align="right">
                                 <button class="w3-btn w3-hover-green w3-round-large w3-margin-bottom"
                                         onclick="openRentCarDialog('${car.getId()}', '${car.getDailyRentalPrice()}')">
@@ -170,7 +174,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="name"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_car_name"></p>
+                <p align="center" id="incorrect_car_name"></p>
 
                 <p align="center">
                     <label>
@@ -180,7 +184,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="rental.price"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_car_price"></p>
+                <p align="center" id="incorrect_car_price"></p>
 
 
                 <p align="center">
@@ -209,7 +213,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="amount"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_car_amount"></p>
+                <p align="center" id="incorrect_car_amount"></p>
 
 
                 <p align="center">
@@ -257,7 +261,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="name"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="updating_incorrect_name"></p>
+                <p align="center" id="updating_incorrect_name"></p>
 
                 <p align="center">
                     <label>
@@ -267,7 +271,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="rental.price"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="updating_incorrect_price"></p>
+                <p align="center" id="updating_incorrect_price"></p>
 
 
                 <p align="center">
@@ -336,7 +340,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="YYYY-MM-DD">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_receiving_date"></p>
+                <p align="center" id="incorrect_receiving_date"></p>
 
 
                 <p align="center">
@@ -351,7 +355,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="YYYY-MM-DD">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_return_date"></p>
+                <p align="center" id="incorrect_return_date"></p>
 
 
                 <p align="center">
@@ -366,7 +370,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="renter.name"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_renter_name"></p>
+                <p align="center" id="incorrect_renter_name"></p>
 
 
                 <p align="center">*
@@ -377,7 +381,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="renter.surname"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_renter_surname"></p>
+                <p align="center" id="incorrect_renter_surname"></p>
 
 
                 <p align="center">
@@ -392,7 +396,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="YYYY-MM-DD">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_renter_birthday"></p>
+                <p align="center" id="incorrect_renter_birthday"></p>
 
 
                 <p align="center">*
@@ -403,7 +407,7 @@ User: ${userEmail} Role: ${userRole}
                                placeholder="<fmt:message key="renter.id.number"/>">*
                     </label>
                 </p>
-                <p align="center" style='color:red;' id="incorrect_renter_id_number"></p>
+                <p align="center" id="incorrect_renter_id_number"></p>
 
 
                 <p align="center">

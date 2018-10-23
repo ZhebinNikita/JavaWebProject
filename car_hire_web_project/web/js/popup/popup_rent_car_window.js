@@ -19,9 +19,6 @@ $(document).ready(function () {
 });
 
 
-var rentingCarId;
-var rentingRentalPriceForDay;
-
 
 function openRentCarDialog(carId, rentalPriceForDay) {
 

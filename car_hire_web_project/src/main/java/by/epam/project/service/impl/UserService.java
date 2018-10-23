@@ -33,34 +33,24 @@ public class UserService implements Service {
      * */
     public int register(User user) throws ProjectException {
 
-        if (!UserValidator.checkUser(user.getEmail(), user.getPassword())) {
-            return -1;
-        }
-        else {
-            int userStatus = userDao.checkStatusByEmail(user.getEmail());
+        int userStatus = userDao.checkStatusByEmail(user.getEmail());
 
-            if(userStatus == -1){ // User with that Email doesn't exist
-                if (userDao.insert(user)) {
-                    LOG.info("User (" + user.getEmail() + ") registered.");
-                    accountDao.insert(new Account(user.getEmail(), new BigDecimal(0)));
-                    return 1;
-                }
-                else {
-                    LOG.info("User wasn't registered!");
-                    return -100;
-                }
+        if (userStatus == -1) { // User with that Email doesn't exist
+            if (userDao.insert(user)) {
+                LOG.info("User (" + user.getEmail() + ") registered.");
+                accountDao.insert(new Account(user.getEmail(), new BigDecimal(0)));
+                return 1;
+            } else {
+                LOG.info("User wasn't registered!");
+                return -100;
             }
-            else if (userStatus == 0){ // User in the process of registration
-                return 0;
-            }
-            else if (userStatus == 1){ // user registered
-                return 0;
-            }
-            else{
-                return -100; // smth went wrong
-            }
+        } else if (userStatus == 0) { // User in the process of registration
+            return 0;
+        } else if (userStatus == 1) { // user registered
+            return 0;
+        } else {
+            return -100; // smth went wrong
         }
-
     }
 
 

@@ -106,14 +106,19 @@ User: ${userEmail} Role: ${userRole}
                     <li class="w3-hover-sand">
                         <div>
                             <div align="left">
+
+                                <c:if test="${userRole == admin}">
                                 <div>ID ${order.getId()}: ${order.getUserName()};</div>
                                 <div>Car ID: ${order.getCarId()};</div>
-                                <div>Receiving Date: ${(order.getReceivingDate())}
-                                    - Return Date: ${order.getReturnDate()};</div>
-                                <div>Rental Price: ${order.getRentalPrice()} USD;</div>
-                                <div>AdService Price: ${order.getAdServicePrice()};</div>
+                                </c:if>
+
+                                <div><fmt:message key="receiving.date"/>: ${(order.getReceivingDate())}
+                                    - <fmt:message key="return.date"/>: ${order.getReturnDate()};</div>
+                                <div>Rental Price: ${order.getRentalPrice()}$;</div>
+                                <div>AdService Price: ${order.getAdServicePrice()}$;</div>
                                 <div>Order is paid: ${order.getOrderIsPaid()};</div>
                                 <div>Ad Info: ${order.getAdInfo()}</div>
+
                             </div>
 
 
@@ -127,7 +132,7 @@ User: ${userEmail} Role: ${userRole}
                                 </button>
                                 </c:if>
                             </div>
-                            <p align="center" style='color:red;' id="paid_order_response"></p>
+                            <p align="center" id="paid_order_response"></p>
                         </div>
                     </li>
                 </c:forEach>
@@ -173,7 +178,7 @@ User: ${userEmail} Role: ${userRole}
                            placeholder="<fmt:message key="enter.amount"/>">
                 </label>
             </p>
-            <p align="center" style='color:red;' id="incorrect_amount_of_money"></p>
+            <p align="center" id="incorrect_amount_of_money"></p>
 
 
             <p align="center">

@@ -57,11 +57,12 @@ User: ${userEmail} Role: ${userRole}
 
 <div class="w3-container w3-center">
     <div class="w3-bar w3-padding-large w3-padding-24">
-        <button class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="location.href='/car_list'">
-            <fmt:message key="cars.list"/>
-        </button>
 
         <c:if test="${not empty userEmail}">
+            <button class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="location.href='/car_list'">
+                <fmt:message key="cars.list"/>
+            </button>
+
             <button class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="location.href='/profile'">
                 <fmt:message key="my.profile"/>
             </button>
@@ -95,7 +96,7 @@ User: ${userEmail} Role: ${userRole}
                        placeholder=<fmt:message key="email"/>>
             </label>
         </p>
-        <p align="center" style='color:red;' id="incorrect_text_email"></p>
+        <p align="center" id="incorrect_text_email"></p>
 
         <p align="center">
             <label>
@@ -104,7 +105,7 @@ User: ${userEmail} Role: ${userRole}
                        placeholder=<fmt:message key="password"/>>
             </label>
         </p>
-        <p align="center" style='color:red;' id="incorrect_text_pass"></p>
+        <p align="center" id="incorrect_text_pass"></p>
 
 
         <p align="center">

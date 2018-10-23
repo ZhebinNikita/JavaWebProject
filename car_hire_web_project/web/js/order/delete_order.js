@@ -12,6 +12,8 @@ function deleteOrder(id) {
     };
 
 
+    // DELETE ONLY IF RENTER AD SERVICE PRICE = 0 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
     $.post("/orders", $.param(params), function (responseText) {
 
@@ -19,7 +21,7 @@ function deleteOrder(id) {
             window.location.href = "error_page";
         }
         else {
-            window.location.href = "orders";
+            window.location.href = "orders?orders=paid";
         }
     });
 

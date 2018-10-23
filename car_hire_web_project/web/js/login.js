@@ -19,6 +19,7 @@ function setMessage(element, key, url) {
         }
     });
 }
+
 function redirectIfEquals(someStr, key, urlReq, urlRedirect) {
 
     var action = "SET_LANG_JS_MESSAGE";
@@ -38,6 +39,7 @@ function redirectIfEquals(someStr, key, urlReq, urlRedirect) {
 }
 
 
+
 function clickLogin() {
 
     var incorrect_text_email = document.getElementById('incorrect_text_email');
@@ -54,6 +56,7 @@ function clickLogin() {
     };
 
 
+
     /////////////////////  Validation  /////////////////////
 
     if((!/@/.test(userEmail.value) && userEmail.value != "") || / /.test(userEmail.value)) {
@@ -67,7 +70,6 @@ function clickLogin() {
         setMessage(incorrect_text_email, "required.field", "");
     }
 
-    // ADD CHECKING EMPTY SPACES
     if((userPass.value.toString().length < 8 && userPass.value != "") || / /.test(userPass.value)) {
         setMessage(incorrect_text_pass, "password.requirements", "");
     }
@@ -79,6 +81,7 @@ function clickLogin() {
         setMessage(incorrect_text_pass, "required.field", "");
     }
     /////////////////////  Validation  /////////////////////
+
 
 
     if(incorrect_text_email.innerHTML == " " && incorrect_text_pass.innerHTML == " ") {
@@ -96,7 +99,6 @@ function clickLogin() {
                 redirectIfEquals(responseText, "registered", "", "/ ");
             }
             //window.location.href = "car_list"; // redirect to another page.
-
         });
     }
 

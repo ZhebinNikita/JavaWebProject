@@ -7,6 +7,7 @@ import by.epam.project.service.impl.AccountService;
 import by.epam.project.service.impl.UserService;
 import by.epam.project.entity.User;
 import by.epam.project.exception.ProjectException;
+import by.epam.project.validation.UserValidator;
 import by.epam.project.validation.XssValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +19,7 @@ import java.io.IOException;
 
 import static by.epam.project.constant.ClientRole.ROLE;
 import static by.epam.project.constant.ClientRole.ROLE_ADMIN;
+import static by.epam.project.constant.ClientRole.ROLE_USER;
 import static by.epam.project.validation.XssValidator.xssValidate;
 
 
@@ -42,12 +44,21 @@ public class LoginCommand implements Command {
         String pass = req.getParameter(PARAM_PASSWORD);
 
 
-        ////////////////////////// XSS validation
+        //// XSS validation ////
         email = xssValidate(email);
         pass = xssValidate(pass);
+        //// XSS validation ////
 
 
         User user = new User(email, pass);
+
+        //// Validation ////
+        if (!UserValidator.check(user)) {
+            resp.getWriter().write(langManager.getString("validation.is.failed"));
+            return;
+        }
+        //// Validation ////
+
 
         String message;
 
@@ -56,6 +67,9 @@ public class LoginCommand implements Command {
 
             if(userService.isAdmin(email)){
                 session.setAttribute(ROLE, ROLE_ADMIN);
+            }
+            else{
+                session.setAttribute(ROLE, ROLE_USER);
             }
 
             Account account = accountService.take(email);
@@ -73,6 +87,7 @@ public class LoginCommand implements Command {
                 case 1:
                     message = langManager.getString("registered");
                     session.setAttribute(PARAM_EMAIL, email); // Associate the session with the user
+                    session.setAttribute(ROLE, ROLE_USER);
                     Account account = accountService.take(email);
                     session.setAttribute(PARAM_BALANCE, account.getBalance());
                     resp.getWriter().write(message);

@@ -5,10 +5,9 @@ import by.epam.project.entity.Order;
 import by.epam.project.entity.Passport;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.lang.LangResourceManager;
-import by.epam.project.service.impl.CarService;
-import by.epam.project.service.impl.OrderService;
-import by.epam.project.service.impl.PassportService;
-import by.epam.project.service.impl.UserService;
+import by.epam.project.service.impl.*;
+import by.epam.project.validation.OrderValidator;
+import by.epam.project.validation.PassportValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,11 +36,12 @@ public class RequestRentCarCommand implements Command {
     private static final String PARAM_RENTER_SURNAME = "renter_surname";
     private static final String PARAM_RENTER_BIRTHDAY = "renter_birthday";
     private static final String PARAM_RENTER_ID_NUMBER = "renter_id_number";
+
     private OrderService orderService = new OrderService();
     private PassportService passportService = new PassportService();
     private UserService userService = new UserService();
     private CarService carService = new CarService();
-    private final static Logger LOG = LogManager.getRootLogger();
+    private AccountService accountService = new AccountService();
     private LangResourceManager langManager = LangResourceManager.INSTANCE;
 
 
@@ -50,28 +50,62 @@ public class RequestRentCarCommand implements Command {
 
         String userName = req.getParameter(PARAM_EMAIL);
 
-        // check if user has already rented some car
-        /*if(orderService.contains(userName)){
-            resp.getWriter().write(langManager.getString("already.have.order"));
-            return;
-        }*/
-
-        // add Passport data
+        // take Passport data
         String name = req.getParameter(PARAM_RENTER_NAME);
         String surname = req.getParameter(PARAM_RENTER_SURNAME);
         String birthdayDate = req.getParameter(PARAM_RENTER_BIRTHDAY);
         String identificationNumber = req.getParameter(PARAM_RENTER_ID_NUMBER);
+        String adInfo = req.getParameter(PARAM_AD_INFO);
+        String receivingDate = req.getParameter(PARAM_RECEIVING_DATE);
+        String returnDate = req.getParameter(PARAM_RETURN_DATE);
+        BigDecimal adServicePrice = BigDecimal.valueOf(Double.valueOf(req.getParameter(PARAM_AD_SERVICE_PRICE)));
+        int carId = Integer.valueOf(req.getParameter(PARAM_CAR_ID));
+        int orderIsPaid = 0; // request's default value 0 - is not paid
+        BigDecimal carDailyRentalPrice = BigDecimal.valueOf(Double.valueOf(req.getParameter(PARAM_RENTAL_PRICE)));
+        BigDecimal userBalance = accountService.take(userName).getBalance();
 
 
-        ////////////////////////// XSS validation
+        //// Validation ////
+        if (!OrderValidator.check(receivingDate, returnDate)) {
+            resp.getWriter().write(langManager.getString("validation.is.failed"));
+            return;
+        }
+        //// Validation ////
+
+
+        int daysDifference = daysBtwTwoDates(receivingDate, returnDate);
+
+        BigDecimal rentalPrice = carDailyRentalPrice.multiply(BigDecimal.valueOf(daysDifference));
+
+
+        if(rentalPrice.compareTo(userBalance) > 0) {
+            resp.getWriter().write(langManager.getString("validation.is.failed"));
+            return;
+        }
+
+
+        //// XSS validation ////
+        receivingDate = xssValidate(receivingDate);
+        returnDate = xssValidate(returnDate);
+        adInfo = xssValidate(adInfo);
         userName = xssValidate(userName);
         name = xssValidate(name);
         surname = xssValidate(surname);
         birthdayDate = xssValidate(birthdayDate);
         identificationNumber = xssValidate(identificationNumber);
+        //// XSS validation ////
+
 
 
         Passport passport = new Passport(name, surname, birthdayDate, identificationNumber);
+
+        //// Validation ////
+        if (!PassportValidator.check(passport)) {
+            resp.getWriter().write(langManager.getString("validation.is.failed"));
+            return;
+        }
+        //// Validation ////
+
 
         // if the user has a passport, then update its data
         int pId = userService.takePassportId(userName);
@@ -93,47 +127,28 @@ public class RequestRentCarCommand implements Command {
             passportService.deleteByID(p);
         }
 
-        // add Order data
-        int carId = Integer.valueOf(req.getParameter(PARAM_CAR_ID));
-
         // set this car Rented
         if (!carService.setRented(carId)) {
             resp.getWriter().write(langManager.getString("smth.went.wrong"));
             return;
         }
 
-        String receivingDate = req.getParameter(PARAM_RECEIVING_DATE);
-        String returnDate = req.getParameter(PARAM_RETURN_DATE);
-
-
-        ////////////////////////// XSS validation
-        receivingDate = xssValidate(receivingDate);
-        returnDate = xssValidate(returnDate);
-
-
-        int daysDifference = daysBtwTwoDates(receivingDate, returnDate);
-
-        BigDecimal rentalPrice = BigDecimal.valueOf(Double.valueOf(req.getParameter(PARAM_RENTAL_PRICE)))
-                .multiply(BigDecimal.valueOf(daysDifference));
-        BigDecimal adServicePrice = BigDecimal.valueOf(Double.valueOf(req.getParameter(PARAM_AD_SERVICE_PRICE)));
-        int orderIsPaid = 0; // request's default value 0 - is not paid
-        String adInfo = req.getParameter(PARAM_AD_INFO);
-
-
-        ////////////////////////// XSS validation
-        adInfo = xssValidate(adInfo);
-
-
         Order order = new Order(0, userName, carId, receivingDate, returnDate,
                 rentalPrice, adServicePrice, orderIsPaid, adInfo);
+
+        //// Validation ////
+        if (!OrderValidator.check(order)) {
+            resp.getWriter().write(langManager.getString("validation.is.failed"));
+            return;
+        }
+        //// Validation ////
+
 
         if (orderService.add(order)) {
             resp.getWriter().write(langManager.getString("request.sent"));
         } else {
             resp.getWriter().write(langManager.getString("smth.went.wrong"));
         }
-
-
     }
 
 
@@ -153,7 +168,6 @@ public class RequestRentCarCommand implements Command {
         } catch (Exception e) {
             throw new ProjectException(e);
         }
-
     }
 
 

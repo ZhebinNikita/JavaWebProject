@@ -1,6 +1,6 @@
 package by.epam.project.validation;
 
-public final class XssValidator {
+public final class XssValidator implements Validator{
 
     public static String xssValidate(String str) {
 

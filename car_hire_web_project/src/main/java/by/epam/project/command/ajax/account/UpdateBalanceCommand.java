@@ -5,6 +5,7 @@ import by.epam.project.entity.Account;
 import by.epam.project.exception.ProjectException;
 import by.epam.project.lang.LangResourceManager;
 import by.epam.project.service.impl.AccountService;
+import by.epam.project.validation.BalanceValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,10 +32,20 @@ public class UpdateBalanceCommand implements Command {
         HttpSession session = req.getSession();
 
         String email = req.getParameter(PARAM_EMAIL);
+        BigDecimal moneyAmount = BigDecimal.valueOf(Double.valueOf(req.getParameter(PARAM_AMOUNT)));
+
+
+        //// Validation ////
+        if(!BalanceValidator.check(moneyAmount)){
+            resp.getWriter().write(langManager.getString("validation.is.failed"));
+            return;
+        }
+        //// Validation ////
+
 
         Account currAcc = accountService.take(email);
         BigDecimal currentBalance = currAcc.getBalance();
-        BigDecimal moneyAmount = BigDecimal.valueOf(Double.valueOf(req.getParameter(PARAM_AMOUNT)));
+
 
         Account account = new Account(email, (currentBalance.add(moneyAmount)));
 

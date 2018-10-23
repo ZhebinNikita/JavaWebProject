@@ -22,7 +22,9 @@ import java.io.IOException;
 
 import static by.epam.project.command.CommandType.*;
 import static by.epam.project.constant.ClientRole.ROLE;
+import static by.epam.project.constant.ClientRole.ROLE_GUEST;
 import static by.epam.project.constant.ClientRole.ROLE_USER;
+import static by.epam.project.controller.servlet.RouteType.FORWARD;
 import static by.epam.project.lang.LangSessionManager.setSessionLanguage;
 
 
@@ -35,26 +37,16 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         setSessionLanguage(req);
-
         setSessionRole(req);
-
-        try {
-            processRequest(req, resp);
-        } catch (ProjectException e) {
-            LOG.error(e);
-            //;;;; redirect to error page
-        }
-
+        processDispatchRequest(req, resp);
     }
-
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         processAjaxRequest(req, resp);
     }
+
 
 
     @Override
@@ -70,7 +62,6 @@ public class Controller extends HttpServlet {
         }
     }
 
-
     @Override
     public void destroy() {
         AbandonedConnectionCleanupThread.checkedShutdown();
@@ -80,88 +71,36 @@ public class Controller extends HttpServlet {
 
 
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp)
-            throws ProjectException, IOException, ServletException {
+    private void processDispatchRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 
         String pageURI = req.getRequestURI();
         RequestDispatcher requestDispatcher;
 
         Command command;
+        Route route;
+        String page;
 
         // Set JSP file to URL address
-        switch (pageURI) {
+        try {
+            command = CommandMap.getInstance().get(CommandType.getDispatcherCommand(pageURI));
+            command.execute(req, resp);
+            route = command.getRoute();
+            page = route.getPagePath();
+            requestDispatcher = req.getRequestDispatcher(page);
 
-            case "/":
+            switch (route.getRouteType()) {
+                case FORWARD:
+                    requestDispatcher.forward(req, resp);
+                    break;
+                case REDIRECT:
+                    resp.sendRedirect(page);
+                    break;
+            }
 
-                command = CommandMap.getInstance().get(CommandType.getDispatcherCommand(pageURI));
-
-                command.execute(req, resp);
-
-                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_MAIN);
-                break;
-
-            case "/profile":
-
-                command = CommandMap.getInstance().get(TAKE_ORDER_BY_EMAIL);
-                command.execute(req, resp);
-
-                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_PROFILE);
-                break;
-
-            case "/error_page":
-                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_ERROR);
-                break;
-
-            case "/car_list":
-
-                if(req.getParameter("cars") != null) {
-                    if (req.getParameter("cars").equals("rented")) {
-                        command = CommandMap.getInstance().get(TAKE_RENTED_CARS);
-                    }
-                    else if(req.getParameter("cars").equals("notRented")){
-                        command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
-                    }
-                    else{
-                        command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
-                    }
-                }
-                else{
-                    command = CommandMap.getInstance().get(TAKE_NOT_RENTED_CARS);
-                }
-
-                command.execute(req, resp);
-
-                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_CAR_LIST);
-                break;
-
-            case "/orders":
-
-                if(req.getParameter("orders") != null) {
-                    if (req.getParameter("orders").equals("notPaid")) {
-                        command = CommandMap.getInstance().get(TAKE_NOT_PAID_ORDERS);
-                    }
-                    else if(req.getParameter("orders").equals("paid")){
-                        command = CommandMap.getInstance().get(TAKE_PAID_ORDERS);
-                    }
-                    else{
-                        command = CommandMap.getInstance().get(TAKE_NOT_PAID_ORDERS);
-                    }
-                }
-                else{
-                    command = CommandMap.getInstance().get(TAKE_NOT_PAID_ORDERS);
-                }
-
-                command.execute(req, resp);
-
-                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_ORDERS);
-                break;
-
-            default:
-                requestDispatcher = req.getRequestDispatcher(PagePathConstant.PAGE_ERROR);
-                break;
+        } catch (Exception e) {
+            LOG.error(e);
+            resp.sendRedirect(PagePathConstant.PAGE_ERROR);
         }
-
-        requestDispatcher.forward(req, resp);
 
     }
 
@@ -171,7 +110,6 @@ public class Controller extends HttpServlet {
         boolean isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
 
         if (isAjax) {
-
             String action = req.getParameter("action");
 
             LOG.info("Action - " + CommandType.valueOf(action) + ";");
@@ -185,11 +123,7 @@ public class Controller extends HttpServlet {
                 resp.getWriter().write(ERROR_AJAX_RESPONSE_TEXT); // Ajax responseText
             }
         }
-
     }
-
-
-
 
 
     private void setSessionRole(HttpServletRequest req) {
@@ -197,13 +131,9 @@ public class Controller extends HttpServlet {
         HttpSession session = req.getSession(true);
 
         if (session.getAttribute(ROLE) == null) {
-            session.setAttribute(ROLE, ROLE_USER);
+            session.setAttribute(ROLE, ROLE_GUEST);
         }
-
     }
-
-
-
 
 }
 

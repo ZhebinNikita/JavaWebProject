@@ -39,14 +39,15 @@ public class AddCarCommand implements Command {
         int amount = Integer.valueOf(req.getParameter(PARAM_AMOUNT_CARS));
 
 
-        ////////////////////////// XSS validation
+        //// XSS validation ////
         name = xssValidate(name);
+        //// XSS validation ////
 
 
         Car car = new Car(1, name, daily_rental_price, car_class, 0);
 
         // validation
-        if (!CarValidator.checkCar(car)) {
+        if (!CarValidator.check(car)) {
             resp.getWriter().write(langManager.getString("validation.is.failed"));
             return;
         }

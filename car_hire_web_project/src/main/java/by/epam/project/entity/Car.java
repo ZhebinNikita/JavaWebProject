@@ -3,7 +3,7 @@ package by.epam.project.entity;
 
 import java.math.BigDecimal;
 
-public class Car {
+public class Car implements Comparable<Car> {
 
     private int id;
     private String name;
@@ -77,7 +77,7 @@ public class Car {
 
         Car car = (Car) o;
 
-        if(rented == car.rented && name.equals(car.name)
+        if(name.equals(car.name)
                 && dailyRentalPrice.equals(car.dailyRentalPrice)
                 && carClass.equals(car.carClass)){
             return true;
@@ -91,12 +91,21 @@ public class Car {
     @Override
     public int hashCode() {
         int result = 1;
-        result = 31 * result + id + rented
+        result = 31 * result + id
                 + (name != null ? name.hashCode() : 0)
                 + (dailyRentalPrice != null ? dailyRentalPrice.hashCode() : 0)
                 + (carClass != null ? carClass.hashCode() : 0);
         return result;
     }
 
+
+    @Override
+    public int compareTo(Car o) {
+
+        if (this.equals(o))
+            return 0;
+        else
+            return -1;
+    }
 
 }

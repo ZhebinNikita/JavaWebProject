@@ -29,9 +29,9 @@ public class AddOrderInfoCommand implements Command {
         String adInfo = req.getParameter(PARAM_ORDER_AD_INFO);
 
 
-        ////////////////////////// XSS validation
+        //// XSS validation ////
         adInfo = xssValidate(adInfo);
-        LOG.info("AD_INFO ======= (" + adInfo + ")");
+        //// XSS validation ////
 
 
         if(orderService.updateAdInfo(id, adInfo)){

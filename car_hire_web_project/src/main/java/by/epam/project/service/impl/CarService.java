@@ -7,12 +7,12 @@ import by.epam.project.exception.ProjectException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
+import java.util.*;
 
 
 public class CarService implements Service {
 
-    private final static Logger LOG = LogManager.getRootLogger();
+    private static final Logger LOG = LogManager.getRootLogger();
     private CarDao carDao = new CarDao();
 
 
@@ -71,6 +71,16 @@ public class CarService implements Service {
         boolean setNotRented;
         setNotRented = carDao.setNotRented(id);
         return setNotRented;
+    }
+
+
+    public List<Car> takeNotRentedNotRepeatedCars() throws ProjectException {
+        List<Car> cars = carDao.takeNotRentedCars();
+
+        Set<Car> set = new TreeSet<>(cars);
+        cars = new ArrayList<>(set);
+
+        return cars;
     }
 
 }

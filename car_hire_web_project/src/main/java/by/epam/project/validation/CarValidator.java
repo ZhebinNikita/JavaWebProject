@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 
-public final class CarValidator {
+public final class CarValidator implements Validator{
 
     private final static Logger LOG = LogManager.getRootLogger();
     private final static int MIN_NAME_LENGTH = 2;
@@ -20,7 +20,7 @@ public final class CarValidator {
     }
 
 
-    public static boolean checkCar(Car car) {
+    public static boolean check(Car car) {
 
         String name = car.getName();
         BigDecimal dailyRentalPrice = car.getDailyRentalPrice();

@@ -20,6 +20,8 @@ function setMessage(element, key, url) {
     });
 }
 
+
+
 function addAdServicePrice() {
 
     var adServicePrice = document.getElementById('ad_service_price');
@@ -35,6 +37,7 @@ function addAdServicePrice() {
     };
 
 
+    /////////////////////  Validation  /////////////////////
     if(adServicePrice.value != "" && adServicePrice.value >= 0){
         incorrect_adServicePrice.innerHTML = " ";
     }
@@ -42,6 +45,8 @@ function addAdServicePrice() {
         incorrect_adServicePrice.innerHTML = "";
         setMessage(incorrect_adServicePrice, "required.field", "");
     }
+    /////////////////////  Validation  /////////////////////
+
 
     if(incorrect_adServicePrice.innerHTML == " ") {
         animAddAdServicePriceStart();

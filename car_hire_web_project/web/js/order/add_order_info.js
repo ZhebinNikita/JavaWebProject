@@ -38,6 +38,7 @@ function addOrderInfo() {
     };
 
 
+    /////////////////////  Validation  /////////////////////
     if(adInfo.value != ""){
         incorrect_add_order_info.innerHTML = " ";
     }
@@ -45,6 +46,7 @@ function addOrderInfo() {
         incorrect_add_order_info.innerHTML = "";
         setMessage(incorrect_add_order_info, "required.field", "");
     }
+    /////////////////////  Validation  /////////////////////
 
 
     if(incorrect_add_order_info.innerHTML == " ") {

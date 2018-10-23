@@ -68,11 +68,6 @@ User: ${userEmail} Role: ${userRole}
             </button>
         </div>
 
-        <div class="w3-container w3-light-blue">
-            <h2>
-                <fmt:message key="orders"/>
-            </h2>
-        </div>
 
 
         <c:set var="notPaidOrders" value="notPaidOrders" />
@@ -106,7 +101,7 @@ User: ${userEmail} Role: ${userRole}
                                     <fmt:message key="delete"/>
                                 </button>
                             </div>
-                            <p align="center" style='color:red;' id="order_response"></p>
+                            <p align="center" id="order_response"></p>
                         </div>
                     </li>
                 </c:forEach>
@@ -144,7 +139,7 @@ User: ${userEmail} Role: ${userRole}
                                     <fmt:message key="delete"/>
                                 </button>
                             </div>
-                            <p align="center" style='color:red;' id="paid_order_response"></p>
+                            <p align="center" id="paid_order_response"></p>
                         </div>
                     </li>
                 </c:forEach>
@@ -185,7 +180,7 @@ User: ${userEmail} Role: ${userRole}
                        placeholder="">
             </label>
         </p>
-        <p align="center" style='color:red;' id="incorrect_deny_order"></p>
+        <p align="center" id="incorrect_deny_order"></p>
 
 
         <p align="center">
@@ -221,7 +216,7 @@ User: ${userEmail} Role: ${userRole}
                        placeholder="">
             </label>
         </p>
-        <p align="center" style='color:red;' id="incorrect_add_order_info"></p>
+        <p align="center" id="incorrect_add_order_info"></p>
 
 
         <p align="center">
@@ -257,7 +252,7 @@ User: ${userEmail} Role: ${userRole}
                        placeholder="">
             </label>
         </p>
-        <p align="center" style='color:red;' id="incorrect_ad_service_price"></p>
+        <p align="center" id="incorrect_ad_service_price"></p>
 
 
         <p align="center">

@@ -1499,3 +1499,83 @@ Caused by: java.sql.SQLException: No value specified for parameter 1
 	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:1042) ~[mysql-connector-java-8.0.12.jar:8.0.12]
 	at by.epam.project.database.dao.impl.UserDao.takePassportId(UserDao.java:358) ~[classes/:?]
 	... 31 more
+ 2018-10-18 12:19:38,817 [http-nio-8080-exec-3] [ERROR] (Controller.java:100) - java.lang.NullPointerException
+ 2018-10-19 09:40:26,136 [http-nio-8080-exec-3] [ERROR] (Controller.java:100) - java.lang.NullPointerException
+ 2018-10-19 09:54:08,769 [http-nio-8080-exec-1] [ERROR] (Controller.java:121) - ProcessRequest error.
+by.epam.project.exception.ProjectException: java.text.ParseException: Unparseable date: ""
+	at by.epam.project.command.ajax.car.RequestRentCarCommand.daysBtwTwoDates(RequestRentCarCommand.java:159) ~[classes/:?]
+	at by.epam.project.command.ajax.car.RequestRentCarCommand.execute(RequestRentCarCommand.java:67) ~[classes/:?]
+	at by.epam.project.controller.servlet.Controller.processAjaxRequest(Controller.java:119) [classes/:?]
+	at by.epam.project.controller.servlet.Controller.doPost(Controller.java:46) [classes/:?]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) [servlet-api.jar:?]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [servlet-api.jar:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [catalina.jar:9.0.10]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-websocket.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [catalina.jar:9.0.10]
+	at by.epam.project.controller.filter.EncodingFilter.doFilter(EncodingFilter.java:21) [classes/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [catalina.jar:9.0.10]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:491) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [catalina.jar:9.0.10]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [catalina.jar:9.0.10]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:668) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [catalina.jar:9.0.10]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [catalina.jar:9.0.10]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-coyote.jar:9.0.10]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-coyote.jar:9.0.10]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:764) [tomcat-coyote.jar:9.0.10]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1388) [tomcat-coyote.jar:9.0.10]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-coyote.jar:9.0.10]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_112]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_112]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-util.jar:9.0.10]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_112]
+Caused by: java.text.ParseException: Unparseable date: ""
+	at java.text.DateFormat.parse(DateFormat.java:366) ~[?:1.8.0_112]
+	at by.epam.project.command.ajax.car.RequestRentCarCommand.daysBtwTwoDates(RequestRentCarCommand.java:150) ~[classes/:?]
+	... 30 more
+ 2018-10-19 12:40:39,967 [http-nio-8080-exec-10] [ERROR] (Controller.java:121) - ProcessRequest error.
+by.epam.project.exception.ProjectException: java.text.ParseException: Unparseable date: ""
+	at by.epam.project.command.ajax.car.RequestRentCarCommand.daysBtwTwoDates(RequestRentCarCommand.java:159) ~[classes/:?]
+	at by.epam.project.command.ajax.car.RequestRentCarCommand.execute(RequestRentCarCommand.java:67) ~[classes/:?]
+	at by.epam.project.controller.servlet.Controller.processAjaxRequest(Controller.java:119) [classes/:?]
+	at by.epam.project.controller.servlet.Controller.doPost(Controller.java:46) [classes/:?]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) [servlet-api.jar:?]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [servlet-api.jar:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [catalina.jar:9.0.10]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-websocket.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [catalina.jar:9.0.10]
+	at by.epam.project.controller.filter.EncodingFilter.doFilter(EncodingFilter.java:21) [classes/:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [catalina.jar:9.0.10]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:491) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [catalina.jar:9.0.10]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [catalina.jar:9.0.10]
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:668) [catalina.jar:9.0.10]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) [catalina.jar:9.0.10]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [catalina.jar:9.0.10]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-coyote.jar:9.0.10]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-coyote.jar:9.0.10]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:764) [tomcat-coyote.jar:9.0.10]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1388) [tomcat-coyote.jar:9.0.10]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-coyote.jar:9.0.10]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_112]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_112]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-util.jar:9.0.10]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_112]
+Caused by: java.text.ParseException: Unparseable date: ""
+	at java.text.DateFormat.parse(DateFormat.java:366) ~[?:1.8.0_112]
+	at by.epam.project.command.ajax.car.RequestRentCarCommand.daysBtwTwoDates(RequestRentCarCommand.java:150) ~[classes/:?]
+	... 30 more
+ 2018-10-22 12:28:48,553 [http-nio-8080-exec-3] [ERROR] (Controller.java:101) - java.lang.ClassCastException: by.epam.project.entity.Car cannot be cast to java.lang.Comparable
+ 2018-10-22 12:28:59,793 [http-nio-8080-exec-9] [ERROR] (Controller.java:101) - java.lang.ClassCastException: by.epam.project.entity.Car cannot be cast to java.lang.Comparable
+ 2018-10-22 13:09:20,230 [http-nio-8080-exec-2] [ERROR] (Controller.java:101) - java.lang.NullPointerException
+ 2018-10-22 14:45:45,546 [http-nio-8080-exec-8] [ERROR] (Controller.java:101) - java.lang.NullPointerException

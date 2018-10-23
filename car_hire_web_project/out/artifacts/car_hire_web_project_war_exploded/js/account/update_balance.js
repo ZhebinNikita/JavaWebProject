@@ -38,6 +38,8 @@ function redirectIfEquals(someStr, key, urlReq, urlRedirect) {
     });
 }
 
+
+
 function updateBalance(email) {
 
     var amount_of_money = document.getElementById('amount_of_money');
